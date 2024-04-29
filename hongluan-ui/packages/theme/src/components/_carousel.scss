@@ -1,0 +1,225 @@
+.#{$carousel} {
+  position: relative;
+
+  .carousel-container {
+    position: relative;
+    overflow: hidden;
+
+    .carousel-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      outline: 0;
+      padding: 0;
+      margin: 0;
+      height: size(40px);
+      width: size(40px);
+      cursor: pointer;
+      border-radius: 50%;
+      background-color: var(--bg-backdrop);
+      color: var(--text-inverse);
+      position: absolute;
+      top: 50%;
+      z-index: 10;
+      transform: translateY(-50%);
+      @include transition(all var(--duration) var(--timing));
+
+      .#{$icon} {
+        width: 50%;
+        height: 50%;
+      }
+      &.left {
+        left: size(16px);
+      }
+
+      &.right {
+        right: size(16px);
+      }
+    }
+  }
+
+  .carousel-indicators {
+    position: absolute;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    z-index: 2;
+
+    .carousel-indicator {
+      background-color: transparent;
+      cursor: pointer;
+
+      &.hover {
+        button {
+          opacity: 0.72;
+        }
+      }
+
+      &.is-active {
+        button {
+          opacity: 1;
+        }
+      }
+
+      .carousel-dot {
+        border-radius: 50%;
+        display: inline-block;
+        padding: 0;
+        height: size(4px);
+        width: size(4px);
+        border: none;
+        opacity: 0.72;
+      }
+
+      .carousel-button {
+        display: block;
+        opacity: 0.48;
+        width: size(20px);
+        height: size(2px);
+        background-color: #fff;
+        border: none;
+        outline: 0;
+        padding: 0;
+        margin: 0;
+        cursor: pointer;
+        @include transition(all var(--duration) var(--timing));
+      }
+
+      &-horizontal {
+        display: inline-block;
+        padding: size(12px 4px);
+      }
+
+      &-vertical {
+        padding: size(4px 12px);
+
+        .carousel-button {
+          width: size(2px);
+          height: size(15px);
+        }
+      }
+    }
+
+    &-horizontal {
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    &-vertical {
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    &-outside {
+      bottom: size(26px);
+      text-align: center;
+      position: static;
+      transform: none;
+
+      button {
+        background-color: #c0c4cc;
+        opacity: 0.24;
+      }
+
+      .carousel-indicator {
+        &.hover {
+          button {
+            opacity: 0.64;
+          }
+        }
+      }
+    }
+
+    &-labels {
+      left: 0;
+      right: 0;
+      transform: none;
+      text-align: center;
+
+      .carousel-indicator {
+        padding: size(6px 4px);
+      }
+
+      .carousel-button {
+        height: auto;
+        width: auto;
+        padding: size(2px 18px);
+        font-size: size(12px);
+      }
+    }
+  }
+}
+
+.carousel-horizontal {
+  overflow-x: hidden;
+}
+
+.carousel-vertical {
+  overflow-y: hidden;
+}
+
+.carousel-arrow-left-enter,
+.carousel-arrow-left-leave-active {
+  transform: translateY(-50%) translateX(size(-10px));
+  opacity: 0;
+}
+
+.carousel-arrow-right-enter,
+.carousel-arrow-right-leave-active {
+  transform: translateY(-50%) translateX(size(10px));
+  opacity: 0;
+}
+
+.#{$carousel_item} {
+  width: 100%;
+  display: inline-block;
+  overflow: hidden;
+  z-index: 0;
+
+  &.is-active {
+    z-index: 2;
+  }
+
+  &.is-animating {
+    -webkit-transition: -webkit-transform 0.4s ease-in-out;
+    transition: -webkit-transform 0.4s ease-in-out;
+    transition: transform 0.4s ease-in-out;
+    transition: transform 0.4s ease-in-out, -webkit-transform 0.4s ease-in-out;
+  }
+}
+
+.#{$carousel_item},
+.carousel-mask {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.carousel-mask {
+  width: 100%;
+  background-color: #fff;
+  opacity: 0.24;
+  @include transition(all var(--duration) 0.2s);
+}
+
+.carousel-item-card {
+  width: 50%;
+  transition: all 0.4s ease-in-out;
+  &.is-in-stage {
+    cursor: pointer;
+    z-index: 1;
+  }
+
+  &.is-active {
+    z-index: 2;
+  }
+}
+
+.carousel-item-card.is-in-stage.is-hover .carousel-mask,
+.carousel-item-card.is-in-stage:hover .carousel-mask {
+  opacity: 0.12;
+}

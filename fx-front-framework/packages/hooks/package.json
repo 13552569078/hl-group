@@ -1,0 +1,15 @@
+{
+  "name": "@fx-front-framework/hooks",
+  "description": "Pc Fxyj Frmework composables",
+  "version": "0.0.1",
+  "main": "index.ts",
+  "module": "index.ts",
+  "unpkg": "index.js",
+  "jsdelivr": "index.js",
+  "types": "index.d.ts",
+  "license": "MIT",
+  "peerDependencies": {
+    "hongluan-ui": "^2.2.3",
+    "hongluan-business-ui": "^4.2.0"
+  }
+}

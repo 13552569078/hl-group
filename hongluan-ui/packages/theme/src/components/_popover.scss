@@ -1,0 +1,70 @@
+.#{$popover} {
+  --popover-radius: #{size(map.get($conf_popover, 'radius'))};
+  --popover-padding-y: #{size(map.get($conf_popover, 'padding-y'))};
+  --popover-padding-x: #{size(map.get($conf_popover, 'padding-x'))};
+  --popover-font-color: #{map.get($conf_popover, 'font-color')};
+  --popover-bg-color: #{map.get($conf_popover, 'bg-color')};
+  --popover-bg-color-dark: #{map.get($conf_popover, 'bg-color-dark')};
+  @if map.get($conf_popover, 'border-color') != false {
+    --popover-border-color: #{map.get($conf_popover, 'border-color')};
+  }
+  --popover-tooltip-padding-y: #{map.get($conf_popover, 'tooltip-padding-y')};
+  --popover-tooltip-padding-x: #{map.get($conf_popover, 'tooltip-padding-x')};
+  --popover-tooltip-font-size: #{size(map.get($conf_popover, 'tooltip-font-size'))};
+  --popover-shadow: #{map.get($conf_popover, 'shadow')};
+  position: absolute;
+  width: auto;
+  padding: var(--popover-padding-y) var(--popover-padding-x);
+  background-color: var(--popover-bg-color);
+  box-shadow: var(--popover-shadow);
+  border-radius: var(--popover-radius);
+  color: var(--popover-font-color);
+  @if map.get($conf_popover, 'border-color') != false {
+    border: var(--border-width) solid var(--popover-border-color);
+  } @else {
+    border: none;
+  }
+  word-break: break-all;
+  .popper-arrow {
+    &::before {
+      @if map.get($conf_popover, 'border-color') != false {
+        border: var(--border-width) solid var(--popover-border-color);
+      } @else {
+        border: none;
+      }
+    }
+  }
+  &.no-style {
+    padding: unset;
+    background-color: unset;
+    box-shadow: unset;
+    border-radius: unset;
+    border: unset;
+  }
+
+  &.tooltip {
+    font-size: var(--popover-tooltip-font-size);
+    padding: var(--popover-tooltip-padding-y) var(--popover-tooltip-padding-x);
+  }
+
+  &.dark {
+    background-color: var(--popover-bg-color-dark);
+    color: var(--text-inverse);
+    border: none;
+    .popper-arrow {
+      &::before {
+        border-color: var(--popover-bg-color-dark);
+        background-color: var(--popover-bg-color-dark);
+      }
+    }
+  }
+
+  .popover-title {
+    color: currentColor;
+    margin-bottom: size(4px);
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+}

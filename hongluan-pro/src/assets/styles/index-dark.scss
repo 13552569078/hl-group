@@ -1,0 +1,33 @@
+@use "sass:math";
+@use "sass:map";
+
+// 公共变量
+$imgPath: '../../../node_modules/@hongluan-ui/styles/images/';
+
+
+// 引入鸿鸾UI配置文件
+// @import '../../../node_modules/hongluan-ui/theme/scss/common/config-dark';
+// 引入重定义的鸿鸾UI配置文件
+@import '../../../node_modules/@hongluan-ui/styles/2.x/uk3-dark/spec/config';
+
+$features_select: false; // 开启内容保护
+$features_transition: true; // 开启渐显效果
+$features_respond: true; // 开启响应式特性
+$features_rem: false; // 开启rem作为尺寸单位
+
+// 引入鸿鸾UI组件样式
+@import '../../../node_modules/hongluan-ui/theme/scss/components';
+// 引入鸿鸾业务组件样式
+@import '../../../node_modules/hongluan-business-ui/theme/scss/components';
+// 引入主题文件如
+@import '../../../node_modules/@hongluan-ui/styles/2.x/uk3/themes/pro/index';
+
+// 引入鸿鸾pro专用页面样式
+@import "./utils/pro";
+// 引入主题中心样式
+@import "./utils/theme-center";
+
+
+html {
+  --layout: "dark";
+}

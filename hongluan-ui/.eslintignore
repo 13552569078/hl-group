@@ -1,0 +1,12 @@
+node_modules
+__tests__
+dist
+.eslintcache
+packages/*/es
+packages/*/lib
+pnpm-lock.yaml
+CHANGELOG*.md
+coverage
+ssr-testing/cases/*
+*.json
+

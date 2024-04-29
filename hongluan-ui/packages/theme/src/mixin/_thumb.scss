@@ -1,0 +1,22 @@
+.#{$thumb} {
+  //输出类型
+  @each $key, $value in $conf_thumb_type {
+    &.#{$key} {
+      --thumb-font-color: #{map.get($value, 'font-color')};
+      --thumb-bg-color: #{map.get($value, 'bg-color')};
+      &.light {
+        --thumb-font-color: #{map.get($value, 'bg-color')};
+        --thumb-bg-color: #{map.get($value, 'bg-color-light')};
+      }
+    }
+  }
+
+  //输出尺寸
+  @each $key, $value in $conf_thumb_size {
+    &.#{$key} {
+      --thumb-radius: #{size(map.get($value, 'radius'))};
+      --thumb-size: #{size(map.get($value, 'size'))};
+      --thumb-font-size: #{size(map.get($value, 'font-size'))};
+    }
+  }
+}

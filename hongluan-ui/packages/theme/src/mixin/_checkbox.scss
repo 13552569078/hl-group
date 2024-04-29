@@ -1,0 +1,36 @@
+//checkbox样式生成器
+.#{$checkbox} {
+  //生成类型
+  @each $key, $value in $conf_checkbox_type {
+    &.#{$key} {
+      --checkbox-icon-color: #{size(map.get($value, 'icon-color'))};
+      --checkbox-bg-color: #{map.get($value, 'bg-color')};
+      --checkbox-bg-color-hover: #{map.get($value, 'bg-color-hover')};
+      --checkbox-bg-color-checked: #{map.get($value, 'bg-color-checked')};
+      --checkbox-bg-color-fill: #{map.get($value, 'bg-color-fill')};
+      --checkbox-border-color: #{map.get($value, 'border-color')};
+      --checkbox-border-color-hover: #{map.get($value, 'border-color-hover')};
+      --checkbox-border-color-checked: #{map.get($value, 'border-color-checked')};
+      &.is-checked {
+        .checkbox-label {
+          --checkbox-font-color: #{size(map.get($value, 'font-color'))};
+        }
+      }
+      &.is-focus {
+        @if map.get($conf_form, 'shadow-size') != false {
+          .checkbox-inner {
+            box-shadow: var(--form-shadow-size) rgba(map.get($value, 'shadow-color'), var(--form-shadow-opcity));
+          }
+        }
+      }
+    }
+  }
+  //生成尺寸
+  @each $key, $value in $conf_checkbox_size {
+    &.#{$key} {
+      --checkbox-radius: #{size(map.get($value, 'radius'))};
+      --checkbox-size: #{size(map.get($value, 'size'))};
+      --checkbox-font-size: #{size(map.get($value, 'font-size'))};
+    }
+  }
+}

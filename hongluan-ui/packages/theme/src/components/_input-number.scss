@@ -1,0 +1,150 @@
+.#{$input_number} {
+  --input-number-font-color: #{map.get($conf_input_number, 'font-color')};
+  --input-number-font-color-hover: #{map.get($conf_input_number, 'font-color-hover')};
+  --input-number-font-color-focus: #{map.get($conf_input_number, 'font-color-focus')};
+  --input-number-border-color: #{map.get($conf_input_number, 'border-color')};
+  --input-number-border-color-hover: #{map.get($conf_input_number, 'border-color-hover')};
+  --input-number-border-color-focus: #{map.get($conf_input_number, 'border-color-focus')};
+  --input-number-input-bg-color: #{map.get($conf_input_number, 'input-bg-color')};
+  --input-number-input-bg-color-hover: #{map.get($conf_input_number, 'input-bg-color-hover')};
+  --input-number-input-bg-color-focus: #{map.get($conf_input_number, 'input-bg-color-focus')};
+  --input-number-button-bg-color: #{map.get($conf_input_number, 'button-bg-color')};
+  --input-number-button-bg-color-hover: #{map.get($conf_input_number, 'button-bg-color-hover')};
+  --input-number-button-bg-color-focus: #{map.get($conf_input_number, 'button-bg-color-focus')};
+  &.block {
+    width: 100%;
+  }
+  &.is-disabled {
+    .#{$button},
+    .#{$input} {
+      border-color: var(--form-disabled-border-color);
+    }
+  }
+  &.vertical {
+    .#{$input} {
+      height: 100%;
+      min-height: auto;
+      flex-direction: column;
+      .input-affixe {
+        &.prefix {
+          margin-left: unset;
+          margin-top: var(--input-padding-x);
+        }
+        &.suffix {
+          margin-right: unset;
+          margin-bottom: var(--input-padding-x);
+        }
+      }
+    }
+    &.btn-inner {
+      .#{$input} {
+        padding-left: unset;
+        padding-right: unset;
+        padding-top: var(--form-md);
+        padding-bottom: var(--form-md);
+      }
+      .#{$button} {
+        &.decrease {
+          top: var(--form-padding-y);
+          right: unset;
+          bottom: unset;
+          left: var(--form-padding-y);
+        }
+        &.increase {
+          top: unset;
+          right: unset;
+          bottom: var(--form-padding-y);
+          left: var(--form-padding-y);
+        }
+      }
+    }
+  }
+  .#{$input} {
+    width: 100%;
+    --input-font-color: var(--input-number-font-color);
+    --input-font-color-hover: var(--input-number-font-color-hover);
+    --input-font-color-focus: var(--input-number-font-color-focus);
+    --input-border-color: var(--input-number-border-color);
+    --input-border-color-hover: var(--input-number-border-color-hover);
+    --input-border-color-focus: var(--input-number-border-color-focus);
+    --input-bg-color: var(--input-number-input-bg-color-hover);
+    --input-bg-color-hover: var(--input-number-input-bg-color-hover);
+    --input-bg-color-focus: var(--input-number-input-bg-color-focus);
+
+    &.as-number {
+      min-width: var(--form-md);
+      .input-inner {
+        --input-padding-x: var(--input-padding-y);
+        min-width: var(--form-md);
+      }
+    }
+    input {
+      text-align: center;
+      -moz-appearance: textfield;
+      &::-webkit-inner-spin-button,
+      &::-webkit-outer-spin-button {
+        margin: 0;
+        -webkit-appearance: none;
+      }
+    }
+  }
+  .#{$button} {
+    padding: 0;
+    min-width: size(map.get($conf_input, 'height'));
+    --button-font-color: var(--input-number-font-color);
+    --button-font-color-hover: var(--input-number-font-color-hover);
+    --button-font-color-active: var(--input-number-font-color-focus);
+    --button-border-color: var(--input-number-border-color);
+    --button-border-color-hover: var(--input-number-border-color-hover);
+    --button-border-color-active: var(--input-number-border-color-focus);
+    --button-bg-color: var(--input-number-button-bg-color);
+    --button-bg-color-hover: var(--input-number-button-bg-color-hover);
+    --button-bg-color-active: var(--input-number-button-bg-color-active);
+    .#{$icon} {
+      height: 60%;
+    }
+  }
+  
+  &.btn-vertical {
+    .#{$input} {
+      text-align: left;
+      margin: 0;
+    }
+
+    .btn-group {
+      height: size(map.get($conf_input, 'height'));
+
+      .#{$button} {
+        padding: 0;
+        width: size(map.get($conf_input, 'height'));
+        height: 50%;
+        flex-grow: 1;
+      }
+    }
+  }
+
+  &.btn-inner {
+    .#{$input} {
+      padding-left: size(map.get($conf_input, 'height'));
+      padding-right: size(map.get($conf_input, 'height'));
+    }
+    .#{$button} {
+      position: absolute;
+      top: size(map.get($conf_input, 'padding-y'));
+      z-index: 4;
+      border-radius: size(map.get($conf_input, 'padding-y'));
+      min-width: calc(#{size(map.get($conf_input, 'height'))} - #{size(map.get($conf_input, 'padding-y'))} * 2);
+      width: calc(#{size(map.get($conf_input, 'height'))} - #{size(map.get($conf_input, 'padding-y'))} * 2);
+      height: calc(#{size(map.get($conf_input, 'height'))} - #{size(map.get($conf_input, 'padding-y'))} * 2);
+      &.round {
+        border-radius: var(--radius-round);
+      }
+      &.decrease {
+        left: size(map.get($conf_input, 'padding-y'));
+      }
+      &.increase {
+        right: size(map.get($conf_input, 'padding-y'));
+      }
+    }
+  }
+}

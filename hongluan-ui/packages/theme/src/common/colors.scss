@@ -1,0 +1,188 @@
+@use 'sass:math';
+@use 'sass:map';
+
+@import './variable.scss'; //函数库
+
+// 状态色
+$conf_state_color: (
+  "primary": (
+    "default": #00b2ff,
+    "bg": #00b2ff,
+    "hover": scale-color(#00b2ff, $saturation: 0%, $lightness: 20%),
+    "active": scale-color(#00b2ff, $saturation: 0%, $lightness: -8%),
+    "light": scale-color(#00b2ff, $saturation: 0%, $lightness: 90%),
+  ),
+  "success": (
+    "default": #50cd89,
+    "bg": #50cd89,
+    "hover": scale-color(#50cd89, $saturation: 0%, $lightness: 20%),
+    "active": scale-color(#50cd89, $saturation: 0%, $lightness: -8%),
+    "light": scale-color(#50cd89, $saturation: 0%, $lightness: 90%),
+  ),
+  "danger": (
+    "default": #e11d64,
+    "bg": #e11d64,
+    "hover": scale-color(#e11d64, $saturation: 0%, $lightness: 20%),
+    "active": scale-color(#e11d64, $saturation: 0%, $lightness: -8%),
+    "light": scale-color(#e11d64, $saturation: 0%, $lightness: 90%),
+  ),
+  "warning": (
+    "default": #e7bb22,
+    "bg": #e7bb22,
+    "hover": scale-color(#e7bb22, $saturation: 0%, $lightness: 20%),
+    "active": scale-color(#e7bb22, $saturation: 0%, $lightness: -8%),
+    "light": scale-color(#e7bb22, $saturation: 0%, $lightness: 90%),
+  ),
+  "info": (
+    "default": #4a72e5,
+    "bg": #4a72e5,
+    "hover": scale-color(#4a72e5, $saturation: 0%, $lightness: 20%),
+    "active": scale-color(#4a72e5, $saturation: 0%, $lightness: -8%),
+    "light": scale-color(#4a72e5, $saturation: 0%, $lightness: 90%),
+  ),
+) !default;
+
+// 背景色
+$conf_bg_color: (
+  "body": #FFFFFF, // 主体背景 (主体)
+  "content": #FFFFFF, // 内容区背景 (内容区)
+  "light": #F6F9FB, // 淡色背景 (用于展示一个范围)
+  "popup": #FFFFFF, // 弹窗背景 (浮层、弹窗等)
+  "element": #FFFFFF, // 组件元素背景
+  "hover": #F6F9FB, // 悬停背景
+  "active": #F6F9FB, // 激活背景
+  "header": #ffffff, // 标题背景
+  "backdrop": rgba(#000000, 0.3), // 背景幕布
+) !default;
+
+// 文本色
+$conf_font_color: (
+  "regular": #5E6278, // 常用
+  "secondary": #A1A5B7, // 次要
+  "light": #B5B5C3, // 淡色、禁用色
+  "lightest": #E4E6EF, // 淡色/超淡色
+  "title": #3F4254, // 标题
+  "link": #009EF7, // 链接
+  "hover": var(--main-color), // 悬停
+  "active": #009EF7, // 激活
+  "inverse": #FFFFFF, // 反色
+) !default;
+
+// 边框颜色
+$conf_border_color: (
+  "regular": #EFF2F5, // 默认
+  "light": #E8EBF8, // 淡色
+  "dark": #E4E6EF, // 深色
+) !default;
+
+// 阴影样式
+$conf_box_shadow: (
+  "sm": (0 2px 4px 0) rgba(var(--shadow-color, 62, 78, 106), 0.06),
+  "md": (0 4px 16px 0) rgba(var(--shadow-color, 62, 78, 106), 0.08),
+  "lg": (0 6px 24px) rgba(var(--shadow-color, 62, 78, 106), 0.1),
+  "xl": (0 12px 40px 0) rgba(var(--shadow-color, 62, 78, 106), 0.24),
+) !default;
+
+// 滤镜阴影样式
+$conf_drop_shadow: (
+  "sm": 0 5px 4px rgba(var(--shadow-color, 62, 78, 106), 0.3),
+  "md": 0 10px 8px rgba(var(--shadow-color, 62, 78, 106), 0.4),
+  "lg": 0 15px 8px rgba(var(--shadow-color, 62, 78, 106), 0.45),
+  "xl": 0 20px 8px rgba(var(--shadow-color, 62, 78, 106), 0.5),
+) !default;
+
+// 渐进色 (用于输出颜色的Light和Dark渐进值)
+$conf_progressive: (
+  "light-5": ("h": -10deg, "s": 25%, "l": 90%),
+  "light-4": ("h": -8deg,  "s": 20%, "l": 72%),
+  "light-3": ("h": -6deg,  "s": 15%, "l": 54%),
+  "light-2": ("h": -4deg,  "s": 10%, "l": 36%),
+  "light-1": ("h": -2deg,  "s": 5%, "l": 18%),
+  "dark-1":  ("h": 2deg, "s": 15%, "l": -14%),
+  "dark-2":  ("h": 4deg, "s": 25%, "l": -28%),
+  "dark-3":  ("h": 6deg, "s": 45%, "l": -42%),
+  "dark-4":  ("h": 8deg, "s": 65%, "l": -56%),
+  "dark-5":  ("h": 10deg, "s": 85%, "l": -70%),
+) !default;
+
+:root {
+  --main-color: #00b2ff;
+  --rgb-main-color: #{red(#00b2ff), green(#00b2ff), blue(#00b2ff)};
+  --shadow-color: #{red(#3E4E6A), green(#3E4E6A), blue(#3E4E6A)};
+  //状态色
+  @each $key, $value in $conf_state_color {
+    --#{$key}: #{map.get($value, 'default')};
+    --#{$key}-bg: #{map.get($value, 'bg')};
+    --#{$key}-hover: #{map.get($value, 'hover')};
+    --#{$key}-active: #{map.get($value, 'active')};
+    --#{$key}-light: #{map.get($value, 'light')};
+  }
+  //rgb 颜色值
+  @each $key, $value in $conf_state_color {
+    --rgb-#{$key}: #{red(map.get($value, 'default')), green(map.get($value, 'default')), blue(map.get($value, 'default'))};
+  }
+  @each $key, $value in $conf_bg_color {
+    --rgb-bg-#{$key}: #{red($value), green($value), blue($value)};
+  }
+  //文本色
+  @each $key, $value in $conf_font_color {
+    --text-#{$key}: #{$value};
+  }
+  //背景色
+  @each $key, $value in $conf_bg_color {
+    --bg-#{$key}: #{$value};
+  }
+  //边框色
+  @each $key, $value in $conf_border_color {
+    --border-#{$key}: #{$value};
+  }
+  //阴影样式
+  @each $key, $value in $conf_box_shadow {
+    --box-shadow-#{$key}: #{$value};
+  }
+  // 渐进色
+  @each $key, $value in $conf_state_color {
+    @each $k, $v in $conf_progressive {
+      --#{$key}-#{$k}: #{adjust-hue(scale-color(map.get($value, 'default'), $saturation: map.get($v, 's'), $lightness: map.get($v, 'l')), map.get($v, 'h'))};
+    }
+  }
+
+  //+----------------------------------------------------------------------
+  // 对某个组件进行深度定制的话，可以在此文件新建css var函数来控制
+  //+----------------------------------------------------------------------
+
+  // 通用表单颜色
+  --form-bg-color: var(--bg-element);
+  --form-bg-color-fill: #f5f8fa;
+  --form-border-color: var(--border-dark);
+  --form-disabled-border-color: var(--border-light);
+  --form-disabled-bg-color: var(--bg-light);
+  --form-disabled-font-color: var(--text-light);
+  --form-icon-color: var(--text-regular);
+  --form-shadow-color: var(--rgb-primary);
+
+  // 按钮样式var
+  --#{$conf-prefix}button-font-color: var(--text-regular);
+  --#{$conf-prefix}button-font-color-hover: var(--primary);
+  --#{$conf-prefix}button-font-color-active: var(--primary);
+  --#{$conf-prefix}button-bg-color: var(--bg-element);
+  --#{$conf-prefix}button-bg-color-hover: var(--bg-element);
+  --#{$conf-prefix}button-bg-color-active: var(--bg-element);
+  --#{$conf-prefix}button-border-color: var(--form-border-color);
+  --#{$conf-prefix}button-border-color-hover: #c3e4ff;
+  --#{$conf-prefix}button-border-color-active: var(--primary);
+
+  //menu样式var
+  --#{$conf-prefix}menu-icon-color: #5281E9;
+  --#{$conf-prefix}menu-icon-color-hover: currentColor;
+  --#{$conf-prefix}menu-icon-color-active: #ffffff;
+  --#{$conf-prefix}menu-font-color:  var(--text-regular);
+  --#{$conf-prefix}menu-font-color-hover: var(--text-secondary);
+  --#{$conf-prefix}menu-font-color-active: #ffffff;
+  --#{$conf-prefix}menu-bg-color: #ffffff;
+  --#{$conf-prefix}menu-bg-hover: #F8FAFF;
+  --#{$conf-prefix}menu-bg-active: #9EAECD;
+  --#{$conf-prefix}menu-group-title-color: rgba(#000, 0.2);
+  --#{$conf-prefix}menu-child-bg-color: #ffffff;
+  --#{$conf-prefix}menu-dropdown-shadow: var(--box-shadow-md);
+}

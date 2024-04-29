@@ -1,0 +1,11 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.node.json",
+  "include": ["packages/**/*", "vitest.setup.ts", "typings/env.d.ts"],
+  "exclude": ["node_modules", "dist"],
+  "compilerOptions": {
+    "composite": true,
+    "lib": ["DOM"],
+    "types": ["node", "jsdom", "unplugin-vue-macros/macros-global"],
+    "jsx": "preserve"
+  }
+}

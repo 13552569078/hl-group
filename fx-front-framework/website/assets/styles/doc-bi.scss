@@ -1,0 +1,31 @@
+@use 'sass:math';
+@use 'sass:map';
+
+// 引入鸿鸾Config配置文件
+@import '../../../packages/theme/src/common/config-bi';
+
+$docPageFontSize:                     1vw;
+$docPageBorderSize:                   0px;
+$docPageAsideItem-Hover:              $pageBG-Content;
+$docPageRightNavWidth:                160px;
+$docDemoBlockBgColor:                 $pageBG-Content;
+$docDemoBlockBgColor-Gary:            #f8fafc;
+$docDemoBlockBgColor-Dark:            darken($pageBG-Body, 3%);
+$docSourceCodeFontColor:              #abb2bf;
+$docSourceCodeBgColor:                darken($pageBG-Body, 3%);
+
+
+$layoutOutPadding:                    24px;                          //外部间距
+$layoutHeaderHeight:                  80px;                          //头部 高度
+$layoutHeaderBgColor:                 $pageBG-Content;               //头部 背景
+$layoutSubHeaderHeight:               54px;                          //子头部 高度
+$layoutSubHeaderBgColor:              $pageBG-Content;               //子头部 背景
+$layoutAsideWidth:                    280px;                         //侧栏 宽度
+$layoutAsideBgColor:                  $pageBG-Body;                  //侧栏 背景
+$layoutMainBgColor:                   $pageBG-Body;                  //主体 背景
+$layoutMainMaxWidth:                  100%;                          //主体 最大宽度
+$layoutFooterHeight:                  50px;                          //底部 高度
+$layoutFooterBgColor:                 $pageBG-Content;               //底部 背景
+$layoutBorderColor:                   transparent;                   //边框
+
+@import './layout.scss';

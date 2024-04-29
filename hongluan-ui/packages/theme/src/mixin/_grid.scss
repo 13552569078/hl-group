@@ -1,0 +1,73 @@
+//grid样式生成器
+//生成响应式标签
+@each $key, $value in $conf_respond {
+  @include respond('min', $value) {
+    @for $i from 1 through map.get($conf_public, 'grid-model') {
+      // .col-#{$key}, // 兼容 1x 属性
+      .#{$key}\:col {
+        flex-basis: 0;
+        flex-grow: 1;
+      }
+      // .col-#{$key}-#{$i}, // 兼容 1x 属性
+      .#{$key}\:col-#{$i} {
+        flex: 0 0 math.percentage(math.div($i, map.get($conf_public, 'grid-model')));
+        max-width: math.percentage(math.div($i, map.get($conf_public, 'grid-model')));
+      }
+
+      // .offset-#{$key}-#{$i}, // 兼容 1x 属性
+      .#{$key}\:offset-#{$i} {
+        margin-left: math.percentage(math.div($i, map.get($conf_public, 'grid-model')));
+      }
+      // .count-#{$key}-#{$i}, // 兼容 1x 属性
+      .#{$key}\:count-#{$i} {
+        &.flow {
+          column-count: $i;
+        }
+
+        &.grid-direction-vertical {
+          grid-template-columns: repeat($i, minmax(0, 1fr));
+        }
+
+        &.grid-direction-horizontal {
+          grid-template-rows: repeat($i, minmax(0, 1fr));
+        }
+      }
+      // .col-span-#{$key}-#{$i}, // 兼容 1x 属性
+      .#{$key}\:col-span-#{$i} {
+        grid-column: span $i;
+      }
+      // .row-span-#{$key}-#{$i}, // 兼容 1x 属性
+      .#{$key}\:row-span-#{$i} {
+        grid-row: span $i;
+      }
+    }
+  }
+}
+
+//生成比例
+@for $i from 1 through map.get($conf_public, 'grid-model') {
+  .col-#{$i} {
+    flex: 0 0 math.percentage(math.div($i, map.get($conf_public, 'grid-model')));
+    max-width: math.percentage(math.div($i, map.get($conf_public, 'grid-model')));
+  }
+  .offset-#{$i} {
+    margin-left: math.percentage(math.div($i, map.get($conf_public, 'grid-model')));
+  }
+  .count-#{$i} {
+    column-count: $i;
+
+    &.grid-direction-vertical {
+      grid-template-columns: repeat($i, minmax(0, 1fr));
+    }
+
+    &.grid-direction-horizontal {
+      grid-template-rows: repeat($i, minmax(0, 1fr));
+    }
+  }
+  .col-span-#{$i} {
+    grid-column: span $i;
+  }
+  .row-span-#{$i} {
+    grid-row: span $i;
+  }
+}

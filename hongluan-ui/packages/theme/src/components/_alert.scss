@@ -1,0 +1,83 @@
+.#{$alert} {
+  --alert-radius: #{size(map.get($conf_alert, 'radius'))};
+  --alert-padding-x: #{size(map.get($conf_alert, 'padding-x'))};
+  --alert-padding-y: #{size(map.get($conf_alert, 'padding-y'))};
+  --alert-bg-color: #{map.get($conf_alert, 'bg-color')};
+  --alert-border-color: #{map.get($conf_alert, 'border-color')};
+  --alert-font-color: #{map.get($conf_alert, 'font-color')};
+  --alert-font-size: #{size(map.get($conf_alert, 'font-size'))};
+  --alert-icon-color: currentColor;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: var(--alert-min-width, auto);
+  padding: var(--alert-padding-y) var(--alert-padding-x);
+  border-radius: var(--alert-radius);
+  background-color: var(--alert-bg-color);
+  border: var(--border-width) solid var(--alert-border-color);
+  color: var(--alert-font-color);
+  font-size: var(--alert-font-size);
+  @include transition(opacity var(--duration) var(--timing));
+  &.dashed {
+    border-style: dashed;
+  }
+
+  &.has-description {
+    align-items: flex-start;
+    padding: var(--alert-padding-x);
+
+    .alert-content {
+      width: 100%;
+
+      .title {
+        font-weight: var(--font-weight-bold);
+        margin-bottom: size(4px);
+      }
+    }
+  }
+
+  .alert-icon {
+    color: var(--alert-icon-color);
+    margin-right: var(--alert-padding-y);
+    flex-shrink: 0;
+    flex-grow: unset;
+    width: var(--alert-icon-size, #{size(map.get($conf_icon_size, 'md', 'size'))});
+    height: var(--alert-icon-size, #{size(map.get($conf_icon_size, 'md', 'size'))});
+  }
+
+  .alert-content {
+    width: 100%;
+
+    .title {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: var(--line, 1);
+      hyphens: none;
+    }
+  }
+
+  .alert-customed {
+    flex-shrink: 0;
+    flex-grow: unset;
+  }
+
+  .alert-close {
+    width: size(map.get($conf_icon_size, 'sm', 'size'));
+    height: size(map.get($conf_icon_size, 'sm', 'size'));
+    padding: size(2px);
+    margin-left: var(--alert-padding-x);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    flex-grow: unset;
+  }
+}
+
+.alert-fade-enter,
+.alert-fade-leave-active {
+  opacity: 0;
+}

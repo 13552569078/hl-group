@@ -1,0 +1,92 @@
+.#{$popper} {
+  --popper-radius: #{size(map.get($conf_popper, 'radius'))};
+  --popper-padding-y: #{size(map.get($conf_popper, 'padding-y'))};
+  --popper-padding-x: #{size(map.get($conf_popper, 'padding-x'))};
+  --popper-arrow-size: #{size(map.get($conf_popper, 'arrow-size'))};
+  --popper-bg-color: #{map.get($conf_popper, 'bg-color')};
+  @if map.get($conf_popper, 'border-color') != false {
+    --popper-border-color: #{map.get($conf_popper, 'border-color')};
+  }
+  --popper-shadow: #{map.get($conf_popper, 'shadow')};
+  position: absolute;
+  width: auto;
+  z-index: map.get($conf_z_index, 'level-4');
+  padding: var(--popper-padding-y) var(--popper-padding-x);
+  background-color: var(--popper-bg-color);
+  box-shadow: var(--popper-shadow);
+  border-radius: var(--popper-radius);
+  @if map.get($conf_popper, 'border-color') != false {
+    border: var(--border-width) solid var(--popper-border-color);
+  }
+  word-break: break-all;
+  &.no-style {
+    padding: unset;
+    background-color: unset;
+    box-shadow: unset;
+    border-radius: unset;
+    border: unset;
+  }
+  &.collapse-tags-popper {
+    padding: size(12px);
+  }
+  .popper-arrow {
+    width: var(--popper-arrow-size);
+    height: var(--popper-arrow-size);
+    z-index: 1;
+
+    &::before {
+      position: absolute;
+      width: var(--popper-arrow-size);
+      height: var(--popper-arrow-size);
+      z-index: -1;
+      content: " ";
+      transform: rotate(45deg);
+      background: var(--popper-bg-color);
+      box-sizing: border-box;
+      @if map.get($conf_popper, 'border-color') != false {
+        border: var(--border-width) solid var(--popper-border-color);
+      }
+      right: 0;
+    }
+  }
+
+  &[data-popper-placement^='top'] {
+    .popper-arrow {
+      bottom: calc(var(--popper-arrow-size)  * -0.5);
+      &::before {
+        border-top-color: transparent;
+        border-left-color: transparent;
+      }
+    }
+  }
+
+  &[data-popper-placement^='bottom'] {
+    .popper-arrow {
+      top: calc(var(--popper-arrow-size)  * -0.5);
+      &::before {
+        border-bottom-color: transparent;
+        border-right-color: transparent;
+      }
+    }
+  }
+
+  &[data-popper-placement^='right'] {
+    .popper-arrow {
+      left: calc(var(--popper-arrow-size)  * -0.5);
+      &::before {
+        border-top-color: transparent;
+        border-right-color: transparent;
+      }
+    }
+  }
+
+  &[data-popper-placement^='left'] {
+    .popper-arrow {
+      right: calc(var(--popper-arrow-size)  * -0.5);
+      &::before {
+        border-top-color: transparent;
+        border-right-color: transparent;
+      }
+    }
+  }
+}

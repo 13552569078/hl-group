@@ -1,0 +1,25 @@
+.#{$backtop} {
+  position: fixed;
+  background-color: #FFF;
+  width: size(40px);
+  height: size(40px);
+  border-radius: 50%;
+  color: var(--main-color);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  font-size: size(20px);
+  box-shadow: var(--box-shadow-md);
+  cursor: pointer;
+  z-index: 5;
+
+  &:hover {
+    background-color: var(--bg-light);
+  }
+}

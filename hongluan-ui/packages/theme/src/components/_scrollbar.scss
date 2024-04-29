@@ -1,0 +1,88 @@
+.#{$scrollbar} {
+  --scrollbar-width: #{size(map.get($conf_scrollbar, 'width'))};
+  --scrollbar-radius: #{size(map.get($conf_scrollbar, 'radius'))};
+  --scrollbar-offset-x: 0px;
+  --scrollbar-offset-y: 0px;
+
+  @if map.get($conf_scrollbar, 'track-color') != false {
+    --scrollbar-track-color: #{map.get($conf_scrollbar, 'track-color')};
+  }
+  --scrollbar-bar-color: #{map.get($conf_scrollbar, 'bar-color')};
+  --scrollbar-bar-color-hover: #{map.get($conf_scrollbar, 'bar-color-hover')};
+  --scrollbar-bar-color-active: #{map.get($conf_scrollbar, 'bar-color-active')};
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+  
+  &:active,
+  &:focus,
+  &:hover {
+    .scrollbar-bar {
+      opacity: 1;
+    }
+  }
+
+  margin-right: calc(var(--scrollbar-offset-y) * -1);
+  margin-bottom: calc(var(--scrollbar-offset-x) * -1);
+  .scrollbar-wrap {
+    padding-right: var(--scrollbar-offset-y);
+    padding-bottom: var(--scrollbar-offset-x);
+  }
+
+  .scrollbar-wrap {
+    overflow: auto;
+    height: 100%;
+  }
+
+  .scrollbar-wrap-hidden {
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .scrollbar-bar {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: map.get($conf_z_index, 'level-5');
+    border-radius: var(--scrollbar-radius);
+    @if map.get($conf_scrollbar, 'track-color') != false {
+      background-color: var(--scrollbar-track-color);
+    }
+    transition: all 0.4s ease;
+    &.is-vertical {
+      width: var(--scrollbar-width);
+      top: 0;
+      div {
+        width: 100%;
+      }
+    }
+    &.is-horizontal {
+      height: var(--scrollbar-width);
+      left: 0;
+
+      div {
+        height: 100%;
+      }
+    }
+
+    .scrollbar-thumb {
+      position: relative;
+      display: block;
+      width: 0;
+      height: 0;
+      cursor: pointer;
+      border-radius: inherit;
+      background-color: var(--scrollbar-bar-color);
+      transition: 0.4s background-color;
+      &:hover {
+        background-color: var(--scrollbar-bar-color-hover);
+      }
+      &:active {
+        background-color: var(--scrollbar-bar-color-active);
+      }
+    }
+  }
+}

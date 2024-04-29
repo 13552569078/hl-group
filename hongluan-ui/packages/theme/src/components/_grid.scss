@@ -1,0 +1,60 @@
+.#{$row} {
+  --row-gap-x: 0;
+  --row-gap-y: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: calc(var(--row-gap-x) * -0.5);
+  margin-right: calc(var(--row-gap-x) * -0.5);
+  row-gap: var(--row-gap-y);
+  > * {
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%;
+    padding-left: calc(var(--row-gap-x) * 0.5);
+    padding-right: calc(var(--row-gap-x) * 0.5);
+  }
+
+  >.col {
+    flex-basis: 0;
+    flex-grow: 1;
+    width: auto;
+  }
+
+  &.flow {
+    display: block;
+    margin-left: 0;
+    margin-right: 0;
+    column-gap: var(--row-gap-x);
+    row-gap: var(--row-gap-y);
+
+    >.col,
+    >[class^=col-] {
+      padding: 0;
+      page-break-inside: avoid;
+      -webkit-column-break-inside:avoid;
+      break-inside:avoid;
+      margin-bottom: var(--row-gap-x);
+    }
+  }
+
+  &.grid {
+    display: grid;
+    margin-left: 0;
+    margin-right: 0;
+    column-gap: var(--row-gap-x);
+    row-gap: var(--row-gap-y);
+    >.col,
+    >[class^='col-'] {
+      padding: 0;
+    }
+  }
+
+  &.grid-direction-vertical {
+    grid-auto-flow: row;
+  }
+
+  &.grid-direction-horizontal {
+    grid-auto-flow: column;
+  }
+
+}

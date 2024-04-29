@@ -1,0 +1,17 @@
+//steps样式生成器
+.#{$steps_item} {
+  // 生成类型
+  @each $key, $value in $conf_steps_type {
+    &.#{$key} {
+      --steps-graphic-font-color: #{map.get($value, 'graphic-font-color')};
+      --steps-graphic-border-color: #{map.get($value, 'graphic-border-color')};
+      --steps-graphic-bg-color: #{map.get($value, 'graphic-bg-color')};
+      --steps-title-font-color: #{size(map.get($value, 'title-font-color'))};
+      .step-line {
+        &::before {
+          --steps-line-border-color: #{map.get($value, 'line-border-color')};
+        }
+      }
+    }
+  }
+}

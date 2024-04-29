@@ -1,0 +1,85 @@
+.#{$list} {
+  --list-gap: #{size(map.get($conf_list, 'gap'))};
+  --list-item-gap: #{size(map.get($conf_list, 'item-gap'))};
+  --list-radius: #{size(map.get($conf_list, 'radius'))};
+  --list-font-size: #{size(map.get($conf_list, 'font-size'))};
+  --list-padding-y: #{size(map.get($conf_list, 'padding-y'))};
+  --list-padding-x: #{size(map.get($conf_list, 'padding-x'))};
+  --list-font-color: #{map.get($conf_list, 'font-color')};
+  --list-font-color-hover: #{map.get($conf_list, 'font-color-hover')};
+  --list-bg-color: #{map.get($conf_list, 'bg-color')};
+  --list-bg-color-hover: #{map.get($conf_list, 'bg-color-hover')};
+  --list-border-color: #{map.get($conf_list, 'border-color')};
+  --list-item-height: #{size(map.get($conf_list, 'item-height'))};
+  position: relative;
+  display: flex;
+  gap: var(--list-gap);
+  &.vertical {
+    &.indent {
+      gap: 0;
+    }
+  }
+  .#{$list_item} {
+    position: relative;
+    display: flex;
+    align-items: center;
+    color: var(--list-font-color);
+    font-size: var(--list-font-size);
+    padding: var(--list-padding-y) var(--list-padding-x);
+    height: var(--list-item-height);
+    border-radius: var(--list-radius);
+    column-gap: var(--list-item-gap);
+    background-color: var(--list-bg-color);
+    @include transition(color var(--duration) var(--timing), background-color var(--duration) var(--timing));
+    .item-prefix,
+    .item-suffix {
+      display: flex;
+    }
+    .item-content {
+      flex-grow: 1;
+    }
+
+  }
+
+  &.hover {
+    .#{$list_item} {
+      cursor: pointer;
+      &.active,
+      &:focus,
+      &:hover {
+        color: var(--list-font-color-hover);
+        background-color: var(--list-bg-color-hover);
+      }
+    }
+  }
+
+  &.bordered {
+    .#{$list_item} {
+      border: var(--form-border-width) solid var(--list-border-color);
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    &.radius {
+      .item {
+        &:first-child {
+          border-radius: var(--list-radius) var(--list-radius) 0 0;
+        }
+
+        &:last-child {
+          border-radius: 0 0 var(--list-radius) var(--list-radius);
+        }
+      }
+    }
+  }
+
+  &.border-x {
+    .#{$list_item} {
+      border-bottom: var(--form-border-width) solid var(--list-border-color);
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

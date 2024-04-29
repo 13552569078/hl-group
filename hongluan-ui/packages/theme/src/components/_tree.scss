@@ -1,0 +1,215 @@
+.#{$tree} {
+  --tree-radius: #{size(map.get($conf_tree, 'radius'))};
+  --tree-gap: #{size(map.get($conf_tree, 'gap'))};
+  --tree-height: #{size(map.get($conf_tree, 'height'))};
+  --tree-font-color: #{map.get($conf_tree, 'font-color')};
+  --tree-font-color-hover: #{map.get($conf_tree, 'font-color-hover')};
+  --tree-font-color-active: #{map.get($conf_tree, 'font-color-active')};
+  --tree-bg-color: #{map.get($conf_tree, 'bg-color')};
+  --tree-bg-color-hover: #{map.get($conf_tree, 'bg-color-hover')};
+  --tree-bg-color-active: #{map.get($conf_tree, 'bg-color-active')};
+  --tree-child-font-color: #{map.get($conf_tree, 'child-font-color')};
+  --tree-child-font-color-hover: #{map.get($conf_tree, 'child-font-color-hover')};
+  --tree-child-bg-color: #{map.get($conf_tree, 'child-bg-color')};
+  --tree-child-bg-color-hover: #{map.get($conf_tree, 'child-bg-color-hover')};
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  &.is-dragging {
+    .tree-node-content {
+      cursor: move;
+
+      * {
+        pointer-events: none;
+      }
+    }
+
+    &.is-drop-not-allow {
+      .tree-node-content {
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  &.highlight-current {
+    .tree-node {
+      &.is-current {
+        > .tree-node-content {
+          color: var(--tree-font-color-active);
+          background-color: var(--tree-bg-color-active);
+        }
+      }
+    }
+  }
+}
+
+.tree-empty-block {
+  position: relative;
+  min-height: calc(var(--tree-height) * 2);
+  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+
+.tree-empty-text {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--text-secondary);
+  font-size: var(--font-md);
+}
+
+.tree-drop-indicator {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: size(2px);
+  background-color: var(--main-color);
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: size(-10px);
+    top: size(-4px);
+    width: size(10px);
+    height: size(10px);
+    border: size(2px) solid var(--main-color);
+    border-radius: var(--radius-round);
+  }
+}
+
+.tree-node {
+  display: flex;
+  flex-direction: column;
+  white-space: nowrap;
+  width: 100%;
+  outline: 0;
+  &:focus {
+    > .tree-node-content {
+    }
+  }
+
+  &.is-drop-inner {
+    > .tree-node-content {
+      position: relative;
+
+      .tree-node-label {
+        &::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          top: 0;
+          border-radius: var(--tree-radius);
+          border: var(--border-width) dashed var(--main-color);
+          background-color: rgba(var(--rgb-main-color), 0.08);
+        }
+      }
+    }
+  }
+
+  .tree-node-children {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    .tree-node {
+      .tree-node-content {
+        color: var(--tree-child-font-color);
+        background-color: var(--tree-child-bg-color);
+        &:hover {
+          color: var(--tree-child-font-color-hover);
+          background-color: var(--tree-child-bg-color-hover);
+        }
+      }
+    }
+  }
+
+  &.is-expanded {
+    > .tree-node-children {
+      display: block;
+    }
+  }
+}
+
+.tree-node-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: var(--tree-height);
+  border-radius: var(--tree-radius);
+  cursor: pointer;
+  color: var(--tree-font-color);
+  background-color: var(--tree-bg-color);
+  margin-bottom: var(--tree-gap);
+  @include transition(background-color 0.15s var(--timing));
+
+  &:hover {
+    color: var(--tree-font-color-hover);
+    background-color: var(--tree-bg-color-hover);
+  }
+
+  > label {
+    &.#{$checkbox} {
+      margin-right: size(8px);
+    }
+  }
+
+  .tree-node-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--form-icon-color);
+    padding: size(math.div(map.get($conf_icon_size, 'xxs', 'size'), 2));
+    width: var(--tree-height);
+    height: var(--tree-height);
+    flex-shrink: 0;
+    flex-grow: unset;
+    @include transition(all var(--duration) var(--timing));
+    .#{$icon} {
+      width: var(--font-sm);
+      height: var(--font-sm);
+    }
+    &:not(.custom-icon) {
+      transform: rotate(-90deg);
+    }
+    &.expanded {
+      transform: rotate(0deg);
+    }
+
+    &.is-leaf {
+      color: transparent;
+      cursor: default;
+    }
+  }
+
+  .tree-node-icon {
+    display: inline-block;
+    vertical-align: middle;
+    width: size(map.get($conf_icon_size, 'sm', 'size'));
+    height: size(map.get($conf_icon_size, 'sm', 'size'));
+    margin: 0 size(12px) 0 size(4px);
+
+    svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  }
+
+  .tree-node-loading-icon {
+    margin-right: size(8px);
+    width: size(map.get($conf_icon_size, 'sm', 'size'));
+    height: size(map.get($conf_icon_size, 'sm', 'size'));
+  }
+
+  .tree-node-label {
+    font-size: var(--font-md);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}

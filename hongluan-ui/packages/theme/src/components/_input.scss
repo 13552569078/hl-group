@@ -1,0 +1,237 @@
+.#{$input} {
+  --input-radius: #{size(map.get($conf_input, 'radius'))};
+  --input-height: #{size(map.get($conf_input, 'height'))};
+  --input-padding-x: #{size(map.get($conf_input, 'padding-x'))};
+  --input-padding-y: #{size(map.get($conf_input, 'padding-y'))};
+  --input-border-width: #{size(var(--form-border-width))};
+  --input-font-size: #{size(map.get($conf_input, 'font-size'))};
+  --input-font-color: #{map.get($conf_input, 'font-color')};
+  --input-font-color-hover: #{map.get($conf_input, 'font-color-hover')};
+  --input-font-color-focus: #{map.get($conf_input, 'font-color-focus')};
+  --input-border-color: #{map.get($conf_input, 'border-color')};
+  --input-border-color-hover: #{map.get($conf_input, 'border-color-hover')};
+  --input-border-color-focus: #{map.get($conf_input, 'border-color-focus')};
+  --input-bg-color: #{map.get($conf_input, 'bg-color')};
+  --input-bg-color-hover: #{map.get($conf_input, 'bg-color-hover')};
+  --input-bg-color-focus: #{map.get($conf_input, 'bg-color-focus')};
+  --input-bg-color-fill: #{map.get($conf_input, 'bg-color-fill')};
+  --input-icon-size: var(--form-icon-size);
+  --input-icon-color: var(--form-icon-color);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  color: var(--input-font-color);
+  background-color: var(--input-bg-color);
+  font-size: var(--input-font-size);
+  line-height: line_height(map.get($conf_input, 'font-size'));
+  border-radius: var(--input-radius);
+  height: var(--input-height);
+  min-height: var(--input-height);
+  border-color: var(--input-border-color);
+  border-width: var(--input-border-width);
+  border-style: solid;
+  @include transition(color var(--duration) var(--timing), background-color var(--duration) var(--timing), border var(--duration) var(--timing), box-shadow var(--duration) var(--timing));
+  .input-inner {
+    outline: 0;
+    -webkit-appearance: none;
+    line-height: inherit;
+    padding: var(--input-padding-y) var(--input-padding-x);
+    font-size: inherit;
+    font-weight: inherit;
+    text-align: inherit;
+    border: none;
+    width: 100%;
+    height: 100%;
+    color: currentColor;
+    background-color: transparent;
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  &.as-textarea {
+    height: auto;
+    .input-inner {
+      height: 100%;
+    }
+    .input-count {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      padding: calc(var(--input-padding-x) - #{size(1px)});;
+      
+    }
+  }
+
+  &.is-tags {
+    height: auto;
+    .input-inner {
+      display: none;
+    }
+  }
+
+  &:hover {
+    z-index: 2;
+    color: var(--input-font-color-hover);
+    border-color: var(--input-border-color-hover);
+    background-color: var(--input-bg-color-hover);
+  }
+
+  &.is-focus,
+  &.is-active {
+    z-index: 3;
+    color: var(--input-font-color-focus);
+    border-color: var(--input-border-color-focus);
+    background-color: var(--input-bg-color-focus);
+    .input-affixe {
+      color: var(--input-font-color-focus);
+      .#{$icon} {
+        color: currentColor;
+      }
+    }
+  }
+
+  &.is-focus {
+    @if map.get($conf_form, 'shadow-size') != false {
+      box-shadow: var(--form-shadow-size) rgba(var(--form-shadow-color), var(--form-shadow-opcity));
+    }
+  }
+
+  &.is-disabled {
+    &,
+    &.is-active,
+    &.is-focus {
+      user-select: none;
+      color: var(--form-disabled-font-color) !important;
+      background-color: var(--form-disabled-bg-color) !important;
+      border-color: var(--form-disabled-border-color) !important;
+      box-shadow: none !important;
+      cursor: not-allowed;
+    }
+  }
+
+  &.block {
+    width: 100% !important;
+  }
+
+  &.round {
+    border-radius: var(--radius-round);
+  }
+
+  &.fill {
+    background-color: var(--input-bg-color-fill);
+    border-color: transparent;
+    &.is-focus,
+    &.is-active {
+      border-color: var(--input-border-color-focus);
+      background-color: var(--input-bg-color);
+    }
+  }
+
+  &.thin {
+    border: none !important;
+    background-color: unset !important;
+    height: unset !important;
+    min-height: unset !important;
+    box-shadow: none;
+    .input-inner {
+      padding: 0 !important;
+    }
+  }
+
+  .input-affixe {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--input-icon-size);
+    min-height: var(--input-icon-size);
+    flex-shrink: 0;
+    flex-grow: unset;
+    color: var(--input-icon-color);
+    @include transition(color var(--duration) var(--timing));
+    a {
+      display: flex;
+      color: var(--text-secondary);
+      @include transition(color var(--duration) var(--timing));
+      &:hover {
+        color: var(--text-hover);
+      }
+    }
+
+    &.prefix {
+      order: -1;
+      margin-left: var(--input-padding-x);
+    }
+
+    &.suffix {
+      order: 10;
+      margin-right: var(--input-padding-x);
+    }
+    &.password-visible {
+      order: 100;
+      margin-right: var(--input-padding-x);
+      cursor: pointer;
+    }
+    .#{$spinner},
+    .#{$icon} {
+      display: flex;
+      width: var(--input-icon-size);
+      height: var(--input-icon-size);
+      color: var(--input-icon-color);
+    }
+  }
+
+  .input-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: var(--input-font-size);
+    color: var(--form-icon-color);
+    @include transition(color var(--duration) var(--timing));
+    &:hover {
+      color: var(--text-hover);
+    }
+  }
+
+  .input-count {
+    position: relative;
+    white-space: nowrap;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    z-index: 3;
+    font-size: var(--font-sm);
+    line-height: var(--font-sm);
+    padding-right: calc(var(--input-padding-x) - #{size(1px)});
+    color: var(--text-light);
+    pointer-events: none;
+  }
+
+  .input-tags {
+    display: flex;
+    width: 100%;
+    padding: var(--input-padding-y);
+    gap: size(4px);
+    flex-wrap: wrap;
+    min-width: 0;
+    flex-grow: 1;
+    .#{$tag} {
+      --tag-height: calc(var(--input-height) - var(--form-border-width) * 2 - var(--input-padding-y) * 2);
+    }
+    .select-input {
+      display: inline-block;
+      width: size(80px);
+      border: none;
+      background-color: transparent;
+      outline: 0;
+      line-height: 1;
+    }
+
+    .tag-close {
+      cursor: pointer;
+    }
+  }
+ 
+}

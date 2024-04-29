@@ -1,0 +1,64 @@
+.#{$tag} {
+  --tag-radius: #{size(map.get($conf_tag, 'radius'))};
+  --tag-padding-x: #{size(map.get($conf_tag, 'padding-x'))};
+  --tag-padding-y: #{size(map.get($conf_tag, 'padding-y'))};
+  --tag-height: #{size(map.get($conf_tag, 'height'))};
+  --tag-font-size: #{size(map.get($conf_tag, 'font-size'))};
+  --tag-font-color: #{map.get($conf_tag, 'font-color')};
+  --tag-border-color: #{map.get($conf_tag, 'border-color')};
+  --tag-bg-color: #{map.get($conf_tag, 'bg-color')};
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: size(4px);
+  height: var(--tag-height);
+  padding: var(--tag-padding-y, 0) var(--tag-padding-x, 0);
+  font-size: var(--tag-font-size);
+  color: var(--tag-font-color);
+  border-radius: var(--tag-radius);
+  background-color: var(--tag-bg-color);
+  border: var(--form-border-width) solid var(--tag-border-color);
+  white-space: nowrap;
+  vertical-align: middle;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  @include transition(all var(--duration) var(--timing));
+  &:only-child {
+    margin: 0;
+  }
+
+  &.is-focus {
+    // outline: size(2px) solid var(--tag-border-color);
+    transform: scale(1.1);
+  }
+
+  &.outline {
+    color: var(--tag-font-color);
+    background-color: transparent;
+    border-color: var(--tag-border-color);
+  }
+
+  &.round {
+    border-radius: var(--radius-round);
+  }
+
+  span {
+    align-items: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .tag-close {
+    display: flex;
+    cursor: pointer;
+    width: var(--tag-font-size);
+    height: var(--tag-font-size);
+    flex-grow: 0;
+    flex-shrink: 0;
+    opacity: 0.6;
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

@@ -1,0 +1,75 @@
+.#{$message} {
+  --message-radius: #{size(map.get($conf_message, 'radius'))};
+  --message-padding-x: #{size(map.get($conf_message, 'padding-x'))};
+  --message-padding-y: #{size(map.get($conf_message, 'padding-y'))};
+  --message-bg-color: #{map.get($conf_message, 'bg-color')};
+  @if map.get($conf_message, 'border-color') != false {
+    --message-border-color: #{map.get($conf_message, 'border-color')};
+  }
+  --message-font-color: #{map.get($conf_message, 'font-color')};
+  --message-font-size: #{size(map.get($conf_message, 'font-size'))};
+  --message-icon-size: #{size(map.get($conf_message, 'icon-size'))};
+  --message-icon-color: currentColor;
+  --message-min-width: #{size(map.get($conf_message, 'min-width'))};
+  @if map.get($conf_message, 'shadow') != false {
+    --message-box-shadow: #{map.get($conf_message, 'shadow')};
+  }
+
+  position: fixed;
+  left: 50%;
+  top: size(24px);
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: var(--message-min-width, auto);
+  padding: var(--message-padding-y) var(--message-padding-x);
+  border-radius: var(--message-radius);
+  background-color: var(--message-bg-color);
+  @if map.get($conf_message, 'border-color') != false {
+    border: var(--border-width) solid var(--message-border-color);
+  }
+  color: var(--message-font-color);
+  font-size: var(--message-font-size);
+  @if map.get($conf_message, 'shadow') != false {
+    box-shadow: var(--message-box-shadow);
+  }
+
+  @include transition(opacity 0.4s var(--timing), transform 0.4s var(--timing));
+  .message-icon {
+    color: var(--message-icon-color);
+    margin-right: var(--message-padding-y);
+    flex-shrink: 0;
+    flex-grow: unset;
+    width: var(--message-icon-size, #{size(map.get($conf_icon_size, 'md', 'size'))});
+    height: var(--message-icon-size, #{size(map.get($conf_icon_size, 'md', 'size'))});
+  }
+  .message-content {
+    width: 100%;
+    .title {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: var(--line, 1);
+      hyphens: none;
+    }
+  }
+  .message-close {
+    width: size(map.get($conf_icon_size, 'sm', 'size'));
+    height: size(map.get($conf_icon_size, 'sm', 'size'));
+    padding: size(2px);
+    margin-left: var(--message-padding-x);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    flex-grow: unset;
+  }
+}
+
+.message-fade-enter-from,
+.message-fade-leave-to {
+  opacity: 0;
+  transform: translate(-50%, -100%);
+}

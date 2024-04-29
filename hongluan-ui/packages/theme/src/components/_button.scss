@@ -1,0 +1,224 @@
+.#{$button} {
+  --button-radius: #{size(map.get($conf_button, 'radius'))};
+  --button-padding-x: #{size(map.get($conf_button, 'padding-x'))};
+  --button-padding-y: #{size(map.get($conf_button, 'padding-y'))};
+  @if map.get($conf_button, 'min-width') != false {
+    --button-min-width: #{size(map.get($conf_button, 'min-width'))};
+  }
+  --button-height: #{size(map.get($conf_button, 'height'))};
+  --button-font-weight: #{map.get($conf_button, 'font-weight')};
+  --button-font-size: #{size(map.get($conf_button, 'font-size'))};
+  --button-border-width: #{size(map.get($conf_button, 'border-width'))};
+  --button-font-color: #{map.get($conf_button, 'font-color')};
+  --button-font-color-hover: #{map.get($conf_button, 'font-color-hover')};
+  --button-font-color-active: #{map.get($conf_button, 'font-color-active')};
+  --button-bg-color: #{map.get($conf_button, 'bg-color')};
+  --button-bg-color-hover: #{map.get($conf_button, 'bg-color-hover')};
+  --button-bg-color-active: #{map.get($conf_button, 'bg-color-active')};
+  --button-border-color: #{map.get($conf_button, 'border-color')};
+  --button-border-color-hover: #{map.get($conf_button, 'border-color-hover')};
+  --button-border-color-active: #{map.get($conf_button, 'border-color-active')};
+  cursor: pointer;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--button-font-color);
+  font-size: var(--button-font-size);
+  font-weight: var(--button-font-weight);
+  line-height: line_height(map.get($conf_button, 'font-size'));
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+  height: var(--button-height);
+  padding: var(--button-padding-y) var(--button-padding-x);
+  border-width: var(--button-border-width);
+  border-style: solid;
+  border-color: var(--button-border-color);
+  border-radius: var(--button-radius);
+  @if map.get($conf_button, 'min-width') != false {
+    min-width: var(--button-min-width);
+  }
+  background-color: var(--button-bg-color);
+  user-select: none;
+  @include transition(background-color var(--duration) var(--timing), color var(--duration) var(--timing), border-color var(--duration) var(--timing), box-shadow var(--duration) var(--timing));
+
+  &:focus:not(:focus-visible) {
+    outline: 0;
+  }
+  &:focus {
+    z-index: 3;
+  }
+
+  &:hover,
+  &.is-active,
+  &:active {
+    z-index: 2;
+  }
+
+  &.is-hover,
+  &.is-focus,
+  &:focus,
+  &:hover {
+    color: var(--button-font-color-hover);
+    border-color: var(--button-border-color-hover);
+    background-color: var(--button-bg-color-hover);
+  }
+
+  &:focus,
+  &.is-focus {
+    @if map.get($conf_form, 'shadow-size') != false {
+      box-shadow: var(--form-shadow-size) rgba(var(--form-shadow-color), var(--form-shadow-opcity));
+    }
+  }
+
+  @at-root {
+    .#{$radio}.is-checked &,
+    .#{$checkbox}.is-checked & {
+      color: var(--button-font-color-hover);
+      border-color: var(--button-border-color-hover);
+      background-color: var(--button-bg-color-hover);
+    }
+  }
+
+  &:disabled,
+  &.is-disabled {
+    &:not(.is-loading) {
+      color: var(--form-disabled-font-color);
+      border-color: var(--form-disabled-border-color);
+      background-color: var(--form-disabled-bg-color);
+      background-image: none;
+      pointer-events: none;
+    }
+  }
+
+  &.is-active,
+  &:active {
+    color: var(--button-font-color-active);
+    border-color: var(--button-border-color-active);
+    background-color: var(--button-bg-color-active);
+  }
+
+  &.is-loading {
+    opacity: var(--form-disabled-opacity);
+    pointer-events: none;
+  }
+
+  &.link {
+    color: var(--text-link);
+    border-color: transparent;
+    background-color: transparent;
+    &:focus,
+    &:hover {
+      color: var(--text-hover);
+    }
+  }
+
+  &.light {
+    &:disabled,
+    &.is-disabled {
+      &:not(.is-loading) {
+        color: var(--form-disabled-font-color);
+        border-color: var(--form-disabled-border-color);
+        background-color: var(--form-disabled-bg-color);
+      }
+    }
+  }
+
+  &.no-fill {
+    border-color: transparent;
+    background-color: transparent;
+    &.is-hover,
+    &.is-focus,
+    &:focus,
+    &:hover {
+      color: var(--button-font-color-hover);
+      background-color: var(--button-bg-color-hover);
+    }
+    &.is-active,
+    &:active {
+      color: var(--button-font-color-active);
+      background-color: var(--button-bg-color-active);
+    }
+    &:disabled,
+    &.is-disabled {
+      &:not(.is-loading) {
+        color: var(--form-disabled-font-color);
+        border-color: transparent;
+        background-color: transparent;
+      }
+    }
+  }
+
+  &.no-event {
+    pointer-events: none;
+  }
+
+  span {
+    align-items: center;
+  }
+
+  .#{$spinner},
+  .#{$icon} {
+    display: flex;
+    flex-grow: unset;
+    font-size: var(--form-icon-size);
+    width: var(--form-icon-size);
+    height: var(--form-icon-size);
+    color: currentColor;
+    &:not(:only-child) {
+      margin-right: size(4px);
+    }
+  }
+
+  &.icon-left {
+    justify-content: space-between;
+
+    .#{$icon} {
+      order: -1;
+      flex-shrink: 0;
+    }
+  }
+
+  &.icon-right {
+    justify-content: space-between;
+
+    .#{$icon} {
+      order: 1;
+      flex-shrink: 0;
+      margin-right: 0;
+      margin-left: size(4px);
+    }
+  }
+
+  &.rational {
+    span {
+      flex-basis: 0;
+      flex-grow: 1;
+    }
+  }
+
+  &.block,
+  &.full {
+    width: 100%;
+    display: flex;
+  }
+
+  &.round {
+    border-radius: var(--radius-round);
+  }
+
+  &.equal {
+    padding-left: 0;
+    padding-right: 0;
+    min-width: var(--button-height);
+    max-width: var(--button-height);
+    width: var(--button-height);
+    height: var(--button-height);
+    justify-content: center;
+
+    .#{$icon} {
+      margin: 0;
+    }
+  }
+}

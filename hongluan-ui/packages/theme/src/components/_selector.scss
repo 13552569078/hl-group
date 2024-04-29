@@ -1,0 +1,114 @@
+.#{$selector} {
+  position: relative;
+  display: inline-flex;
+
+  &.block {
+    width: 100%;
+  }
+
+  .select-caret {
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    cursor: pointer;
+    transform: translate(0, 40%) rotate(0deg);
+    @include transition(all var(--duration) var(--timing));
+
+    &.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(0, 0) rotate(0deg);
+
+      &.is-open {
+        transform: translate(0, 0) rotate(180deg);
+      }
+    }
+  }
+
+  .select-close {
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    cursor: pointer;
+    transform: translate(0, -40%);
+    @include transition(all var(--duration) var(--timing));
+
+    &.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(0, 0);
+    }
+  }
+
+  .select-caret,
+  .select-close {
+    &.#{$icon} {
+      color: currentColor;
+      width: size(map.get($conf_input, 'font-size'));
+      height: size(map.get($conf_input, 'font-size'));
+    }
+  }
+  .#{$input} {
+    width: 100%;
+    height: auto !important;
+  }
+
+  .selector-input {
+    border: 0;
+    color: inherit;
+  }
+  
+  .selector-tags {
+    width: 100%;
+
+    > span {
+      display: inline-block;
+    }
+
+    .#{$tag} {
+      padding: size(0 6px);
+      height: auto;
+      margin: size(2px 4px 2px 0);
+    }
+
+    > input {
+      display: inline-block;
+      width: auto;
+      padding: size(0 4px);
+      border: none;
+      background-color: transparent;
+      outline: 0;
+    }
+
+    .tag-close {
+      cursor: pointer;
+    }
+
+    + input {
+      z-index: -1;
+    }
+  }
+  .collapse-tags {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    white-space: normal;
+    gap: size(8px);
+    .collapse-tag {
+      flex-shrink: 0 !important;
+      flex-grow: 0 !important;
+    }
+  }
+}
+
+.#{$selector_popper} {
+  .selector-dropdown {
+  }
+  .selector-dropdown-empty {
+    padding: size(map.get($conf_dropdown, 'padding-y') map.get($conf_dropdown, 'padding-x'));
+    margin: 0;
+    text-align: center;
+    color: var(--text-secondary);
+  }
+}

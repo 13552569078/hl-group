@@ -1,0 +1,10 @@
+//spinner样式生成器
+.#{$spinner} {
+  //生成尺寸
+  @each $key, $value in $conf_icon_size {
+    &.#{$key} {
+      --spinner-width: #{size(map.get($value, 'size'))};
+      --spinner-height: #{size(map.get($value, 'size'))};
+    }
+  }
+}

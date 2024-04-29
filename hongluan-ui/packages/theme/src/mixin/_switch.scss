@@ -1,0 +1,19 @@
+//switch样式生成器
+.#{$switch} {
+  //生成类型
+  @each $key, $value in $conf_switch_type {
+    &.#{$key} {
+      --switch-bg-color: #{map.get($value, 'bg-color')};
+      --switch-bg-color-checked: #{map.get($value, 'bg-color-checked')};
+      --switch-border-color: #{map.get($value, 'border-color')};
+      --switch-border-color-checked: #{map.get($value, 'border-color-checked')};
+      --switch-font-color-checked: var(--switch-bg-color-checked);
+    }
+  }
+  //生成尺寸
+  @each $key, $value in $conf_switch_size {
+    &.#{$key} {
+      --switch-height: #{size(map.get($value, 'size'))};
+    }
+  }
+}

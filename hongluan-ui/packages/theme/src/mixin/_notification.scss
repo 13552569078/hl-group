@@ -1,0 +1,10 @@
+//notification样式生成器
+.#{$notification} {
+  //生成类型
+  @each $key, $value in $conf_notification_type {
+    &.#{$key} {
+      --notification-icon-color: #{map.get($value, 'icon-color')};
+      --notification-font-color: #{map.get($value, 'font-color')};
+    }
+  }
+}

@@ -1,0 +1,227 @@
+.#{$group} {
+  --group-gap-x: 0;
+  --group-gap-y: 0;
+  position: relative;
+  display: inline-flex;
+  flex-direction: row;
+  vertical-align: middle;
+  column-gap: var(--group-gap-x);
+  row-gap: var(--group-gap-y);
+  &.full {
+    display: flex;
+    width: 100%;
+    > .group-item,
+    > .#{$group} {
+      flex-grow: 1;
+    }
+  }
+
+  &.full-x {
+    display: flex;
+    width: 100%;
+    > .group-item,
+    > .#{$group} {
+      flex-grow: 1;
+    }
+  }
+
+  &.full-y {
+    display: inline-flex;
+    align-items: flex-start;
+    > .group-item,
+    > .#{$group} {
+      flex-grow: 1;
+    }
+  }
+
+  &.block {
+    display: flex;
+  }
+
+  &.wrap {
+    flex-wrap: wrap;
+    &.full {
+      > .group-item,
+      > .#{$group} {
+        flex-basis: 0;
+        max-width: 100%;
+      }
+    }
+  }
+
+
+
+  &.horizontal {
+    flex-direction: row;
+
+    &.indent {
+      --indent: calc(var(--form-border-width) * -1);
+      > .#{$group}:not(:only-child):not(:first-child),
+      > .group-item:not(:only-child):not(:first-child) {
+        margin-left: var(--indent);
+      }
+    }
+
+    &.merge {
+      > .group-item:not(:first-child):not(:last-child) {
+        border-radius: 0 !important;
+      }
+      > .group-item:not(:only-child):last-child {
+        border-top-left-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+      }
+      > .group-item:not(:only-child):first-child {
+        border-top-right-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+      }
+    }
+
+    &.deep-merge {
+      > .group-item:not(:first-child):not(:last-child),
+      > .group-item:not(:first-child):not(:last-child) .merge-item,
+      > .group-item:not(:first-child):not(:last-child) .merge-item .#{$input},
+      > .group-item:not(:first-child):not(:last-child) .merge-item .#{$button},
+      > .group-item:not(:first-child):not(:last-child) > .#{$input},
+      > .group-item:not(:first-child):not(:last-child) > .#{$button},
+      > .#{$group}:not(:first-child):not(:last-child) .group-item {
+        border-radius: 0 !important;
+      }
+
+      > .group-item:not(:only-child):last-child,
+      > .group-item:not(:only-child):last-child .merge-item,
+      > .group-item:not(:only-child):last-child .merge-item .#{$input},
+      > .group-item:not(:only-child):last-child .merge-item .#{$button},
+      > .group-item:not(:only-child):last-child > .#{$input},
+      > .group-item:not(:only-child):last-child > .#{$button},
+      > .#{$group}:not(:only-child):last-child .group-item:last-child,
+      > .#{$group}:not(:only-child):last-child .group-item:first-child {
+        border-bottom-left-radius: 0 !important;
+      }
+
+      > .group-item:not(:only-child):first-child,
+      > .group-item:not(:only-child):first-child .merge-item,
+      > .group-item:not(:only-child):first-child .merge-item .#{$input},
+      > .group-item:not(:only-child):first-child .merge-item .#{$button},
+      > .group-item:not(:only-child):first-child > .#{$input},
+      > .group-item:not(:only-child):first-child > .#{$button},
+      > .#{$group}:not(:only-child):first-child .group-item:last-child,
+      > .#{$group}:not(:only-child):first-child .group-item:first-child {
+        border-bottom-right-radius: 0 !important;
+      }
+
+      > .group-item:not(:only-child):last-child,
+      > .group-item:not(:only-child):last-child .merge-item,
+      > .group-item:not(:only-child):last-child .merge-item .#{$input},
+      > .group-item:not(:only-child):last-child .merge-item .#{$button},
+      > .group-item:not(:only-child):last-child > .#{$input},
+      > .group-item:not(:only-child):last-child > .#{$button},
+      > .#{$group}:not(:only-child):last-child .group-item:last-child,
+      > .#{$group}:not(:only-child):last-child .group-item:first-child {
+        border-top-left-radius: 0 !important;
+      }
+
+      > .group-item:not(:only-child):first-child,
+      > .group-item:not(:only-child):first-child .merge-item,
+      > .group-item:not(:only-child):first-child .merge-item .#{$input},
+      > .group-item:not(:only-child):first-child .merge-item .#{$button},
+      > .group-item:not(:only-child):first-child > .#{$input},
+      > .group-item:not(:only-child):first-child > .#{$button},
+      > .#{$group}:not(:only-child):first-child .group-item:last-child,
+      > .#{$group}:not(:only-child):first-child .group-item:first-child {
+        border-top-right-radius: 0 !important;
+      }
+    }
+  }
+
+  &.vertical {
+    flex-direction: column;
+
+    &.indent {
+      --indent: calc(var(--form-border-width) * -1);
+      > .#{$group}:not(:only-child):not(:first-child),
+      > .group-item:not(:only-child):not(:first-child) {
+        margin-top: var(--indent);
+      }
+    }
+
+    &.full-x {
+      display: flex;
+      > .group-item,
+      > .#{$group} {
+        flex-grow: 0;
+      }
+    }
+
+    &.merge {
+      > .group-item:not(:first-child):not(:last-child) {
+        border-radius: 0 !important;
+      }
+
+      > .group-item:not(:only-child):first-child {
+        border-bottom-left-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+      }
+
+      > .group-item:not(:only-child):last-child {
+        border-top-left-radius: 0 !important;
+        border-top-right-radius: 0 !important;
+      }
+    }
+
+    &.deep-merge {
+      > .group-item:not(:first-child):not(:last-child),
+      > .group-item:not(:first-child):not(:last-child) .merge-item,
+      > .group-item:not(:first-child):not(:last-child) .merge-item .#{$input},
+      > .group-item:not(:first-child):not(:last-child) .merge-item .#{$button},
+      > .group-item:not(:first-child):not(:last-child) > .#{$input},
+      > .group-item:not(:first-child):not(:last-child) > .#{$button},
+      > .#{$group}:not(:first-child):not(:last-child) .group-item {
+        border-radius: 0 !important;
+      }
+
+      > .group-item:not(:only-child):first-child,
+      > .group-item:not(:only-child):first-child .merge-item,
+      > .group-item:not(:only-child):first-child .merge-item .#{$input},
+      > .group-item:not(:only-child):first-child .merge-item .#{$button},
+      > .group-item:not(:only-child):first-child > .#{$input},
+      > .group-item:not(:only-child):first-child > .#{$button},
+      > .#{$group}:not(:only-child):first-child .group-item:last-child,
+      > .#{$group}:not(:only-child):first-child .group-item:first-child {
+        border-bottom-left-radius: 0 !important;
+      }
+
+      > .group-item:not(:only-child):first-child,
+      > .group-item:not(:only-child):first-child .merge-item,
+      > .group-item:not(:only-child):first-child .merge-item .#{$input},
+      > .group-item:not(:only-child):first-child .merge-item .#{$button},
+      > .group-item:not(:only-child):first-child > .#{$input},
+      > .group-item:not(:only-child):first-child > .#{$button},
+      > .#{$group}:not(:only-child):first-child .group-item:last-child,
+      > .#{$group}:not(:only-child):first-child .group-item:first-child {
+        border-bottom-right-radius: 0 !important;
+      }
+
+      > .group-item:not(:only-child):last-child,
+      > .group-item:not(:only-child):last-child .merge-item,
+      > .group-item:not(:only-child):last-child .merge-item .#{$input},
+      > .group-item:not(:only-child):last-child .merge-item .#{$button},
+      > .group-item:not(:only-child):last-child > .#{$input},
+      > .group-item:not(:only-child):last-child > .#{$button},
+      > .#{$group}:not(:only-child):last-child .group-item:last-child,
+      > .#{$group}:not(:only-child):last-child .group-item:first-child {
+        border-top-left-radius: 0 !important;
+      }
+      
+      > .group-item:not(:only-child):last-child,
+      > .group-item:not(:only-child):last-child .merge-item,
+      > .group-item:not(:only-child):last-child .merge-item .#{$input},
+      > .group-item:not(:only-child):last-child .merge-item .#{$button},
+      > .group-item:not(:only-child):last-child > .#{$input},
+      > .group-item:not(:only-child):last-child > .#{$button},
+      > .#{$group}:not(:only-child):last-child .group-item:last-child,
+      > .#{$group}:not(:only-child):last-child .group-item:first-child {
+        border-top-right-radius: 0 !important;
+      }
+    }
+  }
+}

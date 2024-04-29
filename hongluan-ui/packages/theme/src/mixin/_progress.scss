@@ -1,0 +1,13 @@
+//progress样式生成器
+.#{$progress} {
+  // 生成类型
+  @each $key, $value in $conf_progress_type {
+    .progress-bar {
+      &.#{$key} {
+        --progress-bar-font-color: #{map.get($value, 'bar-font-color')};
+        --progress-bar-bg-color: #{map.get($value, 'bar-bg-color')};
+        --progress-track-bg-color: #{map.get($value, 'track-bg-color')};
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+@use "sass:math";
+@use "sass:map";
+
+@import '../../../node_modules/hongluan-ui/theme/scss/common/config';
+@import '../../../node_modules/@hongluan-ui/styles/2.x/uk3/spec/config';
+
+$features_select: false; // 开启内容保护
+$features_transition: true; // 开启渐显效果
+$features_respond: true; // 开启响应式特性
+$features_rem: false; // 开启rem作为尺寸单位
+
+@import '../../../node_modules/hongluan-ui/theme/scss/components';
+@import '../../../node_modules/hongluan-business-ui/theme/scss/components';
+
+
+$imgPath: '../../../node_modules/@hongluan-ui/styles/images/';
+@import '../../../node_modules/@hongluan-ui/styles/2.x/uk3/themes/pro/index';
+
+// 鸿鸾pro专用样式
+@import "./utils/pro"; 
+// 主题中心样式
+@import "./utils/theme-center";
+
+
+html {
+  --layout: "default";
+}

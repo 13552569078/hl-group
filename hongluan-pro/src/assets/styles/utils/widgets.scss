@@ -1,0 +1,482 @@
+// 多功能卡片
+.multi-card {
+  --card-padding: var(--lg);
+
+  &.float-header {
+    .panel-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      border-bottom: none;
+    }
+
+    &.borderless {
+      .panel-body {
+        padding: var(--card-padding);
+      }
+    }
+  }
+  &.center-body {
+    .panel-body {
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  &.full-thumb {
+    &.borderless {
+      .panel-body {
+        padding: 0;
+      }
+    }
+
+    .card-thumb {
+      border-radius: var(--panel-radius) var(--panel-radius) 0 0;
+      &+.card-content {
+        margin-top: 0;
+      }
+    }
+
+    .card-content {
+      padding: var(--card-padding);
+
+      .card-title {
+        font-size: size(18px);
+        font-weight: 500;
+
+        &+.card-description {
+          padding-top: size(8px);
+        }
+      }
+
+      .card-description {
+        color: var(--text-secondary);
+      }
+
+      .card-tools {
+        padding-top: size(16px);
+      }
+    }
+  }
+
+  .card-thumb {
+    overflow: hidden;
+
+    &+.card-content {
+      margin-top: var(--card-padding);
+    }
+  }
+
+  .card-content {
+    .card-title {
+      font-size: size(18px);
+      font-weight: 500;
+
+      &+.card-description {
+        padding-top: size(8px);
+      }
+    }
+
+    .card-description {
+      color: var(--text-secondary);
+    }
+
+    .card-tools {
+      padding-top: size(16px);
+    }
+  }
+  .panel-footer {
+    &.border-top {
+      border-top: 1px solid var(--border-regular);
+    }
+  }
+}
+
+// 四个角的装饰物，支持任意元素
+.dom-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  .dom-frame {
+    transform: scaleY(-1);
+  }
+  &::after,
+  &::before {
+    position: absolute;
+    content: '';
+    border: 1px solid #fff;
+    width: size(5px);
+    height: size(5px);
+    border-bottom-color: transparent;
+    transition: border 0.4s;
+  }
+  &::before {
+    left: -1px;
+    top: -1px;
+    border-right-color: transparent;
+  }
+  &::after {
+    right: -1px;
+    top: -1px;
+    border-left-color: transparent;
+  }
+}
+
+// 数据单位后缀
+[data-suffix] {
+  position: relative;
+  --suffix-offset: 8%;
+  --suffix-size: var(--font-md);
+  &::after {
+    content: attr(data-suffix);
+    position: absolute;
+    line-height: 1;
+    bottom: var(--suffix-offset);
+    transform: translateY(-50%);
+    margin-left: var(--xxs);
+    font-size: var(--suffix-size);
+    font-weight: normal;
+    color: currentColor;
+    opacity: 0.5;
+  }
+  &.relative {
+    &::after {
+      position: relative;
+    }
+  }
+}
+
+// 内容标题
+.ornament-title {
+  position: relative;
+  display: flex;
+  height: size(44px);
+  align-items: center;
+  padding-left: size(44px);
+  color: var(--text-title);
+  &::before {
+    position: absolute;
+    left: size(14px);
+    content: '';
+    display: block;
+    width: size(8px);
+    height: size(8px);
+    margin-left: size(3px);
+    background-color: var(--main-color);
+    transform: rotate(45deg);
+  }
+  &::after {
+    position: absolute;
+    left: size(14px);
+    content: '';
+    display: block;
+    width: size(14px);
+    height: size(14px);
+    background-color: rgba(var(--rgb-main-color), 0.1);
+    border: size(1px) solid rgba(var(--rgb-main-color), 0.4);
+    transform: rotate(45deg);
+  }
+}
+
+// 内容子标题
+.ornament-sub-title {
+  position: relative;
+  display: flex;
+  font-size: var(--font-lg);
+  align-items: center;
+  padding-left: var(--lg);
+  color: var(--text-title);
+  &::before {
+    position: absolute;
+    left: size(2px);
+    content: '';
+    display: block;
+    width: size(8px);
+    height: size(8px);
+    background-color: var(--main-color);
+    transform: rotate(45deg);
+  }
+}
+
+// 图标背景
+.#{$icon} {
+  &.fill {
+    &.icon-bg-rhombus {
+      position: relative;
+      background-image: url($imgPath + "icon-bg-rhombus.svg");
+      background-size: cover;
+      background-color: transparent;
+      svg {
+        position: absolute;
+        top: 0;
+      }
+    }
+    &.icon-bg-rhombus-red {
+      position: relative;
+      background-image: url($imgPath + "icon-bg-rhombus-red.svg");
+      background-size: cover;
+      background-color: transparent;
+      svg {
+        position: absolute;
+        top: 0;
+      }
+    }
+    &.icon-bg-rhombus-orange {
+      position: relative;
+      background-image: url($imgPath + "icon-bg-rhombus-orange.svg");
+      background-size: cover;
+      background-color: transparent;
+      svg {
+        position: absolute;
+        top: 0;
+      }
+    }
+    &.icon-bg-rhombus-yellow {
+      position: relative;
+      background-image: url($imgPath + "icon-bg-rhombus-yellow.svg");
+      background-size: cover;
+      background-color: transparent;
+      svg {
+        position: absolute;
+        top: 0;
+      }
+    }
+    &.icon-bg-rhombus-blue {
+      position: relative;
+      background-image: url($imgPath + "icon-bg-rhombus-blue.svg");
+      background-size: cover;
+      background-color: transparent;
+      svg {
+        position: absolute;
+        top: 0;
+      }
+    }
+  }
+}
+
+// 卡片 - 旗帜
+.card-flag {
+  --card-padding: var(--md);
+  --card-padding-x: var(--card-padding);
+  --card-padding-y: var(--card-padding);
+  position: relative;
+  overflow: hidden;
+  background-color: var(--bg-light);
+  padding: var(--card-padding-y) var(--card-padding-x);
+  transition: background-color 0.3s ease;
+  border-color: transparent;
+
+  &::before {
+    content: '';
+    border: 0;
+    position: absolute;
+    border-top-width: size(4px);
+    border-style: solid;
+    border-color: inherit;
+    z-index: 1;
+    transition: border-color .3s ease;
+  }
+  &.hover {
+    &:hover {
+      background-color: var(--bg-hover);
+    }
+  }
+  &.left {
+    &::before {
+      left: 0;
+      top: 0;
+      bottom: 0;
+      border-left-width: size(4px);
+    }
+  }
+  &.right {
+    &::before {
+      right: 0;
+      top: 0;
+      bottom: 0;
+      border-right-width: size(4px);
+    }
+  }
+  &.top {
+    &::before {
+      left: 0;
+      right: 0;
+      top: 0;
+      border-top-width: size(4px);
+    }
+  }
+  &.bottom {
+    &::before {
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-right-width: size(4px);
+    }
+  }
+  &.is-active {
+    background-color: var(--bg-hover);
+  }
+}
+
+// 卡片 - 塔罗牌
+.card-tarot {
+  width: 100%;
+  padding: var(--sm);
+  color: #71f8fc;
+  background-color: rgba(#4e7189, 0.12);
+  background-image: url($imgPath + "card-bg.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(#71f8fc, 0.12);
+  transition: all 0.4s;
+  .title {
+    color: currentColor;
+    font-size: size(26px);
+    line-height: 1;
+    margin-top: size(14px);
+    position: relative;
+    &::before {
+      position: absolute;
+      left: 50%;
+      bottom: size(-14px);
+      content: '';
+      width: size(40px);
+      height: size(1px);
+      background-color: currentColor;
+      opacity: 0.3;
+      transform: translateX(-50%) scale(0.5);
+    }
+  }
+  .number {
+    margin-top: size(26px);
+    font-size: var(--font-lg);
+    color: var(--text-secondary);
+    em {
+      color: #71f8fc;
+      transition: color 0.4s;
+    }
+  }
+  .label {
+    color: #fff;
+    white-space: nowrap;
+  }
+  .separator {
+    color: currentColor;
+    width: 100%;
+    max-width: size(106px);
+    margin: size(10px 0 3px);
+  }
+  &:hover {
+    color: #ffea44;
+    background-color: rgba(#8b7e07, 0.12);
+    background-position-y: 0;
+    border-color: rgba(#f5e142, 0.12);
+    transform: scale(1.05);
+    .number {
+      em {
+        color: #ffea44;
+      }
+    }
+
+    .dom-frame {
+      &::after,
+      &::before {
+        border: 1px solid currentColor;
+        border-bottom-color: transparent;
+      }
+      &::before {
+        border-right-color: transparent;
+      }
+      &::after {
+        border-left-color: transparent;
+      }
+    }
+  }
+}
+
+// 卡片 - 视频
+.card-video {
+  position: relative;
+  height: size(110px);
+  background-color: var(--bg-light);
+  overflow: hidden;
+  video {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+  }
+  &.md {
+    height: size(160px);
+  }
+  .title {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    line-height: size(24px);
+    height: size(24px);
+    overflow: hidden;
+    color: #fff;
+    font-size: var(--font-sm);
+    padding: size(0 6px);
+    z-index: 10;
+    &::before {
+      content: '';
+      position: absolute;
+      left: size(0);
+      top: size(0);
+      bottom: size(0);
+      right: size(0);
+      background-color: rgba(#121e2e, 0.5);
+      z-index: -1;
+    }
+  }
+}
+
+// 描述文本
+.info-description {
+  gap: var(--xxs);
+  min-height: size(80px);
+  &.auto-height {
+    min-height: auto;
+  }
+  .label {
+    color: var(--text-secondary);
+  }
+  .content {
+    color: var(--text-regular);
+    font-size: var(--font-lg);
+    line-height: get_line_height(map.get($conf_font_size, 'lg'));
+    font-weight: var(--font-weight-bold);
+  }
+}
+
+// 背景纹理 - 电路
+.texture-bg-circuit {
+  background-image: url($imgPath + "texture-bg-circuit.svg");
+  background-repeat: no-repeat;
+  background-position: 109% center;
+}
+
+// 丝带
+.ribbon-text {
+  position: absolute;
+  background-image: url($imgPath + "ribbon-bg.svg");
+  background-size: cover;
+  background-color: transparent;
+  width: calc(var(--xxs) * 15);
+  height: calc(var(--xxs) * 15);
+  text-align: center;
+  font-size: var(--font-sm);
+  transform: rotate(45deg);
+  line-height: 1.6;
+}
+

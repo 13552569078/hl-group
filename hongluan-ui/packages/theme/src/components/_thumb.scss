@@ -1,0 +1,104 @@
+.#{$thumb} {
+  --thumb-radius: #{size(map.get($conf_thumb, 'radius'))};
+  --thumb-size: #{size(map.get($conf_thumb, 'size'))};
+  --thumb-font-size: #{size(map.get($conf_thumb, 'font-size'))};
+  --thumb-font-color: #{map.get($conf_thumb, 'font-color')};
+  --thumb-border-color: #{map.get($conf_thumb, 'border-color')};
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--thumb-size);
+  height: var(--thumb-size);
+  flex-shrink: 0;
+  flex-grow: 0;
+  background-color: var(--thumb-bg-color);
+  border-radius: var(--thumb-radius);
+  img {
+    display: block;
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: unset;
+    border-radius: inherit;
+  }
+
+  > span {
+    white-space: nowrap;
+    line-height: 1;
+    font-size: var(--thumb-font-size);
+    color: var(--thumb-font-color);
+  }
+
+  &.full {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    img {
+      object-fit: unset;
+    }
+  }
+
+  &.round {
+    border-radius: size(50%);
+    img {
+      border-radius: inherit;
+    }
+  }
+
+  &.bordered {
+    box-sizing: content-box;
+    border: size(2px) solid var(--thumb-border-color);
+
+    &:hover {
+      z-index: 1;
+    }
+  }
+
+  .fill {
+    object-fit: fill;
+  }
+
+  .contain {
+    object-fit: contain;
+  }
+
+  .cover {
+    object-fit: cover;
+  }
+
+  .scale-down {
+    object-fit: scale-down;
+  }
+
+  .thumb-inner {
+    vertical-align: top;
+    
+  }
+
+  .thumb-inner-center {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    display: block;
+  }
+
+  .thumb-error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: var(--font-md);
+    color: var(--text-secondary);
+  }
+
+  .thumb-placeholder {
+    position: absolute;
+  }
+
+  .thumb-preview {
+    cursor: pointer;
+  }
+}

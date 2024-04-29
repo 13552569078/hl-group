@@ -1,0 +1,76 @@
+{
+  "zh-CN": [
+    {
+      "name": "更新日志",
+      "path": "/changelog"
+    },
+    {
+      "groups": [
+        {
+          "groupName": "快速入门",
+          "list": [
+            {
+              "path": "/installation",
+              "title": "安装"
+            }
+          ]
+        },
+        {
+          "groupName": "页面组件",
+          "list": [
+            {
+              "path": "/page-table",
+              "title": "PageTable 主页面表格组件"
+            },
+            {
+              "path": "/page-table-v2",
+              "title": "PageTableV2 主页面表格组件"
+            },
+            {
+              "path": "/action-button",
+              "title": "ActionButton 动作按钮"
+            },
+            {
+              "path": "/file-upload",
+              "title": "FileUpload 表单多种上传"
+            },
+            {
+              "path": "/page-detail",
+              "title": "PageDetail 主页面表格详情组件"
+            }
+          ]
+        },
+        {
+          "groupName": "大屏组件",
+          "list": [
+            {
+              "path": "/v-panel",
+              "title": "Panel 面板组件"
+            },
+            {
+              "path": "/v-modal",
+              "title": "Modal 模态面板"
+            },
+            {
+              "path": "/v-chart",
+              "title": "Chart 大屏图表"
+            }
+          ]
+        },
+        {
+          "groupName": "工具",
+          "list": [
+            {
+              "path": "/utils",
+              "title": "Utils 工具类"
+            },
+            {
+              "path": "/hooks",
+              "title": "Hooks"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

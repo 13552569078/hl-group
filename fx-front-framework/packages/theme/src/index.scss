@@ -1,0 +1,30 @@
+@import "./transition";
+@import "./anim-page";
+@import "./file-upload";
+@import "./page-table-v2";
+
+  // 风险等级配色
+.risk-level-1-color {
+    color: rgba(253, 97, 97, 1);
+}
+.risk-level-1-bg {
+    background-color: rgba(253, 97, 97, 0.24);
+}
+.risk-level-2-color {
+    color: rgba(253, 137, 47, 1);
+}
+.risk-level-2-bg {
+    background-color: rgba(253, 137, 47, 0.24);
+}
+.risk-level-3-color {
+    color: rgba(255, 234, 68, 1);
+}
+.risk-level-3-bg {
+    background-color: rgba(255, 234, 68, 0.24);
+}
+.risk-level-4-color {
+    color: rgba(0, 158, 247, 1);
+}
+.risk-level-4-bg {
+    background-color: rgba(0, 158, 247, 0.24);
+}

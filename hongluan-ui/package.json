@@ -1,0 +1,140 @@
+{
+  "private": true,
+  "packageManager": "pnpm@6.20.2",
+  "workspaces": [
+    "packages/*",
+    "website"
+  ],
+  "engines": {
+    "node": ">= 16"
+  },
+  "scripts": {
+    "cz": "git-cz",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage",
+    "test:ssr": "rimraf ./ssr-testing/screenshots && mkdir ./ssr-testing/screenshots && vitest --config ./ssr-testing/vitest.config.ts",
+    "prepare:e2e": "if [ ! -d \"website-dist\" ]; then pnpm run website-build; fi;",
+    "dev": "pnpm -C play dev",
+    "gen": "bash ./scripts/gc.sh",
+    "gen:version": "sucrase-node scripts/gen-version.ts",
+    "diff:table": "sucrase-node scripts/build-table.ts",
+    "clean": "pnpm run clean:dist && pnpm run -r --parallel clean",
+    "clean:dist": "rimraf dist",
+    "clean:website": "rimraf website-dist",
+    "build": "pnpm gen:version && gulp --require sucrase/register/ts -f build/gulpfile.ts",
+    "format": "pnpm format:scss",
+    "format:scss": "prettier --write **/*.scss",
+    "lint": "eslint ./packages --ext .vue,.js,.ts",
+    "lint-fix": "eslint --fix ./packages --ext .vue,.js,.ts",
+    "website-build": "pnpm run clean:website && cd website && vite build",
+    "website-build:github": "pnpm run clean:website && cd website && vite build -- --github",
+    "website-dev": "cd website && vite",
+    "prepare": "husky install",
+    "postinstall": "pnpm gen:version",
+    "upload": "sh ./scripts/upload2x.sh",
+    "pub": "sh ./scripts/publish.sh"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,vue}": "eslint --fix"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.0"
+  },
+  "dependencies": {
+    "@hongluan-ui/components": "workspace:*",
+    "@hongluan-ui/constants": "workspace:*",
+    "@hongluan-ui/directives": "workspace:*",
+    "@hongluan-ui/hooks": "workspace:*",
+    "@hongluan-ui/locale": "workspace:*",
+    "@hongluan-ui/test-utils": "workspace:*",
+    "@hongluan-ui/theme": "workspace:*",
+    "@hongluan-ui/tokens": "workspace:*",
+    "@hongluan-ui/utils": "workspace:*",
+    "@floating-ui/dom": "^1.0.1",
+    "@popperjs/core": "npm:@sxzz/popperjs-es@^2.11.7",
+    "@vueuse/core": "^9.1.0",
+    "async-validator": "^4.0.7",
+    "dayjs": "^1.11.1",
+    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
+    "lodash-unified": "^1.0.1",
+    "normalize-wheel-es": "^1.2.0",
+    "memoize-one": "^6.0.0",
+    "b-tween": "^0.3.3",
+    "compute-scroll-into-view": "^1.0.17"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^16.2.1",
+    "@commitlint/config-conventional": "^16.2.1",
+    "@hongluan-ui/icons": "^1.4.6",
+    "@pnpm/find-workspace-packages": "^3.1.40",
+    "@pnpm/logger": "^4.0.0",
+    "@pnpm/types": "^7.9.0",
+    "@rollup/plugin-commonjs": "^21.0.1",
+    "@rollup/plugin-node-resolve": "^13.1.3",
+    "@types/fs-extra": "^9.0.13",
+    "@types/gulp": "^4.0.9",
+    "@types/lodash": "^4.14.178",
+    "@types/lodash-es": "^4.17.6",
+    "@types/node": "^17.0.18",
+    "@types/sass": "^1.43.1",
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "@vitejs/plugin-vue": "^2.2.2",
+    "@vitejs/plugin-vue-jsx": "^1.3.7",
+    "@vitest/ui": "^0.5.0",
+    "@vue/test-utils": "^2.0.0",
+    "@vue/tsconfig": "^0.1.3",
+    "c8": "^7.11.0",
+    "chalk": "^4.1.2",
+    "components-helper": "^2.0.0",
+    "csstype": "^2.6.19",
+    "cz-conventional-changelog": "^3.3.0",
+    "esbuild": "^0.14.23",
+    "eslint": "^8.9.0",
+    "eslint-config-prettier": "^8.4.0",
+    "eslint-define-config": "^1.2.5",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^8.4.1",
+    "expect-type": "^0.13.0",
+    "fast-glob": "^3.2.11",
+    "fs-extra": "^10.0.0",
+    "gulp": "^4.0.2",
+    "jsdom": "16.4.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.4",
+    "prettier": "^2.5.1",
+    "pretty-quick": "^3.1.3",
+    "puppeteer": "^13.5.1",
+    "resize-observer-polyfill": "^1.5.1",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.67.3",
+    "rollup-plugin-esbuild": "^4.9.1",
+    "rollup-plugin-filesize": "^9.1.2",
+    "sass": "^1.49.9",
+    "sucrase": "^3.20.3",
+    "ts-morph": "^13.0.3",
+    "type-fest": "^2.12.0",
+    "typescript": "^4.5.5",
+    "unplugin-vue-macros": "^0.11.2",
+    "vitest": "^0.10.0",
+    "vue": "3.2.31",
+    "vue-router": "^4.0.12",
+    "vue-tsc": "0.31.4"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "vite",
+        "react",
+        "react-dom"
+      ]
+    }
+  }
+}

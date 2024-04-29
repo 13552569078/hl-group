@@ -1,0 +1,45 @@
+@use 'sass:math';
+@use 'sass:map';
+
+
+// 引入Config配置文件
+@import '../../../packages/theme/src/common/config';
+
+$conf_layout: (
+  "main-width": 1536px, // 页面主体宽度 *需开启boxed属性
+  "main-max-width": 100%, // 主体最大宽度
+  "main-bg-color": var(--bg-body), // 主体背景
+  "border-color": false, // 边框颜色 (false将不创建样式)
+  "out-padding": 0, // 外部填充
+  "header-height": 64px, // 头部高度 (false将不渲染样式，也不参与页面布局的计算)
+  "header-bg-color": var(--bg-header), // 头部背景
+  "header-shadow": false, // 头部阴影样式 (false为不渲染)
+  "sub-header-height": 54px, // 子头部高度
+  "sub-header-bg-color": var(--bg-content), // 子头部背景
+  "sub-header-shadow": var(--box-shadow-md), // 子头部阴影样式
+  "aside-width": 300px, // 侧栏宽度
+  "aside-width-mini": 80px, // 折叠侧栏宽度
+  "aside-bg-color": #fff, // 侧栏背景
+  "aside-respond-width-collapse": false, // 响应式侧栏折叠尺寸 (false为不渲染)
+  "aside-respond-width-hidden": map.get($conf_respond, 'md'), // 响应式侧栏隐藏尺寸 (false为不渲染)
+  "footer-height": 50px, // 底部高度
+  "footer-bg-color": var(--bg-content), // 底部背景
+);
+
+// 引入hongluan组件
+@import '../../../packages/theme/src/components';
+
+$docPageFontSize: 14px;
+$docPageBorderSize: 1px;
+$docPageAsideItem-Hover: var(--bg-body);
+$docPageRightNavWidth: 260px;
+
+:root {
+  --docDemoBlockBgColor: #ffffff;
+  --docDemoBlockBgColor-Gary: #f8fafc;
+  --docDemoBlockBgColor-Dark: #25303f;
+  --docSourceCodeFontColor: #abb2bf;
+  --docSourceCodeBgColor: #2d3748;
+}
+
+@import './layout.scss';

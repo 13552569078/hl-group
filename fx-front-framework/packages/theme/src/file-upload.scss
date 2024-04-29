@@ -1,0 +1,10 @@
+.fx-file-upload {
+  .is-disabled + .handle-card {
+    display: none;
+  }
+  .custom-file-upload {
+    .is-disabled {
+      margin-top: -12px !important;
+    }
+  }
+}

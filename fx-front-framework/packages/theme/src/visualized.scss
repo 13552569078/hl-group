@@ -1,0 +1,115 @@
+.echart-container {
+  min-height: calc(var(--xxl) * 5);
+}
+.echart-fill-rect {
+  display: flex;
+  width: calc(var(--sm));
+  height: calc(var(--sm));
+}
+.scrolling-bar-chart-container {
+  ::v-deep(.scrollbar-bar.is-vertical) {
+    width: 2px;
+    .scrollbar-thumb {
+      background-color: var(--bar-color);
+    }
+  }
+  .scrolling-bar-chart {
+    .bar-item {
+      margin-top: var(--md);
+      .label-value {
+        display: flex;
+        justify-content: space-between;
+      }
+      .bar-bg {
+        width: 100%;
+        position: relative;
+        .bar {
+          position: absolute;
+          top: 0;
+          height: 100%;
+          width: 0;
+        }
+        &.stack {
+          .bar {
+            position: static;
+            display: inline-block;
+          }
+        }
+      }
+    }
+  }
+}
+
+.scrolling-list-chart-container {
+  ::v-deep(.scrollbar-bar.is-vertical) {
+    width: 2px;
+  }
+  .scrolling-list-chart {
+    .list-item {
+      height: calc(var(--xxs) * 11);
+      background: rgba(56,75,103,0.24);
+      .list-box {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-right: calc(var(--xs) * 6);
+      }
+      .label {
+        padding-right: var(--md);
+        margin-right: var(--xl);
+      }
+      .list-bg {
+        width: 100%;
+        position: relative;
+        display: flex;
+        align-items: center;
+        .list {
+          position: absolute;
+          top: 0;
+          height: 100%;
+          width: 0;
+        }
+        &.stack {
+          .list {
+            position: static;
+            display: inline-block;
+          }
+        }
+        .value {
+          margin-left: var(--xs);
+          font-weight: 600;
+          position: absolute;
+        }
+      }
+    }
+  }
+}
+
+.fx-v-panel {
+  position: relative;
+  .action-bar {
+    position: absolute;
+    top: 0;
+    &.right {
+      right: calc(-1 * calc(1.125rem + var(--xxs) * 2));
+    }
+    &.left {
+      left: calc(-1 * calc(1.125rem + var(--xxs) * 2));
+    }
+    .icon-wrapper {
+      padding: var(--xxs);
+      background: rgba(14,23,38,0.96);
+    }
+    .size-options {
+      color: var(--text-regular);
+      text-align: center;
+      cursor: pointer;
+      background: rgba(14,23,38,0.96);
+
+      span.active {
+        font-weight: bolder;
+        color: var(--primary);
+      }
+    }
+  }
+}

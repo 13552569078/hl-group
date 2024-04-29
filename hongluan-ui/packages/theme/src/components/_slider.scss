@@ -1,0 +1,177 @@
+.#{$slider} {
+  --slider-height: #{size(map.get($conf_slider, 'height'))};
+  --slider-radius: #{size(map.get($conf_slider, 'radius'))};
+  --slider-bar-color: #{map.get($conf_slider, 'bar-color')};
+  --slider-bar-color-disabled: #{map.get($conf_slider, 'bar-color-disabled')};
+  --slider-bg-color: #{map.get($conf_slider, 'bg-color')};
+  --slider-handle-size: #{size(map.get($conf_slider, 'handle-size'))};
+  --slider-handle-color: #{map.get($conf_slider, 'handle-color')};
+  --slider-handle-border-color: #{map.get($conf_slider, 'handle-border-color')};
+  --slider-handle-shadow-color: #{map.get($conf_slider, 'handle-shadow-color')};
+  display: flex;
+  align-items: center;
+  height: var(--form-md);
+  margin-left: calc(var(--slider-handle-size) * 0.5);
+  .slider-wrap {
+    position: relative;
+    cursor: pointer;
+    width: 100%;
+    height: var(--slider-height);
+    border-radius: var(--slider-radius);
+    background-color: var(--slider-bg-color);
+    &.disabled {
+      cursor: default;
+
+      .slider-bar {
+        background-color: var(--slider-bar-color-disabled);
+      }
+
+      .slider-handle-wrap {
+        &.dragging,
+        &.hover,
+        &:hover {
+          cursor: not-allowed;
+        }
+      }
+
+      .slider-handle {
+        &.dragging,
+        &.hover,
+        &:hover {
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+
+  .slider-bar {
+    position: absolute;
+    height: var(--slider-height);
+    background-color: var(--slider-bar-color);
+    border-radius: var(--slider-radius);
+    margin-left: calc(var(--slider-handle-size) * -0.5);
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: calc(var(--slider-handle-size) * -0.5);
+      bottom: 0;
+      border-radius: inherit;
+      background-color: inherit;
+    }
+  }
+
+  .slider-handle-wrap {
+    display: flex;
+    position: absolute;
+    z-index: 1;
+    padding: calc(var(--slider-handle-size) * 0.2);
+    top: 50%;
+    transform: translate(-50%, -50%);
+    user-select: none;
+    outline: none;
+
+    &:after {
+      display: inline-block;
+      content: '';
+      height: 100%;
+      vertical-align: middle;
+    }
+
+    &.dragging {
+      cursor: grabbing;
+    }
+
+    &:hover,
+    &.hover {
+      cursor: grab;
+    }
+  }
+
+  .slider-handle {
+    display: flex;
+    width: var(--slider-handle-size);
+    height: var(--slider-handle-size);
+    border: size(2px) solid var(--slider-handle-border-color);
+    background-color: var(--slider-handle-color);
+    border-radius: var(--slider-radius);
+    @include transition(all var(--duration) var(--timing));
+    user-select: none;
+
+    &.dragging {
+      cursor: grabbing;
+      box-shadow: 0 0 0 var(--slider-handle-size) rgba(var(--slider-handle-shadow-color), 0.2) !important;
+    }
+
+    &.hover,
+    &:hover {
+      cursor: grab;
+      box-shadow: 0 0 0 calc(var(--slider-handle-size) * 0.5) rgba(var(--slider-handle-shadow-color), 0.2);
+    }
+  }
+
+  .slider-stop {
+    position: absolute;
+    height: var(--slider-height);
+    width: var(--slider-height);
+    border-radius: var(--slider-radius);
+    background-color: var(--slider-handle-color);
+    transform: translateX(-50%);
+  }
+
+  .slider-marks {
+    top: 0;
+    left: size(12px);
+    width: size(18px);
+    height: 100%;
+  }
+
+  .slider-marks-text {
+    position: absolute;
+    transform: translateX(-50%);
+    color: var(--text-secondary);
+    margin-top: size(24px);
+  }
+
+  &.is-vertical {
+    position: relative;
+    height: auto;
+    width: var(--form-md);
+    margin-left: unset;
+    justify-content: center;
+    .slider-wrap {
+      width: var(--slider-height);
+      height: 100%;
+    }
+
+    .slider-bar {
+      width: var(--slider-height);
+      height: auto;
+      border-radius: var(--slider-radius);
+      margin-left: unset;
+      &::after {
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
+    }
+
+    .slider-handle-wrap {
+      top: auto;
+      left: 50%;
+      transform: translate(-50%, 50%);
+    }
+
+    .slider-stop {
+      transform: translateY(50%);
+    }
+
+    .slider-marks-text {
+      margin-top: 0;
+      left: 50%;
+      transform: translate(-50%, 50%);
+    }
+  }
+}

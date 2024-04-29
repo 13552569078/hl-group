@@ -1,0 +1,3 @@
+<template>
+  <hl-skeleton />
+</template>

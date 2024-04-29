@@ -1,0 +1,40 @@
+//form样式生成器
+.#{$form} {
+  // 生成类型
+  @each $key, $value in $conf_form_state_type {
+    $_formStateBorderColor: $value;
+
+    .#{$form_item} {
+      &.#{$key} {
+        --form-content-info-font-color: #{$value};
+        .form-content {
+          .#{$input} {
+            &:not(.no-verify):not(.is-focus) {
+              --input-border-color: #{$value};
+              --input-border-color-hover: #{$value};
+              z-index: 1;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // 生成尺寸
+  @each $key, $value in $conf_form_size {
+    .#{$form_item} {
+      &.#{$key} {
+        --form-padding-x: #{size(map.get($value, 'padding-x'))};
+        --form-padding-y: #{size(map.get($value, 'padding-y'))};
+        .form-label {
+          label {
+            font-size: size(map.get($value, 'font-size'));
+            padding-top: calc(var(--form-padding-y));
+            padding-bottom: calc(var(--form-padding-y));
+            line-height: get_line_height(map.get($value, 'font-size'));
+          }
+        }
+      }
+    }
+  }
+}

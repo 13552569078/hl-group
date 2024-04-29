@@ -1,0 +1,119 @@
+.loading-parent-relative {
+  position: relative !important;
+}
+
+.loading-parent-hidden {
+  overflow: hidden !important;
+}
+
+.#{$loading_mask} {
+  position: absolute;
+  z-index: 2000;
+  background-color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  @include transition(opacity var(--duration) var(--timing));
+
+  &.is-fullscreen {
+    position: fixed;
+
+    .loading-spinner {
+      transform: translateY(-50%);
+      .circular {
+        height: size(40px);
+        width: size(40px);
+      }
+    }
+  }
+
+  .loading-spinner {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    text-align: center;
+    position: absolute;
+
+    .loading-text {
+      color: var(--main-color);
+      margin: size(4px) 0;
+      font-size: var(--font-md);
+    }
+
+    .circular {
+      height: size(40px);
+      width: size(40px);
+      -webkit-animation: loading-rotate-anim 2s linear infinite;
+      animation: loading-rotate-anim 2s linear infinite;
+    }
+
+    .path {
+      -webkit-animation: loading-dash-anim 1.5s ease-in-out infinite;
+      animation: loading-dash-anim 1.5s ease-in-out infinite;
+      stroke-dasharray: 90, 150;
+      stroke-dashoffset: 0;
+      stroke-width: 2;
+      stroke: #409eff;
+      stroke-linecap: round;
+    }
+
+    i {
+      color: #409eff;
+    }
+  }
+}
+
+.loading-fade-enter-from,
+.loading-fade-leave-to {
+  opacity: 0;
+}
+
+@-webkit-keyframes loading-rotate-anim {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loading-rotate-anim {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes loading-dash-anim {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: size(-40px);
+  }
+
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: size(-120px);
+  }
+}
+
+@keyframes loading-dash-anim {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: size(-40px);
+  }
+
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: size(-120px);
+  }
+}

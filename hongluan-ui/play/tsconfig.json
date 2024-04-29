@@ -1,0 +1,13 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.web.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "lib": ["ESNext", "DOM"],
+    "types": ["node", "vite/client", "../typings/components"],
+    "paths": {
+      "hongluan-ui": ["../packages/hongluan-ui"]
+    },
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["**/*"]
+}

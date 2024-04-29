@@ -1,0 +1,107 @@
+.#{$notification} {
+  --notification-radius: #{size(map.get($conf_notification, 'radius'))};
+  --notification-padding: #{size(map.get($conf_notification, 'padding'))};
+  --notification-width: #{size(map.get($conf_notification, 'width'))};
+  --notification-bg-color: #{map.get($conf_notification, 'bg-color')};
+  @if map.get($conf_notification, 'border-width') != false {
+    --notification-border-width: #{map.get($conf_notification, 'border-width')};
+  }
+  --notification-border-color: #{map.get($conf_notification, 'border-color')};
+  --notification-icon-size: #{size(map.get($conf_notification, 'icon-size'))};
+  --notification-font-color: #{map.get($conf_notification, 'font-color')};
+  --notification-header-height: #{size(map.get($conf_notification, 'header-height'))};
+  --notification-header-font-size: #{size(map.get($conf_notification, 'header-font-size'))};
+  --notification-header-bg-color: #{map.get($conf_notification, 'header-bg-color')};
+  @if map.get($conf_notification, 'shadow') != false {
+    --notification-shadow: #{map.get($conf_notification, 'shadow')};
+  }
+  position: fixed;
+  width: var(--notification-width);
+  z-index: map.get($conf_z_index, 'level-2');
+  @include transition(
+    opacity 0.4s var(--timing),
+    transform 0.4s var(--timing),
+    left 0.4s var(--timing),
+    right 0.4s var(--timing),
+    top 0.4s var(--timing),
+    bottom 0.4s var(--timing)
+  );
+
+  &.#{$panel} {
+    --panel-radius: var(--notification-radius);
+    --panel-header-height: var(--notification-header-height);
+    --panel-padding: var(--notification-padding);
+    --panel-header-padding: var(--notification-padding);
+    --panel-body-padding: var(--notification-padding);
+    --panel-footer-padding: var(--notification-padding);
+    --panel-bg-color: var(--notification-bg-color);
+    --panel-header-bg-color: var(--notification-header-bg-color);
+    @if map.get($conf_notification, 'border-width') != false {
+      --panel-border-width: var(--notification-border-width);
+      --panel-border-color: var(--notification-border-color);
+    }@else {
+      --panel-border-width: 0px;
+    }
+    --panel-title-font-size: var(--notification-header-font-size);
+    --panel-title-font-color: var(--notification-font-color);
+    @if map.get($conf_notification, 'shadow') != false {
+      --panel-shadow: var(--notification-shadow);
+    }@else {
+      --panel-shadow: none;
+    }
+
+    .panel-header {
+      .panel-header-left {
+        .#{$icon} {
+          --icon-color: var(--notification-icon-color);
+          width: var(--notification-icon-size);
+          height: var(--notification-icon-size);
+        }
+      }
+      .panel-title {
+        font-weight: var(--font-weight-bold);
+      }
+    }
+  }
+
+  &.at-top-right {
+    right: size(16px);
+  }
+
+  &.at-top-left {
+    left: size(16px);
+  }
+
+  &.at-bottom-left {
+    left: size(16px);
+  }
+
+  &.at-bottom-right {
+    right: size(16px);
+  }
+}
+
+.notification-fade-enter-from,
+.notification-fade-leave-to {
+  opacity: 0;
+
+  &.at-top-left {
+    left: 0;
+    transform: translateX(-100%);
+  }
+
+  &.at-top-right {
+    right: 0;
+    transform: translateX(100%);
+  }
+
+  &.at-bottom-left {
+    left: 0;
+    transform: translateX(-100%);
+  }
+
+  &.at-bottom-right {
+    right: 0;
+    transform: translateX(100%);
+  }
+}

@@ -1,0 +1,9 @@
+export const EP_PREFIX = '@fx-front-framework'
+export const EP_PKG = 'fx-front-framework'
+export const COMP_PREFIX = 'fx'
+export const BUNDLE_NAME = 'PcFxyjFramework'
+export const excludes = ['icons']
+export const HL_LIB = 'hongluan-ui'
+export const HL_BUNDLE_NAME = 'HongluanUI'
+export const HB_LIB = 'hongluan-business-ui'
+export const HB_BUNDLE_NAME = 'HongluanBusinessUI'

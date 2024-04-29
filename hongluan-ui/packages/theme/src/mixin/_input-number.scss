@@ -1,0 +1,58 @@
+//input-number样式生成器
+.#{$input_number} {
+  // 生成尺寸
+  @each $key, $value in $conf_form_size {
+    $_inputHeight: map.get($value, 'height');
+    $_inputPaddingTB: map.get($value, 'padding-y');
+    $_inputPaddingLR: map.get($value, 'padding-x');
+    $_inputTextSize: map.get($value, 'font-size');
+    $_inputRadiusSize: map.get($value, 'radius');
+    $_inputIconSize: map.get($value, 'icon-size');
+
+    &.#{$key} {
+      .#{$button} {
+        padding: 0;
+        min-width: size($_inputHeight);
+      }
+      &.btn-vertical {
+        .btn-group {
+          height: size($_inputHeight);
+
+          .#{$button} {
+            width: size($_inputHeight);
+            .#{$icon} {
+              height: 60%;
+            }
+          }
+        }
+      }
+
+      &.btn-inner {
+        .#{$input} {
+          padding-left: size($_inputHeight);
+          padding-right: size($_inputHeight);
+        }
+        .#{$button} {
+          top: calc(#{size($_inputPaddingTB)} + 2px);
+          min-width: calc(#{size($_inputHeight)} - #{size($_inputPaddingTB)} * 2 - 4px);
+          width: calc(#{size($_inputHeight)} - #{size($_inputPaddingTB)} * 2 - 4px);
+          height: calc(#{size($_inputHeight)} - #{size($_inputPaddingTB)} * 2 - 4px);
+          &.decrease {
+            left: size($_inputPaddingTB + 2);
+          }
+          &.increase {
+            right: size($_inputPaddingTB + 2);
+          }
+        }
+      }
+      .#{$input} {
+        &.as-number {
+          min-width: size($_inputHeight);
+          .input-inner {
+            min-width: size($_inputHeight);
+          }
+        }
+      }
+    }
+  }
+}

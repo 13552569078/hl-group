@@ -1,0 +1,13 @@
+{
+  "name": "@hongluan-ui/directives",
+  "description": "Hongluan UI directives",
+  "version": "0.0.5",
+  "main": "index.ts",
+  "module": "index.ts",
+  "unpkg": "index.js",
+  "jsdelivr": "index.js",
+  "license": "MIT",
+  "peerDependencies": {
+    "vue": "^3.2.0"
+  }
+}

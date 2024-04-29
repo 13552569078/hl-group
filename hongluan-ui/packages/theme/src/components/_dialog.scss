@@ -1,0 +1,132 @@
+.#{$dialog} {
+  position: fixed;
+
+  > .#{$panel} {
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--box-shadow-xl);
+    border: none;
+    .panel-header {
+      flex-shrink: 0;
+      flex-grow: unset;
+    }
+
+    .panel-body {
+      // flex-grow: 1;  //默认footer 在最底下
+      max-height: 100%;
+    }
+
+    .panel-footer {
+      flex-shrink: 0;
+      flex-grow: unset;
+    }
+  }
+
+  &.at-center {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    overflow: auto;
+
+    > .#{$panel} {
+      position: relative;
+      margin: size(40px) auto;
+    }
+  }
+
+  &.at-left {
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    > .#{$panel} {
+      &[show-as='drawer'] {
+        border-radius: 0;
+        height: 100%;
+        .panel-header,
+        .panel-footer {
+          border-radius: 0;
+        }
+      }
+    }
+  }
+
+  &.at-right {
+    right: 0;
+    top: 0;
+    bottom: 0;
+
+    > .#{$panel} {
+      &[show-as='drawer'] {
+        border-radius: 0;
+        height: 100%;
+        .panel-header,
+        .panel-footer {
+          border-radius: 0;
+        }
+      }
+    }
+  }
+
+  &.at-top {
+    top: 0;
+    left: 0;
+    right: 0;
+
+    > .#{$panel} {
+      &[show-as='drawer'] {
+        border-radius: 0;
+        width: 100% !important;
+        .panel-header,
+        .panel-footer {
+          border-radius: 0;
+        }
+      }
+    }
+  }
+
+  &.at-bottom {
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    > .#{$panel} {
+      &[show-as='drawer'] {
+        border-radius: 0;
+        width: 100% !important;
+        .panel-header,
+        .panel-footer {
+          border-radius: 0;
+        }
+      }
+    }
+  }
+
+  &.at-fullscreen {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    > .#{$panel} {
+      position: fixed;
+      top: var(--panel-fullscreen-top);
+      right: var(--panel-fullscreen-right);
+      bottom: var(--panel-fullscreen-bottom);
+      left: var(--panel-fullscreen-left);
+      width: auto !important;
+      height: auto !important;
+      transform: translate(0) !important;
+      &[show-as='drawer'] {
+        border-radius: 0;
+
+        .panel-header,
+        .panel-footer {
+          border-radius: 0;
+        }
+      }
+    }
+  }
+}

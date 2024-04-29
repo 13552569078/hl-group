@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": false,
+    "strict": true,
+    "noImplicitAny": false,
+    "skipLibCheck": true,
+    "lib": ["WebWorker"],
+    "paths": {
+      "hongluan-ui": ["../packages/hongluan-ui"],
+    },
+    "types": ["../typings/components"],
+    "jsx": "preserve"
+  },
+  "include": ["**/*"],
+  "exclude": ["node_modules"]
+}

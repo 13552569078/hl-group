@@ -1,0 +1,51 @@
+.#{$link} {
+  --link-text-color: #{size(map.get($conf_link, 'font-color'))};
+  --link-text-color-hover: #{size(map.get($conf_link, 'font-color-hover'))};
+  --link-text-color-active: #{size(map.get($conf_link, 'font-color-active'))};
+  --link-text-color-disabled: var(--form-disabled-font-color);
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  position: relative;
+  text-decoration: none;
+  outline: 0;
+  cursor: pointer;
+  gap: size(4px);
+  color: var(--link-text-color);
+  &:hover {
+    color: var(--link-text-color-hover);
+  }
+  &:active {
+    color: var(--link-text-color-active);
+  }
+  &.is-underline {
+    &:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 0;
+      bottom: 0;
+      border-bottom: 1px solid currentColor;
+    }
+  }
+  &.is-hover-underline {
+    &:hover {
+      &:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 0;
+        bottom: 0;
+        border-bottom: 1px solid currentColor;
+      }
+    }
+  }
+  &.is-disabled {
+    color: var(--link-text-color-disabled);
+    cursor: not-allowed;
+  }
+}

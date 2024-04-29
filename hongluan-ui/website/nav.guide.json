@@ -1,0 +1,118 @@
+{
+  "zh-CN": [
+    {
+      "name": "更新日志",
+      "path": "/changelog",
+      "icon": "Announcement",
+      "color": "primary"
+    },
+    {
+      "name": "组件概览",
+      "path": "/guide/overview",
+      "icon": "Box",
+      "color": "primary"
+    },
+    {
+      "name": "资源",
+      "path": "/guide/resources",
+      "icon": "Archive",
+      "color": "primary"
+    },
+    {
+      "name": "学习视频",
+      "path": "/guide/video",
+      "icon": "Start",
+      "color": "primary"
+    },
+    {
+      "groups": [
+        {
+          "groupName": "快速入门",
+          "list": [
+            {
+              "path": "/guide/installation",
+              "title": "安装"
+            },
+            {
+              "path": "/guide/upgrade_to_v2",
+              "title": "升级至v2"
+            },
+            {
+              "path": "/guide/quickstart",
+              "title": "快速上手"
+            },
+            {
+              "path": "/guide/browser-support",
+              "title": "浏览器支持"
+            },
+            {
+              "path": "/guide/custom-theme",
+              "title": "自定义主题"
+            },
+            {
+              "path": "/guide/dark-mode",
+              "title": "暗色模式"
+            },
+            {
+              "path": "/guide/reboot",
+              "title": "重构"
+            }
+          ]
+        },
+        {
+          "groupName": "工具类（Utility CSS）",
+          "list": [
+            {
+              "path": "/guide/style/typography",
+              "title": "Typography 排版"
+            },
+            {
+              "path": "/guide/style/color",
+              "title": "Color 颜色"
+            },
+            {
+              "path": "/guide/style/display",
+              "title": "Display 展示"
+            },
+            {
+              "path": "/guide/style/flex",
+              "title": "Flex 弹性布局"
+            },
+            {
+              "path": "/guide/style/order",
+              "title": "Order 排列顺序"
+            },
+            {
+              "path": "/guide/style/sizing",
+              "title": "Sizing 尺寸"
+            },
+            {
+              "path": "/guide/style/radius",
+              "title": "Radius 圆角"
+            },
+            {
+              "path": "/guide/style/margin",
+              "title": "Margin 边距"
+            },
+            {
+              "path": "/guide/style/padding",
+              "title": "Padding 填充"
+            },
+            {
+              "path": "/guide/style/borders",
+              "title": "Borders 边框"
+            },
+            {
+              "path": "/guide/style/shadows",
+              "title": "Shadows 阴影"
+            },
+            {
+              "path": "/guide/style/transition",
+              "title": "Transition 动画"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

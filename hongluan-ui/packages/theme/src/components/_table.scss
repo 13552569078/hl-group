@@ -1,0 +1,619 @@
+.#{$table} {
+  position: relative;
+  overflow: hidden;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  width: 100%;
+  max-width: 100%;
+  caption-side: bottom;
+  border-collapse: collapse;
+  --table-padding:  #{size(map.get($conf_table, 'padding'))};
+  --table-cell-padding: #{size(map.get($conf_table, 'td-padding'))};
+  &::before {
+    content: '';
+    position: absolute;
+    background-color: map.get($conf_table, 'border-color');
+    z-index: 1;
+  }
+
+
+  thead {
+    font-weight: map.get($conf_table, 'th-font-weight');
+    color: map.get($conf_table, 'th-color');
+
+    &.is-group {
+      th {
+        background-color: map.get($conf_table, 'th-bg');
+      }
+    }
+  }
+
+
+  td,
+  th {
+    position: relative;
+    height: size(map.get($conf_table, 'td-height'));
+    line-height: line_height(map.get($conf_table, 'font-size'));
+    padding: var(--table-cell-padding);
+    text-align: left;
+    &:first-child {
+      padding-left: var(--table-padding);
+    }
+    &:last-child {
+      padding-right: var(--table-padding);
+    }
+    &.is-center {
+      text-align: center;
+    }
+
+    &.is-right {
+      text-align: right;
+    }
+
+    &.gutter {
+      width: size(16px);
+      border-right-width: 0;
+      border-bottom-width: 0;
+      padding: 0;
+    }
+
+    &.is-hidden>* {
+      visibility: hidden;
+    }
+
+    &.is-leaf {
+      border-bottom: var(--border-width) solid map.get($conf_table, 'border-color');
+    }
+  }
+
+  tr {
+    input[type='checkbox'] {
+      margin: 0;
+    }
+  }
+
+  th {
+    overflow: hidden;
+    user-select: none;
+    background-color: map.get($conf_table, 'th-bg');
+    &:hover {
+      .table-filter-trigger {
+        opacity: 1;
+        visibility: visible;
+
+        &:hover {
+          color: var(--text-regular);
+        }
+      }
+    }
+    &.is-sortable {
+      cursor: pointer;
+    }
+
+    &.highlight {
+      color: var(--main-color);
+    }
+
+    &.required {
+      >div {
+        &::before {
+          display: inline-block;
+          content: '';
+          width: size(8px);
+          height: size(8px);
+          border-radius: 50%;
+          background-color: var(--danger-bg);
+          margin-right: size(4px);
+          vertical-align: middle;
+        }
+      }
+    }
+    .table-filter-trigger {
+      color: var(--text-light);
+    }
+  }
+
+  td {
+    border-bottom: var(--border-width) solid map.get($conf_table, 'border-color');
+    background-color: map.get($conf_table, 'bg');
+    &.gutter {
+      width: 0;
+    }
+  }
+
+  .caret-wrapper {
+    display: inline-flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    height: size(map.get($conf_icon_size, 'xxs', 'size'));
+    width: size(24px);
+    vertical-align: middle;
+    cursor: pointer;
+    overflow: initial;
+    position: relative;
+  }
+
+  .sort-caret {
+    width: 0;
+    height: 0;
+    border: size(5px) solid transparent;
+    position: absolute;
+
+    &.ascending {
+      border-bottom-color: map.get($conf_table, 'border-color');
+      top: size(-4px);
+    }
+
+    &.descending {
+      border-top-color: map.get($conf_table, 'border-color');
+      bottom: size(-4px);
+    }
+  }
+
+  .ascending {
+    .sort-caret {
+      &.ascending {
+        border-bottom-color: var(--main-color);
+      }
+    }
+  }
+
+  .descending {
+    .sort-caret {
+      &.descending {
+        border-top-color: var(--main-color);
+      }
+    }
+  }
+
+  .hidden-columns {
+    visibility: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+
+
+  // 自动撑开列的宽度----------------------------
+  .fit {
+    border-right: 0;
+    border-bottom: 0;
+
+    td,
+    th {
+      &.gutter {
+        border-right-width: var(--border-width);
+      }
+    }
+  }
+
+  .table-hidden {
+    visibility: hidden;
+  }
+
+  .bordered,
+  .table-group {
+    border: var(--border-width) solid map.get($conf_table, 'border-color');
+
+    &::after {
+      content: '';
+      position: absolute;
+      background-color: map.get($conf_table, 'border-color');
+      z-index: 1;
+      top: 0;
+      right: 0;
+      width: var(--border-width);
+      height: 100%;
+    }
+  }
+
+  //带边框
+  &.bordered {
+    border: var(--border-width) solid map.get($conf_table, 'border-color');
+    border-right: none;
+    border-bottom: none;
+
+    th,
+    td {
+      border-right: var(--border-width) solid map.get($conf_table, 'border-color');
+    }
+
+    th {
+      border-bottom: var(--border-width) solid map.get($conf_table, 'border-color');
+
+      &.gutter {
+        &:last-of-type {
+          border-bottom: var(--border-width) solid map.get($conf_table, 'border-color');
+          border-bottom-width: var(--border-width);
+        }
+      }
+    }
+    .table-fixed-right {
+      border-left: var(--border-width) solid map.get($conf_table, 'border-color');
+    }
+  }
+
+  &.border-y {
+    border: var(--border-width) solid map.get($conf_table, 'border-color');
+    th,
+    td {
+      border-bottom: none;
+      border-right: var(--border-width) solid map.get($conf_table, 'border-color');
+    }
+  }
+
+  &.borderless {
+    border: none;
+    th,
+    td {
+      border: none;
+    }
+  }
+
+
+  //斑马纹
+  &.striped-even {
+    .table-body {
+      tr {
+        &:nth-child(even) {
+          background-color: map.get($conf_table, 'bg-striped');
+        }
+      }
+      &.current-row {
+        td {
+          background-color: map.get($conf_table, 'bg-hover');
+        }
+      }
+    }
+  }
+  &.striped-odd {
+    .table-body {
+      tr {
+        &:nth-child(odd) {
+          background-color: map.get($conf_table, 'bg-striped');
+        }
+      }
+      &.current-row {
+        td {
+          background-color: map.get($conf_table, 'bg-hover');
+        }
+      }
+    }
+  }
+
+  //hover效果
+  &.hover {
+    .table-body {
+      tr {
+        &:hover {
+          >td {
+            background-color: map.get($conf_table, 'bg-hover');
+          }
+        }
+      }
+    }
+  }
+
+
+
+  .cell {
+    display: flex;
+    align-items: center;
+
+    &.show-tooltip {
+      // overflow: hidden;
+      // text-overflow: ellipsis;
+      // word-break: break-all;
+      // white-space: nowrap;
+      // display: block;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: var(--line,1);
+      hyphens: none;
+
+    }
+  }
+
+  .#{$checkbox} {
+    display: flex;
+  }
+
+  .table-body,
+  .table-footer,
+  .table-header {
+    table-layout: fixed;
+    border-collapse: separate;
+  }
+
+  //对table warpper的定义 --------------------------------
+  .table-body-wrapper,
+  .table-footer-wrapper,
+  .table-header-wrapper {
+    width: 100%;
+  }
+
+  .table-append-wrapper {
+    overflow: hidden;
+  }
+
+  .table-footer-wrapper {
+    margin-top: var(--border-width);
+
+    td {
+      border-top: var(--border-width) solid map.get($conf_table, 'border-color');
+    }
+  }
+
+
+
+  .table-body-wrapper {
+    overflow: hidden;
+    position: relative;
+
+    &.is-scrolling-none,
+    &.is-scrolling-left {
+      ~.table-fixed {
+        box-shadow: none;
+      }
+    }
+    &.is-scrolling-none,
+    &.is-scrolling-right {
+      ~.table-fixed-right {
+        box-shadow: none;
+        border-left: none;
+      }
+    }
+    
+  }
+
+  .table-footer-wrapper,
+  .table-header-wrapper {
+    overflow: hidden;
+
+    tbody {
+      td {
+        background-color: map.get($conf_table, 'th-bg');
+      }
+    }
+  }
+
+  .table-fixed-body-wrapper {
+    position: absolute;
+    left: 0;
+    top: size(map.get($conf_table, 'td-height'));
+    overflow: hidden;
+    z-index: 3;
+    td {
+      background-color: var(--bg-element);
+    }
+  }
+
+  .table-empty-block {
+    min-height: size(60px);
+    text-align: center;
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .table-empty-text {
+    line-height: size(60px);
+    width: 100%;
+    color: var(--text-secondary);
+  }
+
+  .table-body {
+    tr {
+      &.current-row {
+        >td {
+          background-color: map.get($conf_table, 'bg-striped');
+        }
+      }
+
+      &.hover-row {
+        >td {
+          background-color: map.get($conf_table, 'bg-hover');
+        }
+
+        &.current-row {
+          >td {
+            background-color: map.get($conf_table, 'bg-hover');
+          }
+        }
+      }
+    }
+  }
+
+  .table-expand-column {
+    .cell {
+      padding: 0;
+      text-align: center;
+    }
+  }
+
+  .table-expand-icon {
+    position: relative;
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-size: size(14px);
+    height: size(20px);
+    width: size(20px);
+    vertical-align: middle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.table-expand-icon-expanded {
+      transform: rotate(90deg);
+    }
+
+    i {
+      width: size(map.get($conf_table, 'font-size'));
+      height: size(map.get($conf_table, 'font-size'));
+    }
+
+    .#{$spinner} {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  [class*='table-row-level'] {
+    .table-expand-icon {
+      margin-right: size(8px);
+    }
+  }
+
+  .table-placeholder {
+    display: inline-block;
+    width: size(28px);
+  }
+
+  // 滚动条
+  &.table-scrollable-x {
+    .table-body-wrapper {
+      overflow-x: auto;
+    }
+  }
+
+  &.table-scrollable-y {
+    .table-body-wrapper {
+      overflow-y: auto;
+    }
+  }
+
+  .table-body-wrapper {
+    .table-border {
+      &.is-scrolling-left {
+        ~.table-fixed {
+          border-right: var(--border-width) solid map.get($conf_table, 'border-color');
+        }
+      }
+    }
+  }
+
+
+  .table-fixed,
+  .table-fixed-right {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    box-shadow: var(--box-shadow-xl);
+  }
+
+  .table-fixed-right-patch {
+    position: absolute;
+    top: var(--border-width);
+    right: 0;
+    background-color: map.get($conf_table, 'bg');
+    border-bottom: var(--border-width) solid map.get($conf_table, 'border-color');
+  }
+
+  .table-fixed-right {
+    top: 0;
+    left: auto;
+    right: 0;
+
+    .table-fixed-body-wrapper,
+    .table-fixed-footer-wrapper,
+    .table-fixed-header-wrapper {
+      left: auto;
+      right: 0;
+    }
+  }
+
+  .table-fixed-header-wrapper {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 3;
+  }
+
+  .table-fixed-footer-wrapper {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 3;
+
+    tbody {
+      td {
+        border-top: var(--border-width) solid map.get($conf_table, 'border-color');
+        background-color: map.get($conf_table, 'border-color');
+      }
+    }
+  }
+
+  .table-column-resize-proxy {
+    position: absolute;
+    left: size(200px);
+    top: 0;
+    bottom: 0;
+    width: 0;
+    border-left: var(--border-width) solid map.get($conf_table, 'border-color');
+    z-index: 10;
+  }
+
+  .table-fluid-height {
+
+    .table-fixed,
+    .table-fixed-right {
+      bottom: 0;
+      overflow: hidden;
+    }
+  }
+
+  .table-filter-trigger {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    padding: size(6px);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    @include transition(all var(--duration) var(--timing));
+    .#{$icon} {
+      width: var(--font-md);
+      height: var(--font-md);
+    }
+  }
+}
+
+.popover-table-filter {
+  padding: size(16px);
+  background-color: var(--bg-popup);
+  box-shadow: var(--box-shadow-md);
+  border-radius: var(--radius-md);
+  border: var(--border-width)solid map.get($conf_table, 'border-color');
+
+  .table-filter-content {
+    .#{$checkbox_group} {
+      display: flex;
+      flex-flow: column;
+
+      .#{$checkbox} {
+        margin-bottom: size(8px);
+      }
+    }
+  }
+
+  .table-filter-bottom {
+    margin-top: size(8px);
+
+    .#{$button} {
+      &:first-child {
+        margin-right: size(12px);
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+//tag样式生成器
+.#{$tag} {
+  //生成类型
+  @each $key, $value in $conf_tag_type {
+    &.#{$key} {
+      --tag-font-color: #{map.get($value, 'font-color')};
+      --tag-border-color: #{map.get($value, 'border-color')};
+      --tag-bg-color: #{map.get($value, 'bg-color')};
+      &.outline {
+        --tag-font-color: #{map.get($value, 'bg-color')};
+        --tag-border-color: #{map.get($value, 'bg-color')};
+      }
+      &.light {
+        --tag-font-color: #{map.get($value, 'bg-color')};
+        --tag-border-color: #{map.get($value, 'bg-color-light')};
+        --tag-bg-color: #{map.get($value, 'bg-color-light')};
+        &.outline {
+          --tag-font-color: #{map.get($value, 'bg-color')};
+          --tag-border-color: #{map.get($value, 'bg-color-light')};
+        }
+      }
+    }
+  }
+
+  //生成尺寸
+  @each $key, $value in $conf_tag_size {
+    &.#{$key} {
+      --tag-radius: #{size(map.get($value, 'radius'))};
+      --tag-padding-x: #{size(map.get($value, 'padding-x'))};
+      --tag-padding-y: #{size(map.get($value, 'padding-y'))};
+      --tag-font-size: #{size(map.get($value, 'font-size'))};
+      --tag-height: #{size(map.get($value, 'height'))};
+    }
+  }
+}

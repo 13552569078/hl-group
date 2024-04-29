@@ -1,0 +1,27 @@
+
+.page-theme-list {
+  .panel-body {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-xxl);
+
+    &:hover {
+      .float-panel {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+    .float-panel {
+      opacity: 0;
+      visibility: hidden;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      min-height: size(80px);
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
+      transition: all 0.3s;
+      z-index: 10;
+    }
+  }
+}

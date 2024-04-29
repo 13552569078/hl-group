@@ -1,0 +1,435 @@
+.#{$tabs} {
+  --tabs-radius: #{size(map.get($conf_tabs, 'radius'))};
+  --tabs-height: #{size(map.get($conf_tabs, 'height'))};
+  --tabs-padding: #{size(map.get($conf_tabs, 'padding'))};
+  @if map.get($conf_tabs, 'gap') != false {
+    --tabs-gap: #{size(map.get($conf_tabs, 'gap'))};
+  }
+  --tabs-bg-color: #{map.get($conf_tabs, 'bg-color')};
+  --tabs-border-color: #{map.get($conf_tabs, 'border-color')};
+  --tabs-font-size: #{size(map.get($conf_tabs, 'font-size'))};
+  --tabs-font-weight: #{map.get($conf_tabs, 'font-weight')};
+  --tabs-font-color: #{map.get($conf_tabs, 'font-color')};
+  --tabs-font-color-hover: #{map.get($conf_tabs, 'font-color-hover')};
+  --tabs-font-color-active: #{map.get($conf_tabs, 'font-color-active')};
+  --tabs-bar-color: #{map.get($conf_tabs, 'bar-color')};
+  --tabs-bar-size: #{size(map.get($conf_tabs, 'bar-size'))};
+  --tabs-button-font-color: #{map.get($conf_tabs, 'button-font-color')};
+  --tabs-button-font-color-hover: #{map.get($conf_tabs, 'button-font-color-hover')};
+  --tabs-button-font-color-active: #{map.get($conf_tabs, 'button-font-color-active')};
+  --tabs-button-bg-color: #{map.get($conf_tabs, 'button-bg-color')};
+  --tabs-button-bg-color-hover: #{map.get($conf_tabs, 'button-bg-color-hover')};
+  --tabs-button-bg-color-active: #{map.get($conf_tabs, 'button-bg-color-active')};
+  --tabs-button-border-color: #{map.get($conf_tabs, 'button-border-color')};
+  --tabs-button-border-color-hover: #{map.get($conf_tabs, 'button-border-color-hover')};
+  --tabs-button-border-color-active: #{map.get($conf_tabs, 'button-border-color-active')};
+
+  .tabs-header {
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: var(--border-width);
+      background-color: var(--tabs-border-color);
+      z-index: 1;
+    }
+  }
+
+  .is-scrollable {
+    padding: 0 size(24px);
+  }
+
+  .tabs-wrap {
+    position: relative;
+    overflow: hidden;
+    height: inherit;
+    .next,
+    .prev {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      cursor: pointer;
+      padding: 0 size(4px);
+      color: var(--tabs-font-color);
+      height: var(--tabs-height);
+      .#{$icon} {
+        width: var(--tabs-font-size);
+        height: var(--tabs-font-size);
+      }
+    }
+    .prev {
+      left: 0;
+    }
+
+    .next {
+      right: 0;
+    }
+  }
+
+  .tabs-scroll {
+    overflow: hidden;
+  }
+
+  .tabs-nav {
+    white-space: nowrap;
+    position: relative;
+    @include transition(transform var(--duration) var(--timing));
+    float: left;
+    z-index: 2;
+    height: inherit;
+  }
+
+  .tabs-active-bar {
+    position: absolute;
+    background-color: var(--tabs-bar-color);
+    z-index: 3;
+    @include transition(all 0.2s var(--timing));
+  }
+
+  .tabs-item {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: var(--tabs-padding);
+    padding-right: var(--tabs-padding);
+    height: var(--tabs-height);
+    color: var(--tabs-font-color);
+    font-size: var(--tabs-font-size);
+    font-weight: var(--tabs-font-weight);
+    border: var(--border-width) solid var(--tabs-border-color);
+    background-color: var(--tabs-bg-color);
+    vertical-align: middle;
+    cursor: pointer;
+    &.is-active {
+      color: var(--tabs-font-color-active);
+    }
+    &:hover {
+      color: var(--tabs-font-color-hover);
+    }
+
+    .tab-close {
+      display: flex;
+      margin-left: size(4px);
+      width: size(map.get($conf_icon_size, 'xxs', 'size'));
+      height: size(map.get($conf_icon_size, 'xxs', 'size'));
+      color: var(--text-secondary);
+      opacity: 0.6;
+      transform: translateX(size(4px));
+      cursor: pointer;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  .tab-new {
+    float: right;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 size(8px);
+    height: var(--tabs-height);
+    color: var(--tabs-font-color);
+    border: var(--border-width) solid var(--tabs-border-color);
+    border-radius: var(--tabs-radius) var(--tabs-radius) 0 0;
+    vertical-align: middle;
+    cursor: pointer;
+    .#{$icon} {
+      width: var(--tabs-font-size);
+      height: var(--tabs-font-size);
+    }
+  }
+
+  &.tabs-line {
+    .tabs-item {
+      border: none;
+      background-color: transparent;
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  &.tabs-button {
+    .tabs-item {
+      margin-right: unset;
+      color: var(--tabs-button-font-color);
+      border-color: var(--tabs-button-border-color);
+      border-radius: size(map.get($conf_button, 'radius'));
+      background-color: var(--tabs-button-bg-color);
+      &:hover {
+        color: var(--tabs-button-font-color-hover);
+        border-color: var(--tabs-button-border-color-hover);
+        background-color: var(--tabs-button-bg-color-hover);
+      }
+      &.is-active {
+        color: var(--tabs-button-font-color-active);
+        border-color: var(--tabs-button-border-color-active);
+        background-color: var(--tabs-button-bg-color-active);
+      }
+    }
+    .tabs-header {
+      &::after {
+        background-color: transparent;
+      }
+    }
+    .tabs-active-bar {
+      background-color: transparent;
+    }
+  }
+
+  &.tabs-top {
+    .tabs-header {
+      &::after {
+        bottom: 0;
+      }
+    }
+    .tabs-item {
+      @if map.get($conf_tabs, 'gap') != false {
+        margin-right: var(--tabs-gap);
+        border-top-left-radius: var(--tabs-radius);
+        border-top-right-radius: var(--tabs-radius);
+      } @else {
+        margin-right: calc(var(--border-width) * -1);
+        &:first-child {
+          border-top-left-radius: var(--tabs-radius);
+        }
+        &:last-child {
+          border-top-right-radius: var(--tabs-radius);
+        }
+      }
+
+      &.is-active {
+        border-bottom-color: var(--tabs-bg-color);
+      }
+    }
+    .tabs-active-bar {
+      bottom: 0;
+      left: 0;
+      height: var(--tabs-bar-size);
+    }
+    &.tabs-line {
+      .tabs-item {
+        @if map.get($conf_tabs, 'gap') != false {
+          margin-right: var(--tabs-gap);
+        }
+        border: none;
+        &:nth-child(2) {
+          padding-left: 0;
+        }
+        &:last-child {
+          padding-right: 0;
+        }
+      }
+    }
+    &.tabs-button {
+      .tabs-item {
+        @if map.get($conf_tabs, 'gap') == false {
+          margin-right: 0;
+        }
+        &.is-active {
+          border-color: var(--tabs-button-border-color-active);
+        }
+      }
+    }
+  }
+
+  &.tabs-bottom {
+    .tabs-header {
+      &::after {
+        top: 0;
+      }
+    }
+    .tabs-item {
+      @if map.get($conf_tabs, 'gap') != false {
+        margin-right: var(--tabs-gap);
+        border-bottom-left-radius: var(--tabs-radius);
+        border-bottom-right-radius: var(--tabs-radius);
+      } @else {
+        margin-right: calc(var(--border-width) * -1);
+        &:first-child {
+          border-bottom-left-radius: var(--tabs-radius);
+        }
+        &:last-child {
+          border-bottom-right-radius: var(--tabs-radius);
+        }
+        &:last-child {
+          margin-right: 0;
+        }
+        &.is-active {
+          border-top-color: var(--tabs-bg-color);
+        }
+      }
+    }
+    .tabs-active-bar {
+      top: 0;
+      bottom: auto;
+      left: 0;
+      height: var(--tabs-bar-size);
+    }
+    &.tabs-line {
+      .tabs-item {
+        @if map.get($conf_tabs, 'gap') != false {
+          margin-right: var(--tabs-gap);
+        }
+        border: none;
+        &:nth-child(2) {
+          padding-left: 0;
+        }
+        &:last-child {
+          padding-right: 0;
+        }
+      }
+    }
+    &.tabs-button {
+      .tabs-item {
+        @if map.get($conf_tabs, 'gap') != false {
+          margin-right: var(--tabs-gap, 0);
+        } @else {
+          margin-right: 0;
+        }
+        &.is-active {
+          border-color: var(--tabs-button-border-color-active);
+        }
+      }
+    }
+  }
+
+  &.tabs-right {
+    .tabs-header {
+      float: right;
+      &::after {
+        left: 0;
+        bottom: 0;
+        width: var(--border-width);
+        height: 100%;
+      }
+    }
+    .is-scrollable {
+      padding: size(24px) 0;
+    }
+    .tabs-active-bar {
+      top: 0;
+      left: 0;
+      width: var(--tabs-bar-size);
+    }
+    .tabs-item {
+      display: flex;
+      border: var(--border-width) solid var(--tabs-border-color);
+
+      @if map.get($conf_tabs, 'gap') != false {
+        margin-bottom: var(--tabs-gap);
+        border-top-right-radius: var(--tabs-radius);
+        border-bottom-right-radius: var(--tabs-radius);
+      } @else {
+        margin-bottom: calc(var(--border-width) * -1);
+        &:first-child {
+          border-top-right-radius: var(--tabs-radius);
+        }
+        &:last-child {
+          border-bottom-right-radius: var(--tabs-radius);
+        }
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      &.is-active {
+        border-left-color: var(--tabs-bg-color);
+      }
+    }
+    &.tabs-line {
+      .tabs-item {
+        padding-right: 0;
+        @if map.get($conf_tabs, 'gap') != false {
+          margin-bottom: var(--tabs-gap);
+        }
+        border: none;
+      }
+    }
+    &.tabs-button {
+      .tabs-item {
+        @if map.get($conf_tabs, 'gap') != false {
+          margin-bottom: var(--tabs-gap, 0);
+        } @else {
+          margin-bottom: 0;
+        }
+        border-color: var(--tabs-button-border-color);
+      }
+    }
+  }
+
+  &.tabs-left {
+    .tabs-header {
+      float: left;
+      &::after {
+        top: 0;
+        right: 0;
+        width: var(--border-width);
+        height: 100%;
+      }
+    }
+    .is-scrollable {
+      padding: size(24px) 0;
+    }
+    .tabs-active-bar {
+      top: 0;
+      right: 0;
+      width: var(--tabs-bar-size);
+    }
+    .tabs-item {
+      display: flex;
+      border: var(--border-width) solid var(--tabs-border-color);
+      @if map.get($conf_tabs, 'gap') != false {
+        margin-bottom: var(--tabs-gap);
+        border-top-left-radius: var(--tabs-radius);
+        border-bottom-left-radius: var(--tabs-radius);
+      } @else {
+        margin-bottom: calc(var(--border-width) * -1);
+        &:first-child {
+          border-top-left-radius: var(--tabs-radius);
+        }
+        &:last-child {
+          border-bottom-left-radius: var(--tabs-radius);
+        }
+        &.is-active {
+          border-right-color: var(--tabs-bg-color);
+        }
+      }
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    &.tabs-line {
+      .tabs-item {
+        padding-left: 0;
+        margin-bottom: var(--tabs-gap, calc(var(--border-width) * -1));
+        border: none;
+      }
+    }
+    &.tabs-button {
+      .tabs-item {
+        @if map.get($conf_tabs, 'gap') != false {
+          margin-bottom: var(--tabs-gap, 0);
+        } @else {
+          margin-bottom: 0;
+        }
+        border-color: var(--tabs-button-border-color);
+      }
+    }
+  }
+
+  .tabs-content {
+    height: var(--tabs-pane-height);
+  }
+
+  &.no-pane {
+    .tabs-content {
+      display: none;
+    }
+  }
+}

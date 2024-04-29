@@ -1,0 +1,13 @@
+//slider样式生成器
+.#{$slider} {
+  // 生成类型
+  @each $key, $value in $conf_slider_type {
+    &.#{$key} {
+      --slider-bar-color: #{map.get($value, 'bg-color')};
+      --slider-bar-color-disabled: #{map.get($value, 'bg-color')};
+      --slider-handle-color: #{map.get($value, 'bg-color')};
+      --slider-handle-border-color: #{map.get($value, 'bg-color')};
+      --slider-handle-shadow-color: #{map.get($value, 'shadow-color')};
+    }
+  }
+}

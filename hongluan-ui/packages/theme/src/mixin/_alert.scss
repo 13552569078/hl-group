@@ -1,0 +1,17 @@
+//alert样式生成器
+.#{$alert} {
+  //生成类型
+  @each $key, $value in $conf_alert_type {
+    &.#{$key} {
+      --alert-bg-color: #{map.get($value, 'bg-color')};
+      --alert-border-color: #{map.get($value, 'border-color')};
+      --alert-font-color: #{map.get($value, 'font-color')};
+      &.light {
+        --alert-bg-color: #{map.get($value, 'bg-color-light')};
+        --alert-border-color: #{map.get($value, 'border-color-light')};
+        --alert-font-color: #{map.get($value, 'font-color-light')};
+        --alert-icon-color: #{map.get($value, 'icon-color')};
+      }
+    }
+  }
+}

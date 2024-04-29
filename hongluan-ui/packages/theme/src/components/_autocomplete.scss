@@ -1,0 +1,90 @@
+.#{$autocomplete} {
+  position: relative;
+  display: inline-block;
+
+  &.block {
+    display: block;
+    width: 100%;
+
+    .#{$input} {
+      width: 100%;
+    }
+  }
+}
+
+.#{$autocomplete-popper} {
+  .autocomplete-dropdown {
+    padding: size(map.get($conf_dropdown, 'padding-y')) size(map.get($conf_dropdown, 'padding-x'));
+    &.is-loading {
+      li {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: size(80px);
+        color: var(--text-regular);
+
+        &::after {
+          display: inline-block;
+          content: '';
+          height: 100%;
+          vertical-align: middle;
+        }
+
+        &:hover {
+          background-color: transparent !important;
+        }
+
+        .#{$icon} {
+          width: size(map.get($conf_icon_size, 'lg', 'size'));
+          height: size(map.get($conf_icon_size, 'lg', 'size'));
+        }
+      }
+    }
+  }
+
+  .autocomplete-dropdown-wrap {
+    max-height: size(map.get($conf_dropdown, 'max-height'));
+  }
+
+  .autocomplete-dropdown-list {
+    margin: 0;
+    padding: 0;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+
+    li {
+      position: relative;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      padding: size(map.get($conf_dropdown, 'item-padding-y') map.get($conf_dropdown, 'item-padding-x'));
+      min-height: size(map.get($conf_dropdown, 'item-height'));
+      color: map.get($conf_dropdown, 'item-font-color');
+      font-size: size(map.get($conf_dropdown, 'item-font-size'));
+      @include transition(color var(--duration) var(--timing), background-color var(--duration) var(--timing));
+
+      > div {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .#{$spinner} {
+        color: var(--text-regular);
+      }
+
+      &:focus,
+      &.hover,
+      &:hover {
+        color: map.get($conf_dropdown, 'item-font-color-hover');
+        background-color: map.get($conf_dropdown, 'item-bg-color-hover');
+      }
+
+      &.is-disabled {
+        color: var(--text-light);
+        cursor: not-allowed;
+      }
+    }
+  }
+}

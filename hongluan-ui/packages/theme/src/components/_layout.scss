@@ -1,0 +1,309 @@
+.#{$layout} {
+  --layout-main-width: #{size(map.get($conf_layout, 'main-width'))};
+  --layout-main-max-width: #{size(map.get($conf_layout, 'main-max-width'))};
+  --layout-main-bg-color: #{map.get($conf_layout, 'main-bg-color')};
+  @if map.get($conf_layout, 'border-color') != false {
+    --layout-border-color: #{map.get($conf_layout, 'border-color')};
+  }
+  --layout-out-padding: #{size(map.get($conf_layout, 'out-padding'))};
+  --layout-header-height: #{size(map.get($conf_layout, 'header-height'))};
+  --layout-header-bg-color: #{map.get($conf_layout, 'header-bg-color')};
+  @if map.get($conf_layout, 'header-shadow') != false {
+    --layout-header-shadow: #{map.get($conf_layout, 'header-shadow')};
+  }
+  --layout-sub-header-height: #{size(map.get($conf_layout, 'sub-header-height'))};
+  --layout-sub-header-bg-color: #{map.get($conf_layout, 'sub-header-bg-color')};
+  @if map.get($conf_layout, 'sub-header-shadow') != false {
+    --layout-sub-header-shadow: #{map.get($conf_layout, 'sub-header-shadow')};
+  }
+  --layout-aside-width: #{size(map.get($conf_layout, 'aside-width'))};
+  --layout-aside-width-mini: #{size(map.get($conf_layout, 'aside-width-mini'))};
+  --layout-aside-bg-color: #{map.get($conf_layout, 'aside-bg-color')};
+  --layout-aside-respond-width-hidden: #{size(map.get($conf_layout, 'aside-respond-width-hidden'))};
+  --layout-footer-height: #{size(map.get($conf_layout, 'footer-height'))};
+  --layout-footer-bg-color: #{map.get($conf_layout, 'footer-bg-color')};
+  --layout-aside-respond-width: #{map.get($conf_layout, 'aside-respond-width-collapse')};
+  min-height: 100%;
+  &.fixed-header {
+    .#{$header} {
+      position: sticky;
+      top: 0;
+    }
+  }
+
+  &.fixed-sub-header {
+    .#{$sub_header} {
+      position: sticky;
+      top: var(--layout-header-height);
+    }
+    &:not(.fixed-header) {
+      .#{$sub_header} {
+        top: 0;
+      }
+    }
+  }
+
+  &.fixed-footer {
+    .#{$footer} {
+      position: sticky;
+      bottom: 0;
+    }
+  }
+
+  // 在 fixed-aside 属性的情况下重构布局样式
+  &.fixed-aside {
+    &:not(.boxed) {
+      padding-left: var(--layout-aside-width);
+      @if map.get($conf_layout, 'aside-respond-width-collapse') != false and $features_respond != false {
+        @include respond('max', map.get($conf_layout, 'aside-respond-width-collapse')) {
+          padding-left: var(--layout-aside-width-mini);
+        }
+      }
+      @if map.get($conf_layout, 'aside-respond-width-hidden') != false and $features_respond != false {
+        @include respond('max', map.get($conf_layout, 'aside-respond-width-hidden')) {
+          padding: 0;
+        }
+      }
+
+      .#{$aside} {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        z-index: map.get($conf_z_index, 'level-4');
+      }
+
+      &.fixed-header {
+        &.full-header {
+          padding-top: var(--layout-header-height);
+          .#{$header} {
+            position: fixed;
+            left: 0;
+            right: 0;
+            z-index: map.get($conf_z_index, 'level-4');
+          }
+          .#{$aside} {
+            top: var(--layout-header-height);
+            z-index: map.get($conf_z_index, 'level-4') - 1;
+          }
+        }
+      }
+
+      &.fixed-sub-header {
+        &.full-sub-header {
+          padding-top: calc(var(--layout-header-height) + var(--layout-sub-header-height));
+          .#{$sub_header} {
+            position: fixed;
+            left: 0;
+            right: 0;
+            z-index: map.get($conf_z_index, 'level-4') - 1;
+          }
+          .#{$aside} {
+            top: calc(var(--layout-header-height) + var(--layout-sub-header-height));
+            z-index: map.get($conf_z_index, 'level-4') - 2;
+          }
+          &:not(.fixed-header) {
+            padding-top: 0;
+            .#{$sub_header} {
+              position: sticky;
+              top: 0;
+            }
+            .#{$aside} {
+              top: 0;
+            }
+          }
+          &:not(.full-header) {
+            padding-top: 0;
+            .#{$sub_header} {
+              position: sticky;
+              top: var(--layout-header-height);
+            }
+            .#{$aside} {
+              top: 0;
+            }
+          }
+        }
+      }
+
+      &.fixed-footer {
+        &.full-footer {
+          padding-bottom: var(--layout-footer-height);
+          .#{$footer} {
+            position: fixed;
+            left: 0;
+            right: 0;
+            z-index: map.get($conf_z_index, 'level-4') - 1;
+          }
+          .#{$aside} {
+            bottom: var(--layout-footer-height);
+          }
+        }
+      }
+    }
+  }
+
+  // 在 boxed 属性的情况下重构布局样式
+  &.boxed {
+    @include respond('min', map.get($conf_layout, 'main-width')) {
+      margin: 0 auto;
+      width: var(--layout-main-width);
+    }
+
+    &.fixed-aside {
+      .#{$aside} {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        @if map.get($conf_layout, 'aside-respond-width-hidden') != false and $features_respond != false {
+          @include respond('max', map.get($conf_layout, 'aside-respond-width-hidden')) {
+            position: absolute;
+          }
+        }
+      }
+      &.fixed-header {
+        .#{$aside} {
+          top: var(--layout-header-height);
+          height: calc(100vh - var(--layout-header-height));
+        }
+      }
+      &.fixed-sub-header {
+        .#{$aside} {
+          top: var(--layout-sub-header-height);
+          height: calc(100vh - var(--layout-sub-header-height));
+        }
+      }
+      &.fixed-footer {
+        .#{$footer} {
+          z-index: map.get($conf_z_index, 'level-4') - 2;
+        }
+        .#{$aside} {
+          height: calc(100vh - var(--layout-footer-height));
+        }
+        &.fixed-header {
+          .#{$aside} {
+            height: calc(100vh - var(--layout-header-height) + var(--layout-footer-height));
+          }
+          &.fixed-sub-header {
+            .#{$aside} {
+              top: calc(var(--layout-header-height) + var(--layout-sub-header-height));
+              height: calc(100vh - var(--layout-header-height) + var(--layout-sub-header-height) + var(--layout-footer-height));
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.collapse-aside {
+    .#{$aside} {
+      width: var(--layout-aside-width-mini);
+      display: flex;
+    }
+    &.fixed-aside {
+      &:not(.boxed) {
+        padding-left: var(--layout-aside-width-mini);
+        @if map.get($conf_layout, 'aside-respond-width-hidden') != false and $features_respond != false {
+          @include respond('max', map.get($conf_layout, 'aside-respond-width-hidden')) {
+            padding: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+.#{$header} {
+  --layout-header-height: #{size(map.get($conf_layout, 'header-height'))};
+  --layout-header-bg-color: #{map.get($conf_layout, 'header-bg-color')};
+  @if map.get($conf_layout, 'header-shadow') != false {
+    --layout-header-shadow: #{map.get($conf_layout, 'header-shadow')};
+  }
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: var(--layout-header-height);
+  background-color: var(--layout-header-bg-color);
+  @if map.get($conf_layout, 'header-shadow') != false {
+    box-shadow: var(--layout-header-shadow);
+  }
+  z-index: map.get($conf_z_index, 'level-4') - 1;
+  .header-left {
+    flex-grow: 1;
+    padding: 0 var(--layout-out-padding);
+  }
+  .header-right {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.#{$sub_header} {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: var(--layout-sub-header-height);
+  background-color: var(--layout-sub-header-bg-color);
+  padding: 0 var(--layout-out-padding);
+  @if map.get($conf_layout, 'border-color') != false {
+    border-top: var(--border-width) solid var(--layout-border-color);
+  }
+  box-shadow: var(--layout-sub-header-shadow);
+  z-index: map.get($conf_z_index, 'level-4') - 2;
+}
+
+.#{$aside} {
+  position: relative;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: var(--layout-aside-width);
+  background-color: var(--layout-aside-bg-color);
+  z-index: map.get($conf_z_index, 'level-4') - 3;
+
+  @if map.get($conf_layout, 'aside-respond-width-collapse') != false and $features_respond != false {
+    @include respond('max', map.get($conf_layout, 'aside-respond-width-collapse')) {
+      width: var(--layout-aside-width-mini);
+      display: flex;
+    }
+  }
+
+  @if map.get($conf_layout, 'aside-respond-width-hidden') != false and $features_respond != false {
+    @include respond('max', map.get($conf_layout, 'aside-respond-width-hidden')) {
+      position: absolute;
+      visibility: hidden;
+      opacity: 0;
+      transform: translate(-100%, 0);
+    }
+  }
+}
+
+.#{$footer} {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: var(--layout-footer-height);
+  background-color: var(--layout-footer-bg-color);
+  @if map.get($conf_layout, 'border-color') != false {
+    border-top: var(--border-width) solid var(--layout-border-color);
+  }
+  z-index: map.get($conf_z_index, 'level-4') - 3;
+}
+
+.#{$container} {
+  display: flex;
+  flex: 1;
+  flex-basis: auto;
+  flex-direction: row;
+  width: 100%;
+}
+
+.#{$main} {
+  width: 100%;
+  max-width: var(--layout-main-max-width);
+  margin: 0 auto;
+  padding: var(--layout-out-padding);
+  min-height: calc(100vh - (var(--layout-header-height) + var(--layout-sub-header-height) + var(--layout-footer-height)));
+  @if map.get($conf_layout, 'main-bg-color') {
+    background-color: var(--layout-main-bg-color);
+  }
+}

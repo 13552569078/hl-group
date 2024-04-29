@@ -1,0 +1,741 @@
+@use "sass:math";
+@use "sass:map";
+//+----------------------------------------------------------------------
+// 引入鸿鸾 Config 全局配置文件
+//+----------------------------------------------------------------------
+// @import "../../../node_modules/hongluan-ui/theme/scss/common/config-dark";                 // 配置文件
+
+//+----------------------------------------------------------------------
+//  特征配置
+//+----------------------------------------------------------------------
+$features_select: false; // 开启内容保护
+$features_transition: true; // 开启渐显效果
+$features_respond: true; // 开启响应式特性
+$features_rem: true; // 开启rem作为尺寸单位
+
+
+//+----------------------------------------------------------------------
+// 全局样式设置
+//+----------------------------------------------------------------------
+//--公共属性
+$conf_public: (
+  "rem-radix": 16px, // 尺寸基数 (用于输出rem单位)
+  "font-family" : (-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'),
+  "font-size": 1vw, // 文本尺寸（使用vw或者vh来控制全局比例缩放）
+  "font-weight": 400, // 文本字重 (默认)
+  "font-weight-bold": 600, // 文本字重 (粗体)
+  "border-style": solid, // 边框样式
+  "border-width": 1px, // 边框尺寸
+  "main-color": #40a9ff, // 页面主色系 (品牌色)
+  "shadow-color": #3E4E6A, // 阴影颜色
+  "duration": 0.3s, // 公共动画持续时间
+  "timing": ease, // 公共动画曲线
+  "grid-model": 24, // 栅格模型（24栅格）
+);
+
+//--状态色
+$conf_state_color: (
+  "primary": (
+    "default": #71F8FC,
+    "bg": rgba(#71F8FC,0.1),
+    "hover": rgba(#71F8FC,0.2),
+    "active": rgba(#71F8FC,0.05),
+    "light": #212e48,
+  ),
+  "success": (
+    "default": #72F5AC,
+    "bg": rgba(#72F5AC,0.1),
+    "hover": rgba(#72F5AC,0.2),
+    "active": rgba(#72F5AC,0.05),
+    "light": #1c3238,
+  ),
+  "danger": (
+    "default": #FD6161,
+    "bg": rgba(#FD6161,0.1),
+    "hover": rgba(#FD6161,0.2),
+    "active": rgba(#FD6161,0.05),
+    "light": #3a2434,
+  ),
+  "warning": (
+    "default": #ffc700,
+    "bg": rgba(#ffc700,0.1),
+    "hover": rgba(#ffc700,0.2),
+    "active": rgba(#ffc700,0.05),
+    "light": #392f28,
+  ),
+  "info": (
+    "default": #00A3FF,
+    "bg": rgba(#00A3FF,0.1),
+    "hover": rgba(#00A3FF,0.2),
+    "active": rgba(#00A3FF,0.05),
+    "light": #2f264f,
+  ),
+  "level1": (
+    "default": #FD6161,
+    "bg": rgba(#FD6161,0.1),
+    "hover": rgba(#FD6161,0.2),
+    "active": rgba(#FD6161,0.05),
+    "light": #FD6161,
+  ),
+  "level2": (
+    "default": #FD892F,
+    "bg": rgba(#FD892F,0.1),
+    "hover": rgba(#FD892F,0.2),
+    "active": rgba(#FD892F,0.05),
+    "light": #FD892F,
+  ),
+  "level3": (
+    "default": #DBC200,
+    "bg": rgba(#DBC200,0.1),
+    "hover": rgba(#DBC200,0.2),
+    "active": rgba(#DBC200,0.05),
+    "light": #DBC200,
+  ),
+  "level4": (
+    "default": #009EF7,
+    "bg": rgba(#009EF7,0.1),
+    "hover": rgba(#009EF7,0.2),
+    "active": rgba(#009EF7,0.05),
+    "light": #009EF7,
+  ),
+);
+
+//--背景色
+$conf_bg_color: (
+  "body": #0E1726, // 主体背景 (主体)
+  "content": rgba(#121B2B, 0.72), // 内容区背景 (内容区)
+  "light": rgba(#2F476E, 0.12), // 淡色背景 (用于展示一个范围)
+  "popup": rgba(#1B2637, 0.96), // 弹窗背景 (浮层、弹窗等)
+  "element": rgba(#141B28, 0.60), // 组件元素背景
+  "hover": rgba(#384B67, 0.56), // 悬停背景
+  "active": rgba(#384B67, 0.56), // 激活背景
+  "header": rgba(#384B67, 0.32), // 标题背景
+  "backdrop": rgba(#0E1726, 0.84), // 背景幕布
+);
+
+//--文本色
+$conf_font_color: (
+  "regular": #FFFFFF, // 常用
+  "secondary": #6F8EA8, // 次要
+  "light": #415369, // 淡色、禁用色
+  "lightest": #202d3e, // 淡色/超淡色
+  "title": #FFFFFF, // 标题
+  "link": #71F8FC, // 链接
+  "hover": #71F8FC, // 悬停
+  "active": #71F8FC, // 激活
+  "inverse": #FFFFFF, // 反色
+);
+
+//--边框颜色
+$conf_border_color: (
+  "regular": #253346, // 默认
+  "light": #162334, // 淡色
+  "dark": #34435A, // 深色
+);
+
+//--阴影样式
+$conf_box_shadow: (
+  "sm": (0 2px 4px 0) rgba(var(--shadow-color, 2, 6, 12), 0.1),
+  "md": (0 2px 14px 0) rgba(var(--shadow-color, 2, 6, 12), 0.1),
+  "lg": (0 6px 24px 0) rgba(var(--shadow-color, 2, 6, 12), 0.15),
+  "xl": (0 12px 40px 0) rgba(var(--shadow-color, 2, 6, 12), 0.25),
+);
+
+//--滤镜阴影样式
+$conf_drop_shadow: (
+  "sm": 0 5px 4px rgba(var(--shadow-color, 62, 78, 106), 0.3),
+  "md": 0 10px 8px rgba(var(--shadow-color, 62, 78, 106), 0.4),
+  "lg": 0 2px 14px rgba(var(--shadow-color, 2, 6, 12), 0.25),
+  "xl": 0 20px 8px rgba(var(--shadow-color, 62, 78, 106), 0.5),
+);
+
+//+----------------------------------------------------------------------
+// Icon 属性设置
+//+----------------------------------------------------------------------
+// Icon 类型
+$conf_icon_type: (
+  "primary": (
+    "bg-color": var(--primary),
+    "icon-color": var(--text-inverse),
+    "bg-color-light": var(--primary-light),
+  ),
+  "info": (
+    "bg-color": var(--info),
+    "icon-color": var(--text-inverse),
+    "bg-color-light": var(--info-light),
+  ),
+  "success": (
+    "bg-color": var(--success),
+    "icon-color": var(--text-inverse),
+    "bg-color-light": var(--success-light),
+  ),
+  "warning": (
+    "bg-color": var(--warning),
+    "icon-color": var(--text-inverse),
+    "bg-color-light": var(--warning-light),
+  ),
+  "danger": (
+    "bg-color": var(--danger),
+    "icon-color": var(--text-inverse),
+    "bg-color-light": var(--danger-light),
+  ),
+  "level1": (
+    "bg-color": #FD6161,
+    "icon-color": #FD6161,
+    "bg-color-light": rgba(#FD6161, 0.12),
+  ),
+  "level2": (
+    "bg-color": #FD892F,
+    "icon-color": #FD892F,
+    "bg-color-light": rgba(#FD892F, 0.12),
+  ),
+  "level3": (
+    "bg-color": #DBC200,
+    "icon-color": #DBC200,
+    "bg-color-light": rgba(#DBC200, 0.12),
+  ),
+  "level4": (
+    "bg-color": #009EF7,
+    "icon-color": #009EF7,
+    "bg-color-light": rgba(#009EF7, 0.12),
+  ),
+);
+
+
+//+----------------------------------------------------------------------
+// Layout 属性设置
+//+----------------------------------------------------------------------
+$conf_layout: (
+  "main-width": 1440px, // 页面主体宽度 *需开启boxed属性
+  "main-max-width": 1600px, // 主体最大宽度
+  "main-bg-color": var(--bg-body), // 主体背景
+  "border-color": false, // 边框颜色 (false将不创建样式)
+  "out-padding": var(--xl), // 外部填充
+  "header-height": 64px, // 头部高度
+  "header-bg-color": var(--bg-header), // 头部背景
+  "header-shadow": false, // 头部阴影样式 (false为不渲染)
+  "sub-header-height": 54px, // 子头部高度
+  "sub-header-bg-color": var(--bg-content), // 子头部背景
+  "sub-header-shadow": var(--box-shadow-md), // 子头部阴影样式
+  "aside-width": 260px, // 侧栏宽度
+  "aside-width-mini": 74px, // 折叠侧栏宽度 (false为不渲染)
+  "aside-bg-color": #242939, // 侧栏背景
+  "aside-respond-width-collapse": 1440px, // 响应式侧栏折叠尺寸 (false为不渲染)
+  "aside-respond-width-hidden": map.get($conf_respond, 'md'), // 响应式侧栏隐藏尺寸
+  "footer-height": 50px, // 底部高度
+  "footer-bg-color": var(--bg-content), // 底部背景
+);
+
+//+----------------------------------------------------------------------
+// NavMenu 属性设置
+//+----------------------------------------------------------------------
+$conf_menu: (
+  "height": 80px, // 元素高度
+  "width-collapse": 80px, // 折叠导航宽度
+  "font-size": var(--font-md), // 文本尺寸
+  "icon-size": 18px, // 图标尺寸
+  "icon-color": #4B5575, // 图标颜色 (默认)
+  "icon-color-hover": #3699ff, // 图标颜色 (悬停)
+  "icon-color-active": #3699ff, // 图标颜色 (激活)
+  "font-color": #989eb3, // 文本颜色 (默认)
+  "font-color-hover": #FFFFFF, // 文本颜色 (悬停)
+  "font-color-active": #FFFFFF, // 文本颜色 (激活)
+  "bg-color": #242939, // 背景颜色 (默认)
+  "bg-hover": #1f2433, // 背景颜色 (悬停)
+  "bg-active": #1f2433, // 背景颜色 (激活)
+  "group-title-color": lighten(#242939, 15%), // 组标题颜色
+  "child-bg-color": #1e2230, // 子菜单背景颜色
+  "child-font-size": var(--font-md), // 子菜单文本尺寸
+  "item-height": 46px, // 高度
+  "item-padding-y": var(--sm), // 填充
+  "item-padding-x": 2em, // 填充
+  "subitem-indent": 1em, // 子菜单缩进尺寸
+  "dropdown-shadow": var(--box-shadow-md), // 下拉菜单阴影样式
+);
+
+
+//+----------------------------------------------------------------------
+// Panel 属性设置
+//+----------------------------------------------------------------------
+$conf_panel: (
+  "radius": 0, // 圆角尺寸
+  "padding": var(--lg), // 填充尺寸
+  "header-height": 58px, // 标题栏高度
+  "bg-color": rgba(map.get($conf_bg_color, 'body'), 0.96), // 背景颜色
+  "border-width": 1px, // 边框尺寸
+  "border-color": var(--border-regular), // 边框颜色
+  "title-font-size": var(--font-h4), // 文本尺寸
+  "title-font-color": var(--text-regular), // 文本颜色 (默认)
+  "shadow": var(--box-shadow-md), // 阴影样式 (false为不渲染)
+);
+
+
+//+----------------------------------------------------------------------
+// Form 表单元素通用属性设置
+//+----------------------------------------------------------------------
+$conf_form: (
+  "radius": 0, // 圆角尺寸
+  "padding-y": 6px, // 标签填充 (上下)
+  "padding-x": 12px, // 标签填充 (左右)
+  "sm": 28px, // 高度 (sm)
+  "md": 36px, // 高度 (md)
+  "lg": 44px, // 高度 (lg)
+  "bg-color": var(--bg-element), // 通用表单元素背景
+  "border-width": 1px, // 默认边框尺寸
+  "border-color": var(--border-dark), // 默认边框颜色
+  "disabled-border-color": var(--border-light), // 禁用状态边框色
+  "disabled-bg-color": var(--bg-light), // 禁用状态背景色
+  "disabled-font-color": var(--text-light), // 禁用状态文本色
+  "disabled-opacity": 0.5, // 禁用状态透明度
+  "icon-size": 16px, // 内嵌icon尺寸
+  "icon-color": var(--text-light), // 内嵌icon颜色
+  "shadow-size": false, // 焦点光晕 (尺寸) (false为不渲染box-shadow)
+  "shadow-opcity": 0.1, // 焦点光晕 (透明度)
+  "shadow-color": var(--rgb-primary), // 焦点光晕颜色 (仅支持rgb值)
+);
+// Form 表单元素 尺寸
+$conf_form_size: (
+  "sm": (
+    "height": var(--form-sm),
+    "padding-x": 8px,
+    "padding-y": 3px,
+    "font-size": 12px,
+    "radius": 0,
+    "icon-size": var(--font-md),
+  ),
+  "md": (
+    "height": var(--form-md),
+    "padding-x": 12px,
+    "padding-y": 6px,
+    "font-size": 14px,
+    "radius": 0,
+    "icon-size": var(--font-lg),
+  ),
+  "lg": (
+    "height": var(--form-lg),
+    "padding-x": 16px,
+    "padding-y": 9px,
+    "font-size": 16px,
+    "radius": 0,
+    "icon-size": var(--font-xl),
+  ),
+);
+
+
+//+----------------------------------------------------------------------
+// Button 属性设置
+//+----------------------------------------------------------------------
+$conf_button: (
+  "radius": var(--form-radius), // 圆角尺寸
+  "padding-y": var(--form-padding-y), // 填充尺寸 (上下)
+  "padding-x": var(--form-padding-x), // 填充尺寸 (左右)
+  "min-width": false, // 最小宽度 (false为不渲染)
+  "height": var(--form-md), // 元素高度
+  "font-weight": 400, // 文本重量
+  "font-size": var(--font-md), // 文本尺寸
+  "border-width": var(--form-border-width), // 边框尺寸
+  "font-color": var(--text-regular), // 文本颜色 (默认)
+  "font-color-hover": var(--text-inverse), // 文本颜色 (悬停)
+  "font-color-active": var(--text-inverse), // 文本颜色 (激活)
+  "border-color": #405370, // 边框颜色 (默认)
+  "border-color-hover": #71F8FC, // 边框颜色 (悬停)
+  "border-color-active": #71F8FC, // 边框颜色 (激活)
+  "bg-color": rgba(#141B28, 0.6), // 背景颜色 (默认)
+  "bg-color-hover": rgba(#047376,0.36), // 背景颜色 (悬停)
+  "bg-color-active": #141B28, // 背景颜色 (激活)
+);
+// Button 类型
+$conf_button_type: (
+  "primary": (
+    "font-color": var(--text-inverse),
+    "font-color-hover": var(--text-inverse),
+    "font-color-active": var(--text-inverse),
+    "border-color": var(--primary),
+    "border-color-hover": var(--primary),
+    "border-color-active": var(--primary),
+    "bg-color": var(--primary-bg),
+    "bg-color-hover": var(--primary-hover),
+    "bg-color-active": var(--primary-active),
+    "bg-color-light": var(--primary-light),
+    "shadow-color": var(--rgb-primary),
+  ),
+  "info": (
+    "font-color": var(--text-inverse),
+    "font-color-hover": var(--text-inverse),
+    "font-color-active": var(--text-inverse),
+    "border-color": var(--info),
+    "border-color-hover": var(--info),
+    "border-color-active": var(--info),
+    "bg-color": var(--info-bg),
+    "bg-color-hover": var(--info-hover),
+    "bg-color-active": var(--info-active),
+    "bg-color-light": var(--info-light),
+    "shadow-color": var(--rgb-info),
+  ),
+  "success": (
+    "font-color": var(--text-inverse),
+    "font-color-hover": var(--text-inverse),
+    "font-color-active": var(--text-inverse),
+    "border-color": var(--success),
+    "border-color-hover": var(--success),
+    "border-color-active": var(--success),
+    "bg-color": var(--success-bg),
+    "bg-color-hover": var(--success-hover),
+    "bg-color-active": var(--success-active),
+    "bg-color-light": var(--success-light),
+    "shadow-color": var(--rgb-success),
+  ),
+  "warning": (
+    "font-color": var(--text-inverse),
+    "font-color-hover": var(--text-inverse),
+    "font-color-active": var(--text-inverse),
+    "border-color": var(--warning),
+    "border-color-hover": var(--warning),
+    "border-color-active": var(--warning),
+    "bg-color": var(--warning-bg),
+    "bg-color-hover": var(--warning-hover),
+    "bg-color-active": var(--warning-active),
+    "bg-color-light": var(--warning-light),
+    "shadow-color": var(--rgb-warning),
+  ),
+  "danger": (
+    "font-color": var(--text-inverse),
+    "font-color-hover": var(--text-inverse),
+    "font-color-active": var(--text-inverse),
+    "border-color": var(--danger),
+    "border-color-hover": var(--danger),
+    "border-color-active": var(--danger),
+    "bg-color": var(--danger-bg),
+    "bg-color-hover": var(--danger-hover),
+    "bg-color-active": var(--danger-active),
+    "bg-color-light": var(--danger-light),
+    "shadow-color": var(--rgb-danger),
+  ),
+);
+
+
+//+----------------------------------------------------------------------
+// Input 属性设置
+//+----------------------------------------------------------------------
+$conf_input: (
+  "radius": var(--form-radius), // 圆角尺寸
+  "padding-y": var(--form-padding-y), // 填充尺寸 (上下)
+  "padding-x": var(--form-padding-x), // 填充尺寸 (左右)
+  "height":var(--form-md), // 高度
+  "font-size": map.get($conf_font_size, 'md', 'size'), // 文本尺寸 (不支持var值)
+  "font-color": var(--text-regular), // 文本颜色 (默认)
+  "font-color-hover": var(--text-regular), // 文本颜色 (悬停)
+  "font-color-focus": var(--text-regular), // 文本颜色 (焦点)
+  "border-color": var(--form-border-color), // 边框颜色 (默认)
+  "border-color-hover": var(--form-border-color), // 边框颜色 (悬停)
+  "border-color-focus": var(--primary), // 边框颜色 (焦点)
+  "bg-color": var(--form-bg-color), // 背景颜色 (默认)
+  "bg-color-hover": var(--form-bg-color), // 背景颜色 (悬停)
+  "bg-color-focus": var(--form-bg-color), // 背景颜色 (焦点)
+  "bg-color-fill": #0e1422, // 背景颜色 (淡色)
+);
+
+
+//+----------------------------------------------------------------------
+// Checkbox & Radio 属性设置
+//+----------------------------------------------------------------------
+$conf_checkbox: (
+  "radius": var(--form-radius), // 圆角尺寸
+  "size": 18px, // 尺寸
+  "icon-color": var(--text-inverse), // 图标颜色
+  "font-color": var(--text-regular), // 文本颜色
+  "font-size": var(--font-md), // 文本尺寸
+  "border-color": var(--form-border-color), // 边框颜色 (默认)
+  "border-color-hover": var(--primary), // 边框颜色 (悬停)
+  "border-color-checked": var(--primary), // 边框颜色 (选中)
+  "bg-color": var(--form-bg-color), // 背景颜色 (默认)
+  "bg-color-hover": var(--form-bg-color), // 背景颜色 (悬停)
+  "bg-color-checked": var(--form-bg-color), // 背景颜色 (选中)
+);
+// Checkbox 尺寸
+$conf_checkbox_size: (
+  "sm": (
+    "radius": 0,
+    "size": 16px,
+    "font-size": var(--font-sm),
+  ),
+  "md": (
+    "radius": 0,
+    "size": 18px,
+    "font-size": var(--font-md),
+  ),
+  "lg": (
+    "radius": 0,
+    "size": 24px,
+    "font-size": var(--font-lg),
+  ),
+);
+
+//+----------------------------------------------------------------------
+// Tag 属性设置
+//+----------------------------------------------------------------------
+$conf_tag: (
+  "radius": 2px, // 圆角尺寸
+  "padding-y": 2px, // 填充尺寸 (上下)
+  "padding-x": var(--sm), // 填充尺寸 (左右)
+  "height": var(--form-sm), // 元素高度
+  "font-size": var(--font-md), // 文本尺寸
+  "font-color": var(--text-regular), // 文本颜色
+  "border-color": var(--border-regular), // 边框颜色
+  "bg-color": var(--bg-hover), // 背景颜色
+);
+// Tag 类型
+$conf_tag_type: (
+  "primary": (
+    "font-color": var(--text-inverse),
+    "border-color": var(--primary),
+    "bg-color": var(--primary-bg),
+    "bg-color-light": var(--primary-light),
+  ),
+  "info": (
+    "font-color": var(--text-inverse),
+    "border-color": var(--info),
+    "bg-color": var(--info-bg),
+    "bg-color-light": var(--info-light),
+  ),
+  "success": (
+    "font-color": var(--text-inverse),
+    "border-color": var(--success),
+    "bg-color": var(--success-bg),
+    "bg-color-light": var(--success-light),
+  ),
+  "warning": (
+    "font-color": var(--text-inverse),
+    "border-color": var(--warning),
+    "bg-color": var(--warning-bg),
+    "bg-color-light": var(--warning-light),
+  ),
+  "danger": (
+    "font-color": var(--text-inverse),
+    "border-color": var(--danger),
+    "bg-color": var(--danger-bg),
+    "bg-color-light": var(--danger-light),
+  ),
+  "orange": (
+    "font-color": #FD892F,
+    "border-color": transparent,
+    "bg-color": rgba(#EB8417, 0.24),
+    "bg-color-light": var(--success-light),
+  ),
+  "red": (
+    "font-color": #FF6060,
+    "border-color": transparent,
+    "bg-color": rgba(#F0254B, 0.24),
+    "bg-color-light": var(--danger-light),
+  ),
+  "yellow": (
+    "font-color": #FFEA44,
+    "border-color": transparent,
+    "bg-color": rgba(#D1B818, 0.24),
+    "bg-color-light": var(--warning-light),
+  ),
+  "blue": (
+    "font-color": #339AFF,
+    "border-color": transparent,
+    "bg-color": rgba(#2581FF, 0.24),
+    "bg-color-light": var(--primary-light),
+  ),
+  "pink": (
+    "font-color": #DA66CE,
+    "border-color": transparent,
+    "bg-color": rgba(#CE4AC0, 0.24),
+    "bg-color-light": var(--primary-light),
+  ),
+  "purple": (
+    "font-color": #9084FF,
+    "border-color": transparent,
+    "bg-color": rgba(#796BF3, 0.24),
+    "bg-color-light": var(--primary-light),
+  ),
+  "level1": (
+    "font-color": #F0254B,
+    "border-color": transparent,
+    "bg-color": rgba(#F0254B, 0.24),
+    "bg-color-light": rgba(#F0254B, 0.24),
+  ),
+  "level2": (
+    "font-color": #FD892F,
+    "border-color": transparent,
+    "bg-color": rgba(#FD892F, 0.24),
+    "bg-color-light": rgba(#FD892F, 0.24),
+  ),
+  "level3": (
+    "font-color": #FFEA44,
+    "border-color": transparent,
+    "bg-color": rgba(#FFEA44, 0.24),
+    "bg-color-light": rgba(#FFEA44, 0.24),
+  ),
+  "level4": (
+    "font-color": #3E7DFF,
+    "border-color": transparent,
+    "bg-color": rgba(#3E7DFF, 0.24),
+    "bg-color-light": rgba(#3E7DFF, 0.24),
+  ),
+);
+
+
+//+----------------------------------------------------------------------
+// Tables 属性设置
+//+----------------------------------------------------------------------
+$conf_table: (
+  "radius": var(--form-radius), // 圆角尺寸
+  "padding": var(--sm), // 外侧填充尺寸
+  "cell-padding": var(--sm), // 单元格填充尺寸
+  "font-color": var(--text-regular), // 文本颜色
+  "font-size": var(--font-md), // 文本尺寸
+  "tree-indent": 1em, // 树形结构缩进尺寸
+  "border-color": var(--border-regular), // 边框颜色
+  "striped-color": var(--bg-light), // 条纹背景颜色
+  "highlight-color": var(--bg-active), // 高亮行背景颜色
+  "list-td-bg-color": var(--bg-light), // 列表样式背景颜色
+  "th-height": 48px, // 表头高度
+  "th-bg-color": var(--bg-header), // 表头背景
+  "th-font-weight": var(--font-weight), // 表头文本重量
+  "th-font-color": var(--text-secondary), // 表头文本颜色
+  "td-height": 48px, // 单元格高度
+  "td-bg-color": transparent, // 单元格背景颜色
+  "td-bg-color-hover": var(--bg-hover), // 单元格背景颜色 (悬停)
+);
+
+
+//+----------------------------------------------------------------------
+// Collapse 属性设置
+//+----------------------------------------------------------------------
+$conf_collapse: (
+  "radius": var(--form-radius), // 圆角尺寸
+  "gap": var(--xs), // 间隙
+  "padding-x": var(--md), // 填充尺寸 (左右)
+  "content-padding": var(--md), // 内容区填充尺寸 (可使用数组)
+  "content-bg-color": var(--bg-content), // 内容区背景颜色
+  "content-bg-color-active": var(--bg-content), // 内容区背景颜色 (激活)
+  "content-bg-color-disabled": var(--bg-content), // 内容区背景颜色 (禁用)
+  "title-height": 44px, // 标题高度
+  "title-font-size": var(--font-lg), // 标题文本尺寸
+  "title-bg-color": var(--bg-light), // 标题背景
+  "title-bg-color-hover": var(--bg-light), // 标题背景 (悬停)
+  "title-bg-color-active": var(--bg-light), // 标题背景 (激活)
+  "title-bg-color-disabled": var(--bg-light), // 标题背景 (禁用)
+  "title-font-color": var(--text-regular), // 标题颜色
+  "title-font-color-hover": var(--text-title), // 标题颜色 (悬停)
+  "title-font-color-active": var(--text-title), // 标题颜色 (激活)
+  "title-font-color-disabled": var(--text-light), // 标题颜色 (禁用)
+  "border-color": transparent, // 边框颜色
+  "border-color-hover": transparent, // 边框颜色 (悬停)
+  "border-color-active": transparent, // 边框颜色 (激活)
+  "border-color-disabled": transparent, // 边框颜色 (禁用)
+);
+
+
+//+----------------------------------------------------------------------
+// Tree 属性设置
+//+----------------------------------------------------------------------
+$conf_tree: (
+  "radius": var(--form-radius), // 圆角尺寸
+  "gap": var(--xxs), // 元素间隙
+  "height": 40px, // 元素高度
+  "font-color": var(--text-regular), // 文本颜色
+  "font-color-hover": var(--text-regular), // 文本颜色 (悬停)
+  "font-color-active": var(--text-regular), // 文本颜色 (激活)
+  "bg-color": var(--bg-header), // 背景颜色
+  "bg-color-hover": var(--bg-hover), // 背景颜色 (悬停)
+  "bg-color-active": var(--bg-hover), // 背景颜色 (激活)
+  "child-font-color": var(--text-regular), // 子节点文本颜色
+  "child-font-color-hover": var(--text-regular), // 子节点文本颜色 (悬停)
+  "child-bg-color": var(--bg-light), // 子节点背景颜色
+  "child-bg-color-hover": var(--bg-hover), // 子节点背景颜色 (悬停)
+);
+
+
+//+----------------------------------------------------------------------
+// Popper 属性设置，作用于select、cascader、dropdown等下拉面板的样式
+//+----------------------------------------------------------------------
+$conf_popper: (
+  "radius": var(--form-radius), // 圆角尺寸
+  "padding-y": 0, // 填充尺寸 (上下)
+  "padding-x": 0, // 填充尺寸 (左右)
+  "arrow-size": 8px, // 箭头尺寸
+  "border-color": false, // 边框颜色 (false将不渲染)
+  "bg-color": var(--bg-popup), // 背景颜色
+  "shadow": var(--box-shadow-lg), // 阴影样式
+);
+
+
+//+----------------------------------------------------------------------
+// Scrollbar 属性设置
+//+----------------------------------------------------------------------
+$conf_scrollbar: (
+  "radius": 0, // 圆角尺寸
+  "width": var(--xxs), // 滚动条尺寸
+  "track-color": rgba(#384B67, 0.16), // 滚动条背景颜色 (false为不渲染)
+  "bar-color": rgba(#71F8FC, 0.4), // 手柄背景颜色
+  "bar-color-hover": rgba(#71F8FC, 0.8), // 手柄背景颜色 (悬停)
+  "bar-color-active": rgba(#71F8FC, 1), // 手柄背景颜色 (激活)
+);
+
+
+//+----------------------------------------------------------------------
+// 引入组件样式
+//+----------------------------------------------------------------------
+@import "../../../node_modules/hongluan-ui/theme/scss/components";                    // 鸿鸾组件引导文件
+@import '../../../node_modules/hongluan-business-ui/theme/scss/components';           // 业务组件引导文件
+
+:root {
+  --form-radius: #{size(map.get($conf_form, 'radius'))};
+  --form-padding-y: #{size(map.get($conf_form, 'padding-y'))};
+  --form-padding-x: #{size(map.get($conf_form, 'padding-x'))};
+  --form-sm: #{size(map.get($conf_form, 'sm'))};
+  --form-md: #{size(map.get($conf_form, 'md'))};
+  --form-lg: #{size(map.get($conf_form, 'lg'))};
+  --form-bg-color: #{map.get($conf_form, 'bg-color')};
+  --form-border-width: #{size(map.get($conf_form, 'border-width'))};
+  --form-border-color: #{map.get($conf_form, 'border-color')};
+  --form-disabled-border-color: #{map.get($conf_form, 'disabled-border-color')};
+  --form-disabled-bg-color: #{map.get($conf_form, 'disabled-bg-color')};
+  --form-disabled-font-color: #{map.get($conf_form, 'disabled-font-color')};
+  --form-disabled-opacity: #{map.get($conf_form, 'disabled-opacity')};
+  --form-icon-size: #{size(map.get($conf_form, 'icon-size'))};
+  --form-icon-color: #{map.get($conf_form, 'icon-color')};
+  --form-shadow-size: #{size(map.get($conf_form, 'shadow-size'))};
+  --form-shadow-opcity: #{map.get($conf_form, 'shadow-opcity')};
+  --form-shadow-color: #{map.get($conf_form, 'shadow-color')};
+
+}
+
+.#{$tag} {
+   //生成类型
+   @each $key, $value in $conf_tag_type {
+    &.#{$key} {
+      position: relative;
+      &.outline {
+        --tag-font-color: var(--text-inverse);
+        --tag-border-color: #{map.get($value, 'bg-color')};
+        --tag-bg-color: #{map.get($value, 'bg-color')};
+        background-color: var(--tag-bg-color);
+        &::after,
+        &::before {
+          position: absolute;
+          content: '';
+          width: size(6px);
+          height: auto;
+          top: size(-1px);
+          bottom: size(-1px);
+          border: size(1px) solid #{map.get($value, 'border-color')};
+          z-index: 1;
+        }
+        &::after {
+          right: size(-1px);
+          border-left: none;
+        }
+        &::before {
+          left: size(-1px);
+          border-right: none;
+        }
+      }
+    }
+  }
+}

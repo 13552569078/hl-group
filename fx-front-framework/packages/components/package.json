@@ -1,0 +1,19 @@
+{
+  "name": "@fx-front-framework/components",
+  "version": "0.0.1",
+  "description": "all components are settled here",
+  "peerDependencies": {
+    "hongluan-ui": "^2.2.3",
+    "hongluan-business-ui": "^4.2.0"
+  },
+  "dependencies": {
+    "hongluan-hooks": "^1.1.7",
+    "@hongluan-ui/icons": "^1.4.6"
+  },
+  "main": "index.ts",
+  "module": "index.ts",
+  "types": "index.d.ts",
+  "unpkg": "index.js",
+  "jsdelivr": "index.js",
+  "sideEffects": false
+}

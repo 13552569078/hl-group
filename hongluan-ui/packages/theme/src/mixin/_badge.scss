@@ -1,0 +1,16 @@
+//badge样式生成器
+.#{$badge} {
+  //生成类型
+  @each $key, $value in $conf_badge_type {
+    &.#{$key} {
+      --badge-bg-color: #{map.get($value, 'bg-color')};
+      --badge-font-color: #{map.get($value, 'font-color')};
+      --badge-border-color: #{map.get($value, 'border-color')};
+      &.light {
+        --badge-bg-color: #{map.get($value, 'bg-color-light')};
+        --badge-font-color: #{map.get($value, 'bg-color')};
+        --badge-border-color: #{map.get($value, 'bg-color-light')};
+      }
+    }
+  }
+}

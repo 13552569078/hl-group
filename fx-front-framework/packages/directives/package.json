@@ -1,0 +1,14 @@
+{
+  "name": "@fx-front-framework/directives",
+  "description": "Pc Fxyj Frmework directives",
+  "version": "0.0.1",
+  "main": "index.ts",
+  "module": "index.ts",
+  "unpkg": "index.js",
+  "jsdelivr": "index.js",
+  "license": "MIT",
+  "peerDependencies": {
+    "hongluan-ui": "^2.2.3",
+    "hongluan-business-ui": "^4.2.0"
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "name": "hongluan-ui",
+  "version": "2.2.1",
+  "description": "Hongluan Component Library for Vue 3",
+  "homepage": "http://hl.front.etcc.group/",
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "types": "./es/index.d.ts",
+      "import": "./es/index.mjs",
+      "require": "./lib/index.js"
+    },
+    "./es": "./es/index.mjs",
+    "./lib": "./lib/index.js",
+    "./es/*.mjs": "./es/*.mjs",
+    "./es/*": "./es/*.mjs",
+    "./lib/*.js": "./lib/*.js",
+    "./lib/*": "./lib/*.js",
+    "./*": "./*"
+  },
+  "main": "index.ts",
+  "module": "index.ts",
+  "types": "es/index.d.ts",
+  "style": "dist/index.css",
+  "unpkg": "dist/index.full.js",
+  "jsdelivr": "dist/index.full.js",
+  "sideEffects": [
+    "dist/*",
+    "theme/*.css",
+    "theme/scss/*.scss",
+    "lib/components/**/*",
+    "es/components/**/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+http://gitlab.etcc.group/common-safe/hongluan-ui.git"
+  },
+  "bugs": {
+    "url": "http://gitlab.etcc.group/common-safe/hongluan-ui/issues"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.0"
+  },
+  "dependencies": {
+    "@floating-ui/dom": "^1.0.1",
+    "@popperjs/core": "npm:@sxzz/popperjs-es@^2.11.7",
+    "@vueuse/core": "^9.1.0",
+    "async-validator": "^4.0.7",
+    "dayjs": "^1.11.1",
+    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
+    "lodash-unified": "^1.0.1",
+    "normalize-wheel-es": "^1.2.0",
+    "memoize-one": "^6.0.0",
+    "b-tween": "^0.3.3",
+    "compute-scroll-into-view": "^1.0.17"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.178",
+    "@types/lodash-es": "^4.17.5",
+    "@types/node": "*",
+    "csstype": "^2.6.0",
+    "vue": "^3.2.0",
+    "vue-router": "^4.0.12"
+  },
+  "vetur": {
+    "tags": "tags.json",
+    "attributes": "attributes.json"
+  },
+  "web-types": "web-types.json",
+  "browserslist": [
+    "> 1%",
+    "not ie 11",
+    "not op_mini all"
+  ]
+}

@@ -1,0 +1,191 @@
+.#{$input_select} {
+  position: relative;
+  display: inline-flex;
+
+  &.block {
+    width: 100%;
+  }
+
+  .select-trigger {
+    width: 100%;
+  }
+
+  .select-caret {
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    cursor: pointer;
+    transform: translate(0, 40%) rotate(0deg);
+    @include transition(all var(--duration) var(--timing));
+
+    &.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(0, 0) rotate(0deg);
+
+      &.is-open {
+        transform: translate(0, 0) rotate(180deg);
+      }
+    }
+  }
+
+  .select-close {
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    cursor: pointer;
+    transform: translate(0, -40%);
+    @include transition(all var(--duration) var(--timing));
+
+    &.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(0, 0);
+    }
+  }
+
+  .select-caret,
+  .select-close {
+    &.#{$icon} {
+      color: currentColor;
+      width: size(map.get($conf_input, 'font-size'));
+      height: size(map.get($conf_input, 'font-size'));
+    }
+  }
+
+  .icon-close {
+    cursor: pointer;
+  }
+
+  .#{$input} {
+    display: flex;
+    width: 100%;
+  }
+
+  .collapse-tags {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    white-space: normal;
+    gap: size(8px);
+    .collapse-tag {
+      flex-shrink: 0 !important;
+      flex-grow: 0 !important;
+    }
+  }
+}
+
+.#{$select_popper} {
+  .select-dropdown {
+    padding: size(map.get($conf_dropdown, 'padding-y')) size(map.get($conf_dropdown, 'padding-x'));
+  }
+  .select-dropdown-empty {
+    padding: size(map.get($conf_dropdown, 'padding-y'));
+    margin: 0;
+    text-align: center;
+    color: var(--text-secondary);
+  }
+
+  .select-dropdown-wrap {
+    max-height: size(map.get($conf_dropdown, 'max-height'));
+  }
+
+  .select-dropdown-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+
+    li {
+      position: relative;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      padding: size(map.get($conf_dropdown, 'item-padding-y') map.get($conf_dropdown, 'item-padding-x'));
+      min-height: size(map.get($conf_dropdown, 'item-height'));
+      font-size: size(map.get($conf_dropdown, 'item-font-size'));
+      color: map.get($conf_dropdown, 'item-font-color');
+      @include transition(color var(--duration) var(--timing), background-color var(--duration) var(--timing));
+
+      > div {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .#{$icon} {
+        position: absolute;
+        color: map.get($conf_dropdown, 'item-icon-color');
+        width: size(map.get($conf_dropdown, 'item-icon-size'));
+        height: size(map.get($conf_dropdown, 'item-icon-size'));
+        margin: 0;
+        transform: translateX(50%);
+        right: size(map.get($conf_dropdown, 'item-padding-x'));
+      }
+
+      &:focus,
+      &.hover,
+      &:hover {
+        color: map.get($conf_dropdown, 'item-font-color-hover');
+        background-color: map.get($conf_dropdown, 'item-bg-color-hover');
+        .#{$icon} {
+          color: map.get($conf_dropdown, 'item-font-color-hover');
+        }
+      }
+
+      &.menu-divider {
+        height: var(--border-width);
+        min-height: var(--border-width);
+        margin: size(8px) 0;
+        padding: 0;
+        overflow: hidden;
+        border-top: var(--border-width) solid var(--border-regular);
+        pointer-events: none;
+      }
+
+      &.is-selected {
+        padding-right: calc(#{size(map.get($conf_dropdown, 'item-padding-x'))} + #{size(map.get($conf_dropdown, 'item-font-size'))});
+        background-color: var(--bg-hover);
+        font-size: size(map.get($conf_dropdown, 'item-font-size'));
+        .#{$icon} {
+          color: map.get($conf_dropdown, 'item-font-color-hover');
+        }
+      }
+
+      &.is-disabled {
+        color: var(--text-light);
+        cursor: not-allowed;
+        &:hover {
+          background-color: unset;
+        }
+      }
+
+      &.#{$option-group} {
+        padding: 0;
+        flex-direction: column;
+        height: auto;
+
+        &:hover {
+          background-color: transparent;
+        }
+
+        strong {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          padding: 0 size(20px);
+          font-size: var(--font-sm);
+          color: var(--text-light);
+          height: size(map.get($conf_dropdown, 'item-height'));
+          font-weight: var(--font-weight);
+        }
+
+        ul {
+          width: 100%;
+          margin: 0;
+          padding: 0;
+        }
+      }
+    }
+  }
+}

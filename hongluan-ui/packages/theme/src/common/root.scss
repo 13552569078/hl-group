@@ -1,0 +1,56 @@
+@use 'sass:math';
+@use 'sass:map';
+
+:root {
+  --feature-respond: #{$features_respond};
+  //+----------------------------------------------------------------------
+  // 通用表单样式
+  //+----------------------------------------------------------------------
+  --form-radius: #{size(map.get($conf_form, 'radius'))};
+  --form-padding-y: #{size(map.get($conf_form, 'padding-y'))};
+  --form-padding-x: #{size(map.get($conf_form, 'padding-x'))};
+  --form-sm: #{size(map.get($conf_form, 'sm'))};
+  --form-md: #{size(map.get($conf_form, 'md'))};
+  --form-lg: #{size(map.get($conf_form, 'lg'))};
+  --form-border-width: #{size(map.get($conf_form, 'border-width'))};
+  --form-disabled-opacity: #{map.get($conf_form, 'disabled-opacity')};
+  --form-icon-size: #{size(map.get($conf_form, 'icon-size'))};
+  @if map.get($conf_form, 'shadow-size') != false {
+    --form-shadow-size: #{size(map.get($conf_form, 'shadow-size'))};
+  }
+  --form-shadow-opcity: #{map.get($conf_form, 'shadow-opcity')};
+  --form-shadow-color: #{map.get($conf_form, 'shadow-color')};
+  --font-weight: #{map.get($conf_public, 'font-weight')};
+  --font-weight-bold: #{map.get($conf_public, 'font-weight-bold')};
+  --border-width: #{size(map.get($conf_public, 'border-width'))};
+  --duration: #{map.get($conf_public, 'duration')};
+  --timing: #{map.get($conf_public, 'timing')};
+  //+----------------------------------------------------------------------
+  // 尺寸输出
+  //+----------------------------------------------------------------------
+  //圆角尺寸
+  @each $key, $value in $conf_radius {
+    --radius-#{$key}: #{size($value)};
+  }
+  //文本尺寸
+  @each $key, $value in $conf_font_size {
+    --font-#{$key}: #{size(map.get($value, 'size'))};
+  }
+  //规范化尺寸
+  @each $key, $value in $conf_size {
+    --#{$key}: #{size($value)};
+  }
+
+}
+
+// 响应式标签
+@each $k, $v in $conf_respond {
+  @include respond('min', $v) {
+    html {
+      //规范化尺寸
+      @each $key, $value in $conf_size {
+        --#{$k}_#{$key}: #{size($value)};
+      }
+    }
+  }
+}

@@ -1,0 +1,112 @@
+html {
+  height: 100%;
+}
+
+body,
+#app {
+  // height: 100%;
+}
+
+.full-page {
+  height: calc(100vh - (var(--layout-header-height) + var(--layout-sub-header-height) + var(--layout-footer-height)) - var(--layout-out-padding) * 2)
+}
+
+// 通知面板
+.notice-panel {
+  border-radius: var(--radius-md);
+  border: none;
+  .panel-title {
+    height: size(100px);
+    position: relative;
+    display: flex;
+    color: var(--text-inverse);
+    padding: var(--md) var(--lg) 0;
+    border-top-left-radius: var(--radius-md);
+    border-top-right-radius: var(--radius-md);
+    overflow: hidden;
+    h1 {
+      font-weight: normal;
+    }
+    &:before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: '';
+      width: size(260px);
+      height: size(260px);
+      border-radius: size(200px);
+      background-color: rgba(#fff, 0.05);
+      transform: translate(size(200px), size(100px));
+      transition: all 1s ease;
+    }
+    &:after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: '';
+      width: size(260px);
+      height: size(260px);
+      border-radius: size(200px);
+      background-color: rgba(#fff, 0.05);
+      transform: translate(size(-200px), size(-200px));
+      transition: all 1s ease;
+    }
+    .#{$tabs} {
+      .tabs-header {
+        &::after {
+          background-color: transparent;
+          width: 0;
+        }
+      }
+      .tabs-active-bar {
+        background-color: #fff;
+      }
+      .tabs-item {
+        color: rgba(#fff, 0.7);
+        &.is-active {
+          color: inherit;
+        }
+      }
+    }
+  }
+  &[data-popper-placement] {
+    .panel-title {
+      &:before {
+        transform: translate(size(130px), size(36px));
+      }
+      &:after {
+        transform: translate(size(-45px), size(-35px));
+      }
+      h3 {
+        opacity: 1;
+        transform: translate(0, 0);
+      }
+    }
+  }
+  .panel-body {
+    padding: 0 var(--lg);
+  }
+}
+
+.float-number {
+  position: absolute;
+  left: size(32px);
+  right: 0;
+  top: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.source-mark {
+  display: none;
+  position: fixed;
+  width: calc(var(--xl) * 3);
+  background-color: rgba(#000, 0.8);
+  padding: var(--xs) var(--md);
+  text-align: center;
+  color: #fff;
+  cursor: pointer;
+  white-space: nowrap;
+  z-index: 100000;
+}
+

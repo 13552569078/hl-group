@@ -1,0 +1,118 @@
+.#{$anchor} {
+  --anchor-gap: #{size(map.get($conf_anchor, 'gap'))};
+  --anchor-bar-width: #{size(map.get($conf_anchor, 'bar-width'))};
+  --anchor-bar-height: #{size(map.get($conf_anchor, 'bar-height'))};
+  --anchor-bar-color: #{map.get($conf_anchor, 'bar-color')};
+  --anchor-track-color: #{map.get($conf_anchor, 'track-color')};
+  --anchor-track-width: #{size(map.get($conf_anchor, 'track-width'))};
+  --anchor-font-color: #{map.get($conf_anchor, 'font-color')};
+  --anchor-font-color-hover: #{map.get($conf_anchor, 'font-color-hover')};
+  --anchor-font-color-active: #{map.get($conf_anchor, 'font-color-active')};
+  --anchor-font-size: #{size(map.get($conf_anchor, 'font-size'))};
+  --anchor-font-weight: #{map.get($conf_anchor, 'font-weight')};
+  --anchor-font-weight-hover: #{map.get($conf_anchor, 'font-weight-hover')};
+  --anchor-font-weight-active: #{map.get($conf_anchor, 'font-weight-active')};
+  --anchor-item-radius: #{size(map.get($conf_anchor, 'item-radius'))};
+  --anchor-item-height: #{size(map.get($conf_anchor, 'item-height'))};
+  --anchor-item-padding-y: #{size(map.get($conf_anchor, 'item-padding-y'))};
+  --anchor-item-padding-x: #{size(map.get($conf_anchor, 'item-padding-x'))};
+  --anchor-item-bg-color: #{map.get($conf_anchor, 'item-bg-color')};
+  --anchor-item-bg-color-hover: #{map.get($conf_anchor, 'item-bg-color-hover')};
+  --anchor-item-bg-color-active: #{map.get($conf_anchor, 'item-bg-color-active')};
+  --anchor-item-indent: #{size(map.get($conf_anchor, 'item-indent'))};
+  position: relative;
+  overflow: auto;
+  .slider-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: var(--anchor-bar-width);
+    height: var(--anchor-bar-height);
+    background-color: var(--anchor-bar-color);
+    @include transition(top var(--duration) var(--timing));
+    margin-top: calc((var(--anchor-item-height) - var(--anchor-bar-height)) * 0.5);
+  }
+  .anchor-list {
+    position: relative;
+    &::before {
+      position: absolute;
+      content: '';
+      left: 0;
+      width: var(--anchor-track-width);
+      height: 100%;
+      background-color: var(--anchor-track-color);
+    }
+  }
+  .anchor-sublist {
+    margin-top: var(--anchor-gap);
+  }
+
+  &.slider-less {
+    .slider-bar {
+      display: none;
+    }
+    .anchor-list {
+      &::before {
+        display: none;
+      }
+    }
+  }
+
+  &.right {
+    .slider-bar {
+      left: auto;
+      right: 0;
+    }
+    .anchor-list {
+      &::before {
+        left: auto;
+        right: 0;
+      }
+    }
+    .#{$anchor_item} {
+      .#{$anchor_item} {
+        margin-left: unset;
+        margin-right: var(--anchor-item-indent);
+      }
+      a {
+        justify-content: flex-end;
+      }
+    }
+  }
+
+  .#{$anchor_item} {
+    .#{$anchor_item} {
+      margin-left: var(--anchor-item-indent);
+    }
+    a {
+      display: flex;
+      align-items: center;
+      border-radius: var(--anchor-item-radius);
+      height: var(--anchor-item-height);
+      padding: var(--anchor-item-padding-y) var(--anchor-item-padding-x);
+      color: var(--anchor-font-color);
+      font-size: var(--anchor-font-size);
+      font-weight: var(--anchor-font-weight);
+      background-color: var(--anchor-item-bg-color);
+      overflow: hidden;
+      white-space: nowrap;
+      text-decoration: none;
+      text-overflow: ellipsis;
+      cursor: pointer;
+      @include transition(color var(--duration) var(--timing));
+      &:hover {
+        font-weight: var(--anchor-font-weight-hover);
+        color: var(--anchor-font-color-hover);
+        background-color: var(--anchor-item-bg-color-hover);
+      }
+    }
+    &.is-active {
+      > a {
+        font-weight: var(--anchor-font-weight-active);
+        color: var(--anchor-font-color-active);
+        background-color: var(--anchor-item-bg-color-active);
+      }
+    }
+  }
+}

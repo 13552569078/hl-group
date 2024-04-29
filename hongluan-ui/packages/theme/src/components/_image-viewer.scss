@@ -1,0 +1,144 @@
+.#{$image_viewer} {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  .image-viewer-btn {
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    cursor: pointer;
+    user-select: none;
+
+    &.close {
+      top: size(40px);
+      right: size(40px);
+    }
+
+    &.close,
+    &.next,
+    &.prev {
+      width: size(48px);
+      height: size(48px);
+      color: #fff;
+      background-color: rgba(#212435, 0.8);
+      .#{$icon} {
+        --icon-size: 50%;
+      }
+    }
+
+    &.prev {
+      top: 50%;
+      transform: translateY(-50%);
+      left: size(40px);
+    }
+
+    &.next {
+      top: 50%;
+      transform: translateY(-50%);
+      right: size(40px);
+      text-indent: size(2px);
+    }
+  }
+
+  .image-viewer-canvas {
+    width: 100%;
+    height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      display: unset;
+      max-width: unset;
+      width: unset;
+      height: unset;
+      object-fit: unset;
+    }
+  }
+
+  .image-viewer-tools {
+    position: absolute;
+    z-index: 1;
+    
+    left: 50%;
+    bottom: size(32px);
+    
+    color: #fff;
+    user-select: none;
+    transform: translateX(-50%);
+    
+    .tools-group {
+      border-radius: size(12px);
+      padding: size(8px);
+      background-color: rgba(#212435, 0.8);
+    }
+    
+    .#{$icon} {
+      cursor: pointer;
+      --icon-size: #{size(40px)};
+      svg {
+        width: 50%;
+        height: 50%;
+      }
+      &:hover {
+        color: var(--text-hover);
+      }
+      @include transition(color var(--duration) var(--timing))
+    }
+  }
+
+  .image-viewer-mask {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(#212435, 0.8);
+  }
+}
+
+
+
+.viewer-fade-enter-active {
+  animation: viewer-fade-in .3s
+}
+
+.viewer-fade-leave-active {
+  animation: viewer-fade-out .3s
+}
+
+@keyframes viewer-fade-in {
+  0% {
+    -webkit-transform: translate3d(0, size(-20px), 0);
+    transform: translate3d(0, size(-20px), 0);
+    opacity: 0
+  }
+
+  100% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    opacity: 1
+  }
+}
+
+@keyframes viewer-fade-out {
+  0% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    opacity: 1
+  }
+
+  100% {
+    -webkit-transform: translate3d(0, size(-20px), 0);
+    transform: translate3d(0, size(-20px), 0);
+    opacity: 0
+  }
+}

@@ -1,0 +1,52 @@
+.#{$breadcrumb} {
+  --breadcrumb-font-size: #{size(map.get($conf_breadcrumb, 'font-size'))};
+  --breadcrumb-font-color: #{map.get($conf_breadcrumb, 'font-color')};
+  --breadcrumb-font-color-hover: #{map.get($conf_breadcrumb, 'font-color-hover')};
+  --breadcrumb-font-color-active: #{map.get($conf_breadcrumb, 'font-color-active')};
+  --breadcrumb-separator-font-color: #{map.get($conf_breadcrumb, 'separator-font-color')};
+  --breadcrumb-separator-margin: #{size(map.get($conf_breadcrumb, 'separator-margin'))};
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  font-size: var(--breadcrumb-font-size);
+  color: var(--breadcrumb-font-color);
+
+  .#{$breadcrumb_item} {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    @include transition(color var(--duration) var(--timing));
+
+    a {
+      color: inherit;
+    }
+
+    &:hover {
+      color: var(--breadcrumb-font-color-hover);
+    }
+
+    &:first-child {
+      .breadcrumb-separator {
+        display: none;
+      }
+    }
+    &:last-of-type {
+      cursor: auto;
+      .breadcrumb-inner {
+        color: var(--breadcrumb-font-color-active);
+      }
+    }
+
+    .breadcrumb-separator {
+      color: var(--breadcrumb-separator-font-color);
+      margin: 0 var(--breadcrumb-separator-margin);
+
+      .#{$icon} {
+        display: flex;
+      }
+    }
+  }
+}

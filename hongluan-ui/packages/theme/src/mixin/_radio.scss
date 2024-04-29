@@ -1,0 +1,37 @@
+//radio样式生成器
+.#{$radio} {
+  //生成类型
+  @each $key, $value in $conf_checkbox_type {
+    &.#{$key} {
+      --radio-icon-color: #{size(map.get($value, 'icon-color'))};
+      --radio-bg-color: #{map.get($value, 'bg-color')};
+      --radio-bg-color-hover: #{map.get($value, 'bg-color-hover')};
+      --radio-bg-color-checked: #{map.get($value, 'bg-color-checked')};
+      --radio-bg-color-fill: #{map.get($value, 'bg-color-fill')};
+      --radio-border-color: #{map.get($value, 'border-color')};
+      --radio-border-color-hover: #{map.get($value, 'border-color-hover')};
+      --radio-border-color-checked: #{map.get($value, 'border-color-checked')};
+      &.is-checked {
+        .radio-label {
+          --radio-font-color: #{size(map.get($value, 'font-color'))};
+        }
+      }
+
+      &.is-focus {
+        @if map.get($conf_form, 'shadow-size') {
+          .radio-inner {
+            box-shadow: var(--form-shadow-size) rgba(map.get($value, 'shadow-color'), var(--form-shadow-opcity));
+          }
+        }
+      }
+    }
+  }
+  //生成尺寸
+  @each $key, $value in $conf_checkbox_size {
+    &.#{$key} {
+      --radio-radius: #{size(map.get($value, 'radius'))};
+      --radio-size: #{size(map.get($value, 'size'))};
+      --radio-font-size: #{size(map.get($value, 'font-size'))};
+    }
+  }
+}

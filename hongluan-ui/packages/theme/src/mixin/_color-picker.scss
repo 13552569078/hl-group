@@ -1,0 +1,12 @@
+//color-picker样式生成器
+.#{$color_picker} {
+  //生成尺寸
+  @each $key, $value in $conf_form_size {
+    &.#{$key} {
+      --color-picker-radius: #{size(map.get($value, 'radius'))};
+      --color-picker-padding: #{size(map.get($value, 'padding-y'))};
+      --color-picker-size: #{size(map.get($value, 'height'))};
+    }
+  }
+}
+

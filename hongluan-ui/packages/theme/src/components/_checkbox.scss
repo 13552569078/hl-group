@@ -1,0 +1,239 @@
+.#{$checkbox} {
+  @if map.get($conf_checkbox, 'radius') != false {
+    --checkbox-radius: #{size(map.get($conf_checkbox, 'radius'))};
+  }
+  --checkbox-size: #{size(map.get($conf_checkbox, 'size'))};
+  --checkbox-icon-color: #{size(map.get($conf_checkbox, 'icon-color'))};
+  --checkbox-font-color: #{map.get($conf_checkbox, 'font-color')};
+  --checkbox-font-size: #{size(map.get($conf_checkbox, 'font-size'))};
+  --checkbox-bg-color: #{map.get($conf_checkbox, 'bg-color')};
+  --checkbox-bg-color-hover: #{map.get($conf_checkbox, 'bg-color-hover')};
+  --checkbox-bg-color-checked: #{map.get($conf_checkbox, 'bg-color-checked')};
+  --checkbox-border-color: #{map.get($conf_checkbox, 'border-color')};
+  --checkbox-border-color-hover: #{map.get($conf_checkbox, 'border-color-hover')};
+  --checkbox-border-color-checked: #{map.get($conf_checkbox, 'border-color-checked')};
+  --checkbox-border-width: var(--form-border-width);
+  position: relative;
+  font-size: size(map.get($conf_checkbox, 'font-size'));
+  display: inline-flex;
+  align-items: center;
+  text-align: left;
+  vertical-align: middle;
+  cursor: pointer;
+
+  .checkbox-input {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -10;
+    opacity: 0;
+    outline: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .checkbox-inner {
+    position: relative;
+    display: flex;
+    width: var(--checkbox-size);
+    height: var(--checkbox-size);
+    background-color: var(--checkbox-bg-color);
+    border: var(--checkbox-border-width) solid var(--checkbox-border-color);
+    flex-shrink: 0;
+    flex-grow: unset;
+    overflow: hidden;
+    @if map.get($conf_checkbox, 'radius') != false {
+      border-radius: var(--checkbox-radius);
+    }
+    @include transition(all var(--duration) var(--timing));
+    .icon-checked,
+    .icon-indeterminate {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background-color: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      visibility: hidden;
+      opacity: 0;
+      @if $features_transition {
+        animation-duration: 0.4s;
+        animation-fill-mode: forwards;
+      }
+    }
+  }
+
+  .checkbox-label {
+    color: var(--checkbox-font-color);
+    padding-left: size(8px);
+    font-size: var(--checkbox-font-size);
+    line-height: var(--checkbox-size);
+    @include transition(color var(--duration) var(--timing));
+  }
+
+  .#{$button} {
+    pointer-events: none;
+  }
+
+  &:hover {
+    .checkbox-inner {
+      border-color: var(--checkbox-border-color-hover);
+      background-color: var(--checkbox-bg-color-hover);
+    }
+  }
+
+  &.is-checked {
+    z-index: 1;
+    .checkbox-inner {
+      border-color: var(--checkbox-border-color-checked);
+      background-color: var(--checkbox-bg-color-checked);
+      .icon-checked {
+        color: var(--checkbox-icon-color);
+        visibility: visible;
+        opacity: 1;
+        animation-name: checkBounceIn;
+      }
+    }
+  }
+
+  &.is-focus {
+    @if map.get($conf_form, 'shadow-size') != false {
+      .checkbox-inner {
+        box-shadow: var(--form-shadow-size) rgba(var(--form-shadow-color), var(--form-shadow-opcity));
+      }
+    }
+  }
+
+  &.is-disabled {
+    cursor: not-allowed;
+    .checkbox-inner {
+      border-color: var(--form-disabled-border-color) !important;
+      background-color: var(--form-disabled-bg-color) !important;
+
+      .icon-checked,
+      .icon-indeterminate {
+        color: inherit;
+      }
+    }
+
+    .checkbox-label {
+      color: var(--form-disabled-font-color) !important;
+    }
+
+    &.is-indeterminate,
+    &.is-checked {
+      .checkbox-inner {
+        .icon-checked,
+        .icon-indeterminate {
+          color: var(--form-disabled-font-color) !important;
+        }
+      }
+    }
+  }
+
+  &.is-indeterminate {
+    .checkbox-inner {
+      border-color: var(--checkbox-border-color-checked);
+      background-color: var(--checkbox-bg-color-checked);
+      .icon-indeterminate {
+        color: var(--checkbox-icon-color);
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
+
+  &.round {
+    .checkbox-inner {
+      border-radius: 50%;
+      background-color: var(--checkbox-border-color);
+      border-radius: 50%;
+      @if $features_transition {
+        animation-duration: 0.4s;
+        animation-fill-mode: forwards;
+      }
+      .icon-checked,
+      .icon-indeterminate {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      &:after {
+        position: absolute;
+        content: '';
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        transform: scale(0.5);
+        background-color: transparent;
+      }
+    }
+
+    &:hover {
+      .checkbox-inner {
+        border-color: transparent !important;
+      }
+    }
+
+    &.is-checked {
+      .checkbox-inner {
+        background-color: var(--checkbox-bg-color-checked);
+        animation-name: bounceIn;
+
+        &:after {
+          transform: scale(0.5);
+          background-color: var(--checkbox-icon-color);
+        }
+      }
+    }
+  }
+
+  &.fill {
+    .checkbox-inner {
+      border-color: var(--checkbox-bg-color-fill, var(--checkbox-border-color));
+      background-color: var(--checkbox-bg-color-fill, var(--checkbox-border-color));
+    }
+    &:hover {
+      .checkbox-inner {
+        border-color: var(--checkbox-border-color-hover);
+        background-color: var(--checkbox-border-color-hover);
+      }
+    }
+    &.is-checked {
+      .checkbox-inner {
+        border-color: var(--checkbox-border-color-checked);
+        background-color: var(--checkbox-bg-color-checked);
+      }
+    }
+  }
+
+  @keyframes checkBounceIn {
+    0% {
+      transform: scale(0.6);
+    }
+
+    45% {
+      transform: scale(1.05);
+    }
+
+    80% {
+      transform: scale(0.9);
+    }
+
+    100% {
+      transform: scale(1);
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.web.json",
+  "compilerOptions": {
+    "composite": true,
+    "strict": false,
+    "allowJs": true,
+    "module": "ES6",
+    "target": "ES2018",
+    "noImplicitAny": false,
+    "declaration": true,
+    "sourceMap": true,
+    "lib": ["ES2018", "DOM", "DOM.Iterable"],
+    "allowSyntheticDefaultImports": true,
+    "types": ["unplugin-vue-macros/macros-global", "node"]
+  },
+  "include": ["packages", "typings"],
+  "exclude": [
+    "node_modules",
+    "**/dist",
+    "**/__tests__/**/*",
+  ]
+}
+

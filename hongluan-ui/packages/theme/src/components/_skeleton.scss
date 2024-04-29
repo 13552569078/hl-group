@@ -1,0 +1,102 @@
+.#{$skeleton} {
+  --skeleton-color: var(--border-light);
+  --skeleton-to-color: var(--border-regular);
+  --skeleton-circle-size: #{size(map.get($conf_thumb, 'size'))};
+  width: 100%;
+
+  .first-line {
+    height: size(16px);
+    margin-top: size(16px);
+    background: var(--skeleton-color);
+  }
+
+  .paragraph {
+    height: size(16px);
+    margin-top: size(16px);
+    background: var(--skeleton-color);
+  }
+
+  &.is-animated {
+    .#{$skeleton_item} {
+      background: linear-gradient(90deg, var(--skeleton-color) 25%, var(--skeleton-to-color) 37%, var(--skeleton-color) 63%);
+      background-size: 400% 100%;
+      animation: skeleton-loading 1.4s ease infinite;
+    }
+  }
+}
+
+.#{$skeleton_item} {
+  background: var(--skeleton-color);
+  display: inline-block;
+  height: size(16px);
+  border-radius: var(--radius-md);
+  width: 100%;
+
+  &.circle {
+    border-radius: 50%;
+    width: var(--skeleton-circle-size);
+    height: var(--skeleton-circle-size);
+    line-height: var(--skeleton-circle-size);
+  }
+
+  &.button {
+    height: size(40px);
+    width: size(64px);
+    border-radius: var(--radius-md);
+  }
+
+  &.p {
+    width: 100%;
+    &.is-last {
+      width: 61%;
+    }
+    &.is-first {
+      width: 33%;
+    }
+  }
+
+  &.text {
+    width: 100%;
+    height: var(--font-sm);
+  }
+
+  &.caption {
+    height: var(--font-sm);
+  }
+
+  &.h1 {
+    height: var(--font-h1);
+  }
+
+  &.h3 {
+    height: var(--font-h3);
+  }
+
+  &.h5 {
+    height: var(--font-h5);
+  }
+
+  &.image {
+    width: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0;
+  }
+
+  &.image svg {
+    fill: var(--text-secondary);
+    width: 22%;
+    height: 22%;
+  }
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0 50%;
+  }
+}

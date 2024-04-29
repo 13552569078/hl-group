@@ -1,0 +1,72 @@
+// 徽章 组件
+.#{$badge} {
+  --badge-radius: #{size(map.get($conf_badge, 'radius'))};
+  --badge-height: #{size(map.get($conf_badge, 'height'))};
+  --badge-padding: #{size(map.get($conf_badge, 'padding'))};
+  --badge-font-size: #{size(map.get($conf_badge, 'font-size'))};
+  --badge-bg-color: #{map.get($conf_badge, 'bg-color')};
+  --badge-font-color: #{map.get($conf_badge, 'font-color')};
+  --badge-border-color: #{map.get($conf_badge, 'border-color')};
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--badge-height);
+  height: var(--badge-height);
+  padding-left: var(--badge-padding);
+  padding-right: var(--badge-padding);
+  font-style: normal;
+  font-size: var(--badge-font-size);
+  line-height: 1;
+  color: var(--badge-font-color);
+  white-space: nowrap;
+  background-color: var(--badge-bg-color);
+  border-radius: var(--badge-radius);
+  border: var(--form-border-width) solid var(--badge-bg-color);
+
+  &.lt {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+  }
+
+  &.lb {
+    position: absolute;
+    top: unset;
+    bottom: 0;
+    left: 0;
+    transform: translate(-50%, 50%);
+    z-index: 10;
+  }
+
+  &.rt {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+    z-index: 10;
+  }
+
+  &.rb {
+    position: absolute;
+    top: unset;
+    bottom: 0;
+    right: 0;
+    transform: translate(50%, 50%);
+    z-index: 10;
+  }
+
+  &.dot {
+    width: size(4px);
+    height: size(4px);
+    min-width: unset;
+    max-width: unset;
+    padding: 0;
+    border-radius: 100%;
+  }
+
+  &.round {
+    border-radius: var(--radius-round);
+  }
+}

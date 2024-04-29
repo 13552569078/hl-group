@@ -1,0 +1,85 @@
+.#{$calendar} {
+  --calendar-padding-y: #{map.get($conf_calendar, 'padding-y')};            
+  --calendar-padding-x: #{map.get($conf_calendar, 'padding-x')};            
+  --calendar-bg-color: #{map.get($conf_calendar, 'bg-color')};           
+  --calendar-bg-color-hover: #{map.get($conf_calendar, 'bg-color-hover')};     
+  --calendar-bg-color-active: #{map.get($conf_calendar, 'bg-color-active')};    
+  --calendar-border-color: #{map.get($conf_calendar, 'border-color')};       
+  --calendar-title-font-color: #{map.get($conf_calendar, 'title-font-color')};   
+  --calendar-title-font-weight: #{map.get($conf_calendar, 'title-font-weight')};  
+  --calendar-font-size: #{map.get($conf_calendar, 'font-size')};          
+  --calendar-font-color: #{map.get($conf_calendar, 'font-color')};         
+  --calendar-font-color-hover: #{map.get($conf_calendar, 'font-color-hover')};   
+  --calendar-font-color-disabled: #{map.get($conf_calendar, 'font-color-disabled')};
+  --calendar-td-height: #{size(80px)};
+  .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--calendar-padding-y) var(--calendar-padding-x);
+    border-bottom: var(--form-border-width) solid var(--calendar-border-color);
+    .calendar-title {
+      align-self: center;
+    }
+  }
+
+  .calendar-body {
+    padding: var(--calendar-padding-y) var(--calendar-padding-x);
+
+    .calendar-table {
+      table-layout: fixed;
+      width: 100%;
+      font-size: var(--calendar-font-size);
+      color:var(--calendar-font-color);
+      thead {
+        color:var(--calendar-title-font-color);
+        th {
+          font-weight:var(--calendar-title-font-weight);
+          padding: size(16px) 0;
+        }
+      }
+
+      &:not(.is-range) td.next,
+      &:not(.is-range) td.prev {
+        color:  var(--calendar-font-color-disabled);
+      }
+      td {
+        border-bottom: var(--form-border-width) solid var(--calendar-border-color);
+        border-right: var(--form-border-width) solid var(--calendar-border-color);
+        vertical-align: top;
+        @include transition(background-color var(--duration) var(--timing));
+
+        background-color: var(--calendar-bg-color);
+
+        &.is-selected {
+          background-color: var(--calendar-bg-color-active);
+        }
+
+        &.is-today {
+          color: var(--calendar-font-color-hover);
+        }
+      }
+
+      tr:first-child td {
+        border-top: var(--form-border-width) solid var(--calendar-border-color);
+      }
+
+      tr td:first-child {
+        border-left: var(--form-border-width) solid var(--calendar-border-color);
+      }
+
+      tr.calendar-table-row-hide-border td {
+        border-top: none;
+      }
+
+      .calendar-day {
+        padding: size(12px);
+        height: var(--calendar-td-height);
+
+        &:hover {
+          cursor: pointer;
+          background-color: var(--calendar-bg-color-hover);
+        }
+      }
+    }
+  }
+}

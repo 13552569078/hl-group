@@ -1,0 +1,145 @@
+@use 'sass:math';
+@use 'sass:map';
+
+// 将PX单位转换为REM单位
+@function size($value) {
+  $list: ();
+  @if $features_rem !=true {
+    @return $value;
+  }
+  @each $key in $value {
+    @if type-of($key) == 'number' and unit($key) == 'px' and $key != 1 {
+      $list: append($list, math.div($key, map.get($conf_public, 'rem-radix')) * 1rem);
+    } @else {
+      $list: append($list, $key);
+    }
+  }
+  @return $list ();
+}
+
+$features_interactive: true;
+// 交互范围
+@mixin interactive_scope($name, $value) {
+  @if $features_interactive {
+    :checked .checked\:#{$name}-#{$value},
+    .is-checked .checked\:#{$name}-#{$value},
+    .is-active .active\:#{$name}-#{$value},
+    .active\:#{$name}-#{$value}:active,
+    .focus\:#{$name}-#{$value}:focus,
+    .hover\:#{$name}-#{$value}:hover,
+    .deep-hover:hover .deep-hover\:#{$name}-#{$value},
+    .#{$name}-#{$value} {
+      @content;
+    }
+  }@else {
+    .#{$name}-#{$value} {
+      @content;
+    }
+  }
+}
+
+// 色盘偏移规则
+@function color_wheel ($value, $percentage) {
+  $hue: hue($value);
+  @if $hue >= 0 and $hue <= 30 {
+    // 红->黄;
+    @return $percentage;
+  }
+  @else if $hue >= 60 and $hue <= 90 {
+    // '黄->绿';
+    @return $percentage;
+  }
+  @else if $hue >= 120 and $hue <= 150 {
+    // '绿->青';
+    @return $percentage;
+  }
+  @else if $hue >= 180 and $hue <= 210 {
+    // '青->蓝';
+    @return $percentage;
+  }
+  @else if $hue >= 240 and $hue <= 270 {
+    // '蓝->紫';
+    @return $percentage;
+  }
+  @else if $hue >= 300 and $hue <= 330 {
+    // '紫->红';
+    @return $percentage;
+  }
+  @else{
+    @return $percentage * -1;
+  }
+}
+
+// 根据文本尺寸获取行高比例
+@function line_height($value) {
+  $lineHeight: 1;
+  @each $k, $v in $conf_font_size {
+    @if $value == map.get($v, 'size') {
+      $lineHeight: math.div(map.get($v, 'lineHeight'), map.get($v, 'size'));
+    }
+  }
+  @return $lineHeight;
+}
+
+// 根据文本尺寸获取行高尺寸
+@function get_line_height($value) {
+  $lineHeight: '';
+  @each $k, $v in $conf_font_size {
+    @if $value == map.get($v, 'size') {
+      $lineHeight: map.get($v, 'lineHeight');
+    }
+  }
+  @return $lineHeight;
+}
+
+// 获取规范化偏移色
+@function color($value, $type) {
+  $resColor: none;
+  @each $k, $v in $conf_progressive {
+    @if $type == $k {
+      $resColor: scale-color($value, $saturation: 0%, $lightness: $v);
+    }
+  }
+  @return $resColor;
+}
+
+// 获取规范化透明度
+@function opacity_color($value, $type) {
+  $resColor: none;
+  @each $k, $v in $conf_opacity {
+    @if $type == $k {
+      $resColor: rgba($value, $v);
+    }
+  }
+  @return $resColor;
+}
+
+// 缓动全局控制
+@mixin transition($value...) {
+  @if $features_transition {
+    transition: $value;
+  }
+}
+
+// 响应式控制
+@mixin respond($type, $value) {
+  @if $features_respond {
+    @if $type == 'max' {
+      @media (max-width: $value) {
+        @content;
+      }
+    } @else {
+      @media (min-width: $value) {
+        @content;
+      }
+    }
+  } @else {
+    @content;
+  }
+}
+
+// 获取颜色的 RGB值
+@function get_rgb($value) {
+  $rgb_value: red($value), green($value), blue($value);
+  @return $rgb_value;
+}

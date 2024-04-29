@@ -1,0 +1,19 @@
+.source-mark {
+  position: fixed;
+  display: none;
+  border-radius: size(4px);
+  padding: size(2px 16px);
+  line-height: size(40px);
+  color: #b5b5c3;
+  cursor: pointer;
+  white-space: nowrap;
+  background-color: rgba(0,0,0,.8);
+  z-index: 999999;
+  &.left {
+    left: 0 !important;
+    max-width: 70px;
+  }
+  &.absolute {
+    position: absolute !important;
+  }
+}

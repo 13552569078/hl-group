@@ -1,0 +1,62 @@
+{
+  "name": "fx-front-framework",
+  "version": "1.3.5",
+  "description": "FX Front Framework",
+  "homepage": "http://pc.front.etcc.group/",
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "types": "./es/index.d.ts",
+      "import": "./es/index.mjs",
+      "require": "./lib/index.js"
+    },
+    "./es": "./es/index.mjs",
+    "./lib": "./lib/index.js",
+    "./es/*.mjs": "./es/*.mjs",
+    "./es/*": "./es/*.mjs",
+    "./lib/*.js": "./lib/*.js",
+    "./lib/*": "./lib/*.js",
+    "./*": "./*"
+  },
+  "main": "index.ts",
+  "module": "index.ts",
+  "style": "dist/index.css",
+  "unpkg": "dist/index.full.js",
+  "jsdelivr": "dist/index.full.js",
+  "sideEffects": [
+    "dist/*",
+    "theme/*.css",
+    "theme/scss/*.scss",
+    "lib/components/**/*",
+    "es/components/**/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@code.cestc.cn:jcyzh/at/front/fx-front-framework.git"
+  },
+  "bugs": {
+    "url": "https://code.cestc.cn/jcyzh/at/front/fx-front-framework/-/issues"
+  },
+  "peerDependencies": {
+    "hongluan-ui": "^2.2.3",
+    "hongluan-business-ui": "^4.2.0"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.5",
+    "echarts": "^5.3.3",
+    "lodash": "^4.17.21",
+    "fx-front-utils": "^1.0.1",
+    "hongluan-hooks": "^1.1.7",
+    "@hongluan-ui/icons": "^1.4.6"
+  },
+  "devDependencies": {
+    "@types/node": "*",
+    "csstype": "^2.6.0",
+    "vue-router": "^4.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "not ie 11",
+    "not op_mini all"
+  ]
+}

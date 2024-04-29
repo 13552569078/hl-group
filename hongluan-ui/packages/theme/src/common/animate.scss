@@ -1,0 +1,712 @@
+@use 'sass:math';
+@use 'sass:map';
+
+@include interactive_scope('fade', 'enter') {
+  animation: fadeIn 0.3s forwards;
+}
+@include interactive_scope('fade', 'leave') {
+  animation: fadeOut 0.3s forwards;
+}
+
+@include interactive_scope('fall', 'enter') {
+  animation: fallIn 0.4s forwards;
+}
+@include interactive_scope('fall', 'leave') {
+  animation: fallOut 0.4s forwards;
+}
+
+@include interactive_scope('bounce', 'enter') {
+  animation: bounceIn 0.3s forwards;
+}
+@include interactive_scope('bounce', 'leave') {
+  animation: fallOut 0.3s forwards;
+}
+
+@include interactive_scope('scale', 'enter') {
+  animation: scaleIn 0.3s forwards;
+}
+@include interactive_scope('scale', 'leave') {
+  animation: scaleOut 0.3s forwards;
+}
+
+@include interactive_scope('roadster', 'enter') {
+  transition-delay: 0.25s;
+  animation: roadsterIn 0.5s forwards ease-out;
+}
+@include interactive_scope('roadster', 'leave') {
+  transition-delay: 0.25s;
+  animation: roadsterOut 0.5s forwards ease-out;
+}
+
+@include interactive_scope('slideTop', 'enter') {
+  animation: slideTopIn 0.3s forwards;
+}
+@include interactive_scope('slideTop', 'leave') {
+  animation: slideTopOut 0.3s forwards;
+}
+
+@include interactive_scope('slideDown', 'enter') {
+  animation: slideDownIn 0.3s forwards;
+}
+@include interactive_scope('slideDown', 'leave') {
+  animation: slideDownOut 0.3s forwards;
+}
+
+@include interactive_scope('slideLeft', 'enter') {
+  animation: slideLeftIn 0.3s forwards;
+}
+@include interactive_scope('slideLeft', 'leave') {
+  animation: slideLeftOut 0.3s forwards;
+}
+
+@include interactive_scope('slideRight', 'enter') {
+  animation: slideRightIn 0.3s forwards;
+}
+@include interactive_scope('slideRight', 'leave') {
+  animation: slideRightOut 0.3s forwards;
+}
+
+@include interactive_scope('slideLeftSide', 'enter') {
+  animation: slideLeftSideIn 0.4s forwards;
+}
+@include interactive_scope('slideLeftSide', 'leave') {
+  animation: slideLeftSideOut 0.4s forwards;
+}
+
+@include interactive_scope('slideRightSide', 'enter') {
+  animation: slideRightSideIn 0.4s forwards;
+}
+@include interactive_scope('slideRightSide', 'leave') {
+  animation: slideRightSideOut 0.4s forwards;
+}
+
+@include interactive_scope('slideTopSide', 'enter') {
+  animation: slideTopSideIn 0.4s forwards;
+}
+@include interactive_scope('slideTopSide', 'leave') {
+  animation: slideTopSideOut 0.4s forwards;
+}
+
+@include interactive_scope('slideBottomSide', 'enter') {
+  animation: slideBottomSideIn 0.4s forwards;
+}
+@include interactive_scope('slideBottomSide', 'leave') {
+  animation: slideBottomSideOut 0.4s forwards;
+}
+
+@include interactive_scope('jelly', 'enter') {
+  animation-timing-function: linear;
+  animation: jellyIn 1s forwards;
+}
+@include interactive_scope('jelly', 'leave') {
+  animation-timing-function: linear;
+  animation: jellyOut 1s forwards;
+}
+
+@include interactive_scope('spring', 'enter') {
+  animation-timing-function: linear;
+  animation: springIn 0.4s forwards;
+}
+@include interactive_scope('spring', 'leave') {
+  animation-timing-function: linear;
+  animation: springOut 0.4s forwards;
+}
+.fade-enter-active {
+  animation: fadeIn 0.3s forwards;
+}
+.fade-leave-active {
+  animation: fadeOut 0.3s forwards;
+}
+.fall-enter-active {
+  animation: fallIn 0.4s forwards;
+}
+.fall-leave-active {
+  animation: fallOut 0.4s forwards;
+}
+.bounce-enter-active {
+  animation: bounceIn 0.3s forwards;
+}
+.bounce-leave-active {
+  animation: fallOut 0.3s forwards;
+}
+.scale-enter-active {
+  animation: scaleIn 0.3s forwards;
+}
+.scale-leave-active {
+  animation: scaleOut 0.3s forwards;
+}
+.roadster-enter-active {
+  transition-delay: 0.25s;
+  animation: roadsterIn 0.5s forwards ease-out;
+}
+.roadster-leave-active {
+  transition-delay: 0.25s;
+  animation: roadsterOut 0.5s forwards ease-out;
+}
+.slideTop-enter-active {
+  animation: slideTopIn 0.3s forwards;
+}
+.slideTop-leave-active {
+  animation: slideTopOut 0.3s forwards;
+}
+.slideDown-enter-active {
+  animation: slideDownIn 0.3s forwards;
+}
+.slideDown-leave-active {
+  animation: slideDownOut 0.3s forwards;
+}
+.slideLeft-enter-active {
+animation: slideLeftIn 0.3s forwards;
+}
+.slideLeft-leave-active {
+animation: slideLeftOut 0.3s forwards;
+}
+.slideRight-enter-active {
+animation: slideRightIn 0.3s forwards;
+}
+.slideRight-leave-active {
+animation: slideRightOut 0.3s forwards;
+}
+.slideLeftSide-enter-active {
+  animation: slideLeftSideIn 0.4s forwards;
+}
+.slideLeftSide-leave-active {
+  animation: slideLeftSideOut 0.4s forwards;
+}
+.slideRightSide-enter-active {
+  animation: slideRightSideIn 0.4s forwards;
+}
+.slideRightSide-leave-active {
+  animation: slideRightSideOut 0.4s forwards;
+}
+.slideTopSide-enter-active {
+  animation: slideTopSideIn 0.4s forwards;
+}
+.slideTopSide-leave-active {
+  animation: slideTopSideOut 0.4s forwards;
+}
+.slideBottomSide-enter-active {
+  animation: slideBottomSideIn 0.4s forwards;
+}
+.slideBottomSide-leave-active {
+  animation: slideBottomSideOut 0.4s forwards;
+}
+.jelly-enter-active {
+  animation-timing-function: linear;
+  animation: jellyIn 1s forwards;
+}
+.jelly-leave-active {
+  animation-timing-function: linear;
+  animation: jellyOut 1s forwards;
+}
+.spring-enter-active {
+  animation-timing-function: linear;
+  animation: springIn 0.4s forwards;
+}
+.spring-leave-active {
+  animation-timing-function: linear;
+  animation: springOut 0.4s forwards;
+}
+
+
+
+.collapse-transition {
+  transition: 0.3s height ease-in-out, 0.3s padding-top ease-in-out, 0.3s padding-bottom ease-in-out;
+}
+
+.collapse-transition-leave-active,
+.collapse-transition-enter-active {
+  transition: 0.3s max-height ease-in-out, 0.3s padding-top ease-in-out, 0.3s padding-bottom ease-in-out;
+}
+
+.horizontal-collapse-transition {
+  transition: 0.3s width ease-in-out, 0.3s padding-left ease-in-out, 0.3s padding-right ease-in-out;
+}
+
+.zoom-in-top-enter-active,
+.zoom-in-top-leave-active {
+  opacity: 1;
+  transform: scaleY(1);
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  transform-origin: center top;
+
+  &[data-popper-placement^='top'] {
+    transform-origin: center bottom;
+  }
+}
+.zoom-in-top-enter-from,
+.zoom-in-top-leave-active {
+  opacity: 0;
+  transform: scaleY(0);
+}
+
+.zoom-in-left-enter-active,
+.zoom-in-left-leave-active {
+  opacity: 1;
+  transform: scaleY(1);
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  transform-origin: center top;
+
+  &[data-popper-placement^='left'] {
+    transform-origin: center left;
+  }
+}
+.zoom-in-left-enter-from,
+.zoom-in-left-leave-active {
+  opacity: 0;
+  transform: scaleY(0);
+}
+
+.list-enter-active,
+.list-leave-active {
+  transition: all 1s;
+}
+.list-enter-from,
+.list-leave-active {
+  opacity: 0;
+  transform: translateY(size(-30px));
+}
+
+.dropdown-enter-active {
+  animation: dropdownUp 0.3s ease 1;
+}
+
+.dropdown-leave-active {
+  animation: dropdownDown 0.3s ease 1;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fallIn {
+  0% {
+    opacity: 0;
+    transform: scale3d(1.1, 1.1, 1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes fallOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale3d(0.9, 0.9, 1);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.7);
+    -webkit-transform: scale(0.7);
+  }
+
+  45% {
+    transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+  }
+
+  80% {
+    transform: scale(0.95);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes scaleIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+}
+
+@keyframes roadsterIn {
+  0% {
+    opacity: 0;
+    transform: translate3d(calc(-100vw - 50%), 0, 0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate3d(size(100px), 0, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes roadsterOut {
+  0% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate3d(size(-100px), 0, 0) scale3d(1.1, 1.1, 1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(calc(100vw + 50%), 0, 0);
+  }
+}
+
+@keyframes slideLeftSideIn {
+  0% {
+    // opacity: 0;
+    transform: translate(100%, 0);
+  }
+
+  100% {
+    // opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes slideLeftSideOut {
+  0% {
+    // opacity: 1;
+    transform: translate(0, 0);
+  }
+
+  100% {
+    // opacity: 0;
+    transform: translate(100%, 0);
+  }
+}
+
+@keyframes slideRightSideIn {
+  0% {
+    // opacity: 0;
+    transform: translate(-100%, 0);
+  }
+
+  100% {
+    // opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes slideRightSideOut {
+  0% {
+    // opacity: 1;
+    transform: translate(0, 0);
+  }
+
+  100% {
+    // opacity: 0;
+    transform: translate(-100%, 0);
+  }
+}
+
+@keyframes slideTopSideIn {
+  0% {
+    // opacity: 0;
+    transform: translate(0, 100%);
+  }
+
+  100% {
+    // opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes slideTopSideOut {
+  0% {
+    // opacity: 1;
+    transform: translate(0, 0);
+  }
+
+  100% {
+    // opacity: 0;
+    transform: translate(0, 100%);
+  }
+}
+
+@keyframes slideBottomSideIn {
+  0% {
+    // opacity: 0;
+    transform: translate(0, -100%);
+  }
+
+  100% {
+    // opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes slideBottomSideOut {
+  0% {
+    // opacity: 1;
+    transform: translate(0, 0);
+  }
+
+  100% {
+    // opacity: 0;
+    transform: translate(0, -100%);
+  }
+}
+
+@keyframes slideTopIn {
+  0% {
+    opacity: 0;
+    transform: translate(0, size(50px));
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes slideTopOut {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(0, size(50px));
+  }
+}
+
+@keyframes slideDownIn {
+  0% {
+    opacity: 0;
+    transform: translate(0, size(-50px));
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes slideDownOut {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(0, size(-50px));
+  }
+}
+
+@keyframes slideLeftIn {
+  0% {
+    opacity: 0;
+    transform: translate(size(50px), 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes slideLeftOut {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(size(50px), 0);
+  }
+}
+
+@keyframes slideRightIn {
+  0% {
+    opacity: 0;
+    transform: translate(size(-50px), 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes slideRightOut {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(size(-50px), 0);
+  }
+}
+
+@keyframes jellyIn {
+  0% {
+    opacity: 0;
+    transform: matrix3d(0.7, 0, 0, 0, 0, 0.7, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+
+  8% {
+    transform: matrix3d(0.92038, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+
+  16% {
+    transform: matrix3d(1.04227, 0, 0, 0, 0, 1.08453, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+
+  24% {
+    transform: matrix3d(1.04487, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+
+  32% {
+    transform: matrix3d(1.01191, 0, 0, 0, 0, 0.97618, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+
+  40% {
+    transform: matrix3d(0.99368, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+
+  48% {
+    opacity: 1;
+    transform: matrix3d(0.99329, 0, 0, 0, 0, 1.00671, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+
+  56% {
+    transform: matrix3d(0.99822, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+
+  64% {
+    transform: matrix3d(1.00057, 0, 0, 0, 0, 0.99795, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+
+  72% {
+    transform: matrix3d(1.00114, 0, 0, 0, 0, 0.99955, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+
+  80% {
+    transform: matrix3d(1.00044, 0, 0, 0, 0, 1.00058, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+
+  88% {
+    transform: matrix3d(0.99991, 0, 0, 0, 0, 1.00013, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+}
+
+@keyframes jellyOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+@keyframes springIn {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+
+  25% {
+    opacity: 1;
+    transform: translate(0, -10%);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate(0%, 10%);
+  }
+
+  75% {
+    opacity: 1;
+    transform: translate(0, -5%);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+@keyframes springOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+@keyframes dropdownUp {
+  from {
+    opacity: 0;
+    transform: translate(0, size(-10px));
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+@keyframes dropdownDown {
+  from {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  to {
+    opacity: 0;
+    transform: translate(0, size(-10px));
+  }
+}

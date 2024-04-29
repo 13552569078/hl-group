@@ -1,0 +1,116 @@
+.#{$cascader_panel} {
+  display: inline-flex;
+ 
+  &.is-bordered {
+    background-color: map.get($conf_popper, 'bg-color');
+    border-radius: size(map.get($conf_popper, 'radius'));
+    box-shadow: var(--box-shadow-md);
+    @if map.get($conf_popper, 'border-color') != false {
+      border: var(--border-width) solid map.get($conf_popper, 'border-color');
+    }
+  }
+  .cascader-menu {
+    min-width: size(180px);
+    border-left: var(--border-width) solid var(--border-regular);
+    &:first-child {
+      border-left: none;
+    }
+
+    .cascader-menu-wrap {
+      height: calc(#{size(map.get($conf_dropdown, 'padding-y'))} * 2 + #{size(map.get($conf_dropdown, 'item-height'))} * 5);
+    }
+
+    .cascader-menu-list {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+      padding: size(map.get($conf_dropdown, 'padding-y')) size(map.get($conf_dropdown, 'padding-x'));
+      &.is-empty {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--text-light);
+      }
+      .cascader-item,
+      li {
+        position: relative;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        padding: size(map.get($conf_dropdown, 'item-padding-y')) size(map.get($conf_dropdown, 'item-padding-x'));
+        padding-right: calc(#{map.get($conf_dropdown, 'item-padding-x')} + #{map.get($conf_input, 'font-size')});
+        height: size(map.get($conf_dropdown, 'item-height'));
+        font-size: size(map.get($conf_dropdown, 'item-font-size'));
+        color: map.get($conf_dropdown, 'item-font-color');
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        hyphens: auto;
+        @include transition(color var(--duration) var(--timing), background-color var(--duration) var(--timing));
+
+        .#{$spinner} {
+          width: size(map.get($conf_dropdown, 'item-icon-size'));
+          height: size(map.get($conf_dropdown, 'item-icon-size'));
+        }
+
+        &:focus,
+        &.hover,
+        &:hover {
+          color: map.get($conf_dropdown, 'item-font-color-hover');
+          background-color: map.get($conf_dropdown, 'item-bg-color-hover');
+        }
+
+        &.in-active-path {
+          color: map.get($conf_dropdown, 'item-font-color-hover');
+        }
+
+        &.is-active {
+          color: map.get($conf_dropdown, 'item-font-color-hover');
+        }
+
+        &.is-disabled {
+          color: var(--text-light);
+          cursor: not-allowed;
+          pointer-events: none;
+        }
+
+        .cascader-item-label {
+          padding-right: size(16px);
+        }
+
+        .cascader-item-prefix,
+        .cascader-item-suffix {
+          position: absolute;
+          right: size(16px);
+          margin: 0;
+          color: currentColor;
+        }
+        .cascader-item-suffix {
+          width: size(map.get($conf_input, 'font-size'));
+          height: size(map.get($conf_input, 'font-size'));
+        }
+        .cascader-item-prefix {
+          width: size(map.get($conf_dropdown, 'item-icon-size'));
+          height: size(map.get($conf_dropdown, 'item-icon-size'));
+        }
+
+        .#{$checkbox} {
+          margin-right: size(8px);
+          .radio-label {
+            padding: 0;
+          }
+        }
+      }
+    }
+
+    .cascader-menu-hover-zone {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+  }
+}

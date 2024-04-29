@@ -1,0 +1,207 @@
+@use 'sass:math';
+@use 'sass:map';
+
+@import '../common/variable.scss'; //函数库
+
+// 主题名称
+$color-name: 'dark-mode';
+
+//+----------------------------------------------------------------------
+// 颜色配置
+// 每个主题颜色都需要单独设置唯一的名称，例如：dark-mode
+// sass颜色变亮会自动输出为css var变量，并继承在 ".dark-mode"类下
+// 新增一个主题颜色：
+//  1.在当前目录复制一份这个文件；
+//  2.修改主题名称和下面的颜色配置；
+//  3.在项目的样式文件中引入；（参考demo/src/assets/2.x/fx.scss）
+//+----------------------------------------------------------------------
+.#{$color-name} {
+  //+----------------------------------------------------------------------
+  // 颜色变量（使用sass.map来生成css var更加简便）
+  //+----------------------------------------------------------------------
+  // 状态色
+  $conf_state_color: (
+    'primary': (
+      'default': #3699ff,
+      'bg': #3699ff,
+      'hover': scale-color(#3699ff, $saturation: 0%, $lightness: 20%),
+      'active': scale-color(#3699ff, $saturation: 0%, $lightness: -6%),
+      'light': #212e48,
+    ),
+    'success': (
+      'default': #0bb783,
+      'bg': #0bb783,
+      'hover': scale-color(#0bb783, $saturation: 0%, $lightness: 20%),
+      'active': scale-color(#0bb783, $saturation: 0%, $lightness: -14%),
+      'light': #1c3238,
+    ),
+    'danger': (
+      'default': #f64e60,
+      'bg': #f64e60,
+      'hover': scale-color(#f64e60, $saturation: 0%, $lightness: 20%),
+      'active': scale-color(#f64e60, $saturation: 0%, $lightness: -14%),
+      'light': #3a2434,
+    ),
+    'warning': (
+      'default': #ffa800,
+      'bg': #ffa800,
+      'hover': scale-color(#ffa800, $saturation: 0%, $lightness: 20%),
+      'active': scale-color(#ffa800, $saturation: 0%, $lightness: -14%),
+      'light': #392f28,
+    ),
+    'info': (
+      'default': #8950fc,
+      'bg': #8950fc,
+      'hover': scale-color(#8950fc, $saturation: 0%, $lightness: 20%),
+      'active': scale-color(#8950fc, $saturation: 0%, $lightness: -14%),
+      'light': #2f264f,
+    ),
+  );
+
+  // 背景色
+  $conf_bg_color: (
+    'body': #1a1a26, // 主体背景 (主体)
+    'content': #1e1e2d, // 内容区背景 (内容区)
+    'light': #1c1c2a, // 淡色背景 (用于展示一个范围)
+    'popup': #1e1e2d, // 弹窗背景 (浮层、弹窗等)
+    'element': #1b1b29, // 组件元素背景
+    'hover': #232334, // 悬停背景
+    'active': #232339, // 激活背景
+    'header': #1a1a26, // 标题背景
+    'backdrop': rgba(#000000, 0.4), // 背景幕布
+  );
+
+  // 文本色
+  $conf_font_color: (
+    'regular': #6d6d80, // 常用
+    'secondary': #565674, // 次要
+    'light': #474761, // 淡色、禁用色
+    'lightest': #323248, // 淡色/超淡色
+    'title': #ffffff, // 标题
+    'link': var(--main-color), // 链接
+    'hover': var(--main-color), // 悬停
+    'active': var(--main-color), // 激活
+    'inverse': #ffffff, // 反色
+  );
+
+  // 边框颜色
+  $conf_border_color: (
+    'regular': #2b2b40, // 默认
+    'light': #242436, // 淡色
+    'dark': #2b384d, // 深色
+  );
+
+  // 阴影样式
+  $conf_box_shadow: (
+    "sm": (0 2px 4px 0) rgba(var(--shadow-color, 0, 0, 0), 0.06),
+    "md": (0 0px 30px 0) rgba(var(--shadow-color, 0, 0, 0), 0.3),
+    "lg": (0 6px 24px) rgba(var(--shadow-color, 0, 0, 0), 0.16),
+    "xl": (0 12px 40px 0) rgba(var(--shadow-color, 0, 0, 0), 0.24),
+  );
+
+  // 滤镜阴影样式
+  $conf_drop_shadow: (
+    "sm": 0 5px 4px rgba(var(--shadow-color, 0, 0, 0), 0.3),
+    "md": 0 10px 8px rgba(var(--shadow-color, 0, 0, 0), 0.4),
+    "lg": 0 15px 8px rgba(var(--shadow-color, 0, 0, 0), 0.45),
+    "xl": 0 20px 8px rgba(var(--shadow-color, 0, 0, 0), 0.5),
+  );
+
+  // 渐进色 (用于输出颜色的Light和Dark渐进值)
+  $conf_progressive: (
+    "light-5": ("h": -10deg, "s": -55%, "l": -70%),
+    "light-4": ("h": -8deg,  "s": -45%, "l": -56%),
+    "light-3": ("h": -6deg,  "s": -35%, "l": -42%),
+    "light-2": ("h": -4deg,  "s": -25%, "l": -28%),
+    "light-1": ("h": -2deg,  "s": -15%, "l": -14%),
+    "dark-1": ("h": 2deg,  "s": 5%,  "l":  18%),
+    "dark-2": ("h": 4deg,  "s": 10%, "l":  36%),
+    "dark-3": ("h": 6deg,  "s": 15%, "l":  54%),
+    "dark-4": ("h": 8deg,  "s": 20%, "l":  72%),
+    "dark-5": ("h": 10deg, "s": 25%, "l":  90%),
+  );
+
+
+  //+----------------------------------------------------------------------
+  // 通过上面的sass.map来生成下面css var
+  //+----------------------------------------------------------------------
+  --main-color: #00b2ff;
+  --rgb-main-color: #{red(#00b2ff), green(#00b2ff), blue(#00b2ff)};
+  --shadow-color: #{red(#3E4E6A), green(#3E4E6A), blue(#3E4E6A)};
+  //状态色
+  @each $key, $value in $conf_state_color {
+    --#{$key}: #{map.get($value, 'default')};
+    --#{$key}-bg: #{map.get($value, 'bg')};
+    --#{$key}-hover: #{map.get($value, 'hover')};
+    --#{$key}-active: #{map.get($value, 'active')};
+    --#{$key}-light: #{map.get($value, 'light')};
+  }
+  //rgb 颜色值
+  @each $key, $value in $conf_state_color {
+    --rgb-#{$key}: #{red(map.get($value, 'default')), green(map.get($value, 'default')), blue(map.get($value, 'default'))};
+  }
+  @each $key, $value in $conf_bg_color {
+    --rgb-bg-#{$key}: #{red($value), green($value), blue($value)};
+  }
+  //文本色
+  @each $key, $value in $conf_font_color {
+    --text-#{$key}: #{$value};
+  }
+  //背景色
+  @each $key, $value in $conf_bg_color {
+    --bg-#{$key}: #{$value};
+  }
+  //边框色
+  @each $key, $value in $conf_border_color {
+    --border-#{$key}: #{$value};
+  }
+  //阴影样式
+  @each $key, $value in $conf_box_shadow {
+    --box-shadow-#{$key}: #{$value};
+  }
+  // 渐进色
+  @each $key, $value in $conf_state_color {
+    @each $k, $v in $conf_progressive {
+      --#{$key}-#{$k}: #{adjust-hue(scale-color(map.get($value, 'default'), $saturation: map.get($v, 's'), $lightness: map.get($v, 'l')), map.get($v, 'h'))};
+    }
+  }
+
+  //+----------------------------------------------------------------------
+  // 对某个组件进行深度定制的话，可以在此文件新建css var函数来控制
+  //+----------------------------------------------------------------------
+
+  // 通用表单颜色
+  --form-bg-color: var(--bg-element);
+  --form-bg-color-fill: var(--bg-element);
+  --form-border-color: var(--border-dark);
+  --form-disabled-border-color: var(--border-regular);
+  --form-disabled-bg-color: var(--bg-light);
+  --form-disabled-font-color: var(--text-light);
+  --form-icon-color: var(--text-regular);
+  --form-shadow-color: var(--rgb-primary);
+
+  // 按钮样式var
+  --#{$conf-prefix}button-font-color: #cdcdde;
+  --#{$conf-prefix}button-font-color-hover: #FFFFFF;
+  --#{$conf-prefix}button-font-color-active: #FFFFFF;
+  --#{$conf-prefix}button-bg-color: #242f44;
+  --#{$conf-prefix}button-bg-color-hover: var(--primary);
+  --#{$conf-prefix}button-bg-color-active: var(--bg-element);
+  --#{$conf-prefix}button-border-color: #242f44;
+  --#{$conf-prefix}button-border-color-hover: var(--primary-active);
+  --#{$conf-prefix}button-border-color-active: var(--primary-active);
+
+  //menu样式var
+  --#{$conf-prefix}menu-icon-color: #4B5575;
+  --#{$conf-prefix}menu-icon-color-hover: currentColor;
+  --#{$conf-prefix}menu-icon-color-active: currentColor;
+  --#{$conf-prefix}menu-font-color: #989eb3;
+  --#{$conf-prefix}menu-font-color-hover: #FFFFFF;
+  --#{$conf-prefix}menu-font-color-active: #FFFFFF;
+  --#{$conf-prefix}menu-bg-color: #242939;
+  --#{$conf-prefix}menu-bg-hover: #1f2433;
+  --#{$conf-prefix}menu-bg-active: #1f2433;
+  --#{$conf-prefix}menu-group-title-color: rgba(#fff, 0.2);
+  --#{$conf-prefix}menu-child-bg-color: #1e2230;
+  --#{$conf-prefix}menu-dropdown-shadow: none;
+}

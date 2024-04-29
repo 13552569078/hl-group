@@ -1,0 +1,42 @@
+.#{$message_box} {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .#{$panel} {
+    min-width: size(360px);
+    box-shadow:var(--box-shadow-xl);
+    .panel-header {
+      gap: size(12px);
+      .panel-header-left {
+        .#{$icon} {
+          --icon-size: #{size(18px)};
+        }
+      }
+    }
+    .panel-body {
+      text-align: center;
+    }
+
+    .panel-footer {
+      .#{$button} {
+        min-width: size(80px);
+        margin-right: size(16px);
+
+        &:last-child,
+        &:only-child {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  &.at-center {
+    .#{$panel} {}
+  }
+}

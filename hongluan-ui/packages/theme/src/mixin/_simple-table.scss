@@ -1,0 +1,12 @@
+//simple-table样式生成器
+.#{$simple_table} {
+  // 生成尺寸
+  @each $key, $value in $conf_table_size {
+    &.#{$key} {
+      --table-radius: #{map.get($value, 'radius')};
+      --table-td-height: #{map.get($value, 'td-height')};
+      --table-font-size: #{map.get($value, 'font-size')};
+      --table-cell-padding: #{map.get($value, 'cell-padding')};
+    }
+  }
+}

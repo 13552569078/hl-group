@@ -1,0 +1,348 @@
+{
+  "zh-CN": [
+    {
+      "groups": [
+        {
+          "groupName": "基础组件",
+          "list": [
+            {
+              "path": "/component/button",
+              "title": "Button 按钮",
+              "thumb": "button.svg"
+            },
+            {
+              "path": "/component/grid",
+              "title": "Grid 栅格",
+              "thumb": "grid.svg"
+            },
+            {
+              "path": "/component/group",
+              "title": "Group 组",
+              "thumb": "group.svg"
+            },
+            {
+              "path": "/component/icon",
+              "title": "Icon 图标",
+              "thumb": "icon.svg"
+            },
+            {
+              "path": "/component/layout",
+              "title": "Layout 布局框架",
+              "thumb": "layout.svg"
+            },
+            {
+              "path": "/component/link",
+              "title": "Link 链接",
+              "thumb": "button.svg"
+            },
+            {
+              "path": "/component/panel",
+              "title": "Panel 面板",
+              "thumb": "panel.svg"
+            },
+            {
+              "path": "/component/scrollbar",
+              "title": "Scrollbar 滚动条",
+              "thumb": "scrollbar.svg"
+            }
+          ]
+        },
+        {
+          "groupName": "配置组件",
+          "list": [
+            {
+              "path": "/component/config-provider",
+              "title": "Config Provider全局配置"
+            }
+          ]
+        },
+        {
+          "groupName": "表单组件",
+          "list": [
+            {
+              "path": "/component/autocomplete",
+              "title": "Autocomplete 输入建议",
+              "thumb": "autocomplete.svg"
+            },
+            {
+              "path": "/component/checkbox",
+              "title": "Checkbox 复选框",
+              "thumb": "checkbox.svg"
+            },
+            {
+              "path": "/component/color-picker",
+              "title": "Color Picker 取色器",
+              "thumb": "color-picker.svg"
+            },
+            {
+              "path": "/component/cascader",
+              "title": "Cascader 级联选择器",
+              "thumb": "cascader.svg"
+            },
+            {
+              "path": "/component/date-picker",
+              "title": "Date Picker 日期选择器",
+              "thumb": "date-picker.svg"
+            },
+            {
+              "path": "/component/datetime-picker",
+              "title": "DateTime Picker 日期时间选择器",
+              "thumb": "datetime-picker.svg"
+            },
+            {
+              "path": "/component/form",
+              "title": "Form 表单",
+              "thumb": "form.svg"
+            },
+            {
+              "path": "/component/input",
+              "title": "Input 输入框",
+              "thumb": "input.svg"
+            },
+            {
+              "path": "/component/input-number",
+              "title": "Input Number 计数器",
+              "thumb": "input-number.svg"
+            },
+            {
+              "path": "/component/radio",
+              "title": "Radio 单选框",
+              "thumb": "radio.svg"
+            },
+            {
+              "path": "/component/select",
+              "title": "Select 选择器",
+              "thumb": "select.svg"
+            },
+            {
+              "path": "/component/select-v2",
+              "title": "Select-V2 虚拟列表选择器",
+              "beta": true,
+              "hidden": true
+            },
+            {
+              "path": "/component/selector",
+              "title": "Selector 高级选择器",
+              "thumb": "select.svg"
+            },
+            {
+              "path": "/component/slider",
+              "title": "Slider 滑块",
+              "thumb": "slider.svg"
+            },
+            {
+              "path": "/component/switch",
+              "title": "Switch 开关",
+              "thumb": "switch.svg"
+            },
+            {
+              "path": "/component/time-picker",
+              "title": "Time Picker 时间选择器",
+              "thumb": "time-picker.svg"
+            },
+            {
+              "path": "/component/time-select",
+              "title": "Time Select 时间选择",
+              "thumb": "time-select.svg"
+            },
+            {
+              "path": "/component/transfer",
+              "title": "Transfer 穿梭框",
+              "thumb": "transfer.svg"
+            },
+            {
+              "path": "/component/upload",
+              "title": "Upload 上传",
+              "thumb": "upload.svg"
+            }
+          ]
+        },
+        {
+          "groupName": "数据展示",
+          "list": [
+            {
+              "path": "/component/badge",
+              "title": "Badge 徽章",
+              "thumb": "badge.svg"
+            },
+            {
+              "path": "/component/calendar",
+              "title": "Calendar 日历",
+              "thumb": "calendar.svg"
+            },
+            {
+              "path": "/component/carousel",
+              "title": "Carousel 走马灯",
+              "thumb": "carousel.svg"
+            },
+            {
+              "path": "/component/collapse",
+              "title": "Collapse 折叠面板",
+              "thumb": "collapse.svg"
+            },
+            {
+              "path": "/component/infinite-scroll",
+              "title": "Infinite Scroll 无限滚动",
+              "thumb": "infinite-scroll.svg"
+            },
+            {
+              "path": "/component/progress",
+              "title": "Progress 进度条",
+              "thumb": "progress.svg"
+            },
+            {
+              "path": "/component/pagination",
+              "title": "Pagination 分页",
+              "thumb": "pagination.svg"
+            },
+            {
+              "path": "/component/popover",
+              "title": "Popover 气泡弹框",
+              "thumb": "popover.svg"
+            },
+            {
+              "path": "/component/simple-table",
+              "title": "SimpleTable 简单表格",
+              "thumb": "table.svg"
+            },
+            {
+              "path": "/component/virtual-table",
+              "title": "Virtualized Table 虚拟表格",
+              "thumb": "virtual-table.svg"
+            },
+            {
+              "path": "/component/skeleton",
+              "title": "Skeleton 骨架屏",
+              "thumb": "skeleton.svg"
+            },
+            {
+              "path": "/component/tag",
+              "title": "Tag 标签",
+              "thumb": "tag.svg"
+            },
+            {
+              "path": "/component/timeline",
+              "title": "Timeline 时间轴",
+              "thumb": "timeline.svg"
+            },
+            {
+              "path": "/component/thumb",
+              "title": "Thumb 缩略图",
+              "thumb": "thumb.svg"
+            },
+            {
+              "path": "/component/tree",
+              "title": "Tree 树形控件",
+              "thumb": "tree.svg"
+            },
+            {
+              "path": "/component/tree-v2",
+              "title": "Virtualized Tree 虚拟树",
+              "thumb": "tree.svg"
+            }
+          ]
+        },
+        {
+          "groupName": "导航菜单",
+          "list": [
+            {
+              "path": "/component/affix",
+              "title": "Affix 固钉",
+              "thumb": "affix.svg"
+            },
+            {
+              "path": "/component/breadcrumb",
+              "title": "Breadcrumb 面包屑",
+              "thumb": "breadcrumb.svg"
+            },
+            {
+              "path": "/component/dropdown",
+              "title": "Dropdown 下拉菜单",
+              "thumb": "dropdown.svg"
+            },
+            {
+              "path": "/component/list",
+              "title": "List 列表",
+              "thumb": "list.svg"
+            },
+            {
+              "path": "/component/menu",
+              "title": "Menu 导航菜单",
+              "thumb": "menu.svg"
+            },
+            {
+              "path": "/component/steps",
+              "title": "Steps 步骤条",
+              "thumb": "steps.svg"
+            },
+            {
+              "path": "/component/tabs",
+              "title": "Tabs 标签页",
+              "thumb": "tabs.svg"
+            }
+          ]
+        },
+        {
+          "groupName": "反馈组件",
+          "list": [
+            {
+              "path": "/component/alert",
+              "title": "Alert 警告",
+              "thumb": "alert.svg"
+            },
+            {
+              "path": "/component/dialog",
+              "title": "Dialog 弹窗",
+              "thumb": "dialog.svg"
+            },
+            {
+              "path": "/component/loading",
+              "title": "Loading 加载",
+              "thumb": "loading.svg"
+            },
+            {
+              "path": "/component/message-box",
+              "title": "Message Box 操作提示窗",
+              "thumb": "message-box.svg"
+            },
+            {
+              "path": "/component/message",
+              "title": "Message 消息弹窗",
+              "thumb": "message.svg"
+            },
+            {
+              "path": "/component/notification",
+              "title": "Notification 通知",
+              "thumb": "notification.svg"
+            },
+            {
+              "path": "/component/ripple",
+              "title": "Ripple 水波纹",
+              "thumb": "ripple.svg"
+            },
+            {
+              "path": "/component/spinner",
+              "title": "Spinner 加载状态",
+              "thumb": "spinner.svg"
+            }
+          ]
+        },
+        {
+          "groupName": "其他",
+          "list": [
+            {
+              "path": "/component/anchor",
+              "title": "Anchor 锚点",
+              "thumb": "anchor.svg"
+            },
+            {
+              "path": "/component/backtop",
+              "title": "Backtop 回到顶部",
+              "thumb": "backtop.svg"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

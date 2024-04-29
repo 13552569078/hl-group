@@ -1,0 +1,11 @@
+//timeline样式生成器
+.#{$timeline} {
+  //生成类型
+  @each $key, $value in $conf_timeline_type {
+    .#{$timeline_item} {
+      &.#{$key} {
+        --timeline-icon-color: #{$value};
+      }
+    }
+  }
+}

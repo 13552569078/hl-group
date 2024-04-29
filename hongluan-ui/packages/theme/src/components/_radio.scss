@@ -1,0 +1,150 @@
+.#{$radio} {
+  --radio-size: #{size(map.get($conf_checkbox, 'size'))};
+  --radio-icon-color: #{size(map.get($conf_checkbox, 'icon-color'))};
+  --radio-font-color: #{map.get($conf_checkbox, 'font-color')};
+  --radio-font-size: #{size(map.get($conf_checkbox, 'font-size'))};
+  --radio-bg-color: #{map.get($conf_checkbox, 'bg-color')};
+  --radio-bg-color-hover: #{map.get($conf_checkbox, 'bg-color-hover')};
+  --radio-bg-color-checked: #{map.get($conf_checkbox, 'bg-color-checked')};
+  --radio-border-color: #{map.get($conf_checkbox, 'border-color')};
+  --radio-border-color-hover: #{map.get($conf_checkbox, 'border-color-hover')};
+  --radio-border-color-checked: #{map.get($conf_checkbox, 'border-color-checked')};
+  --radio-border-width: var(--form-border-width);
+  position: relative;
+  font-size: var(--radio-font-size);
+  display: inline-flex;
+  align-items: center;
+  text-align: left;
+  vertical-align: middle;
+  cursor: pointer;
+
+  .radio-input {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -10;
+    opacity: 0;
+    outline: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .radio-inner {
+    position: relative;
+    display: block;
+    float: left;
+    width: var(--radio-size);
+    height: var(--radio-size);
+    font-style: normal;
+    background-color: var(--radio-bg-color);
+    border: var(--radio-border-width) solid var(--radio-border-color);
+    border-radius: 100%;
+    flex-shrink: 0;
+    flex-grow: unset;
+
+    @if $features_transition {
+      animation-duration: 0.4s;
+      animation-fill-mode: forwards;
+    }
+    @include transition(border-color var(--duration) var(--timing), box-shadow var(--duration) var(--timing));
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      border-radius: 100%;
+      background-color: transparent;
+      border: transparent;
+      transform: scale(0.5);
+    }
+  }
+
+  .radio-label {
+    color: var(--radio-font-color);
+    padding-left: size(8px);
+    font-size: var(--radio-font-size);
+    line-height: var(--radio-size);
+    @include transition(color var(--duration) var(--timing));
+  }
+
+  .#{$button} {
+    pointer-events: none;
+  }
+
+  &:hover {
+    .radio-inner {
+      border-color: var(--radio-border-color-hover);
+      background-color: var(--radio-bg-color-hover);
+    }
+  }
+
+  &.is-checked {
+    z-index: 1;
+    .radio-inner {
+      border-color: var(--radio-border-color-checked);
+      background-color: var(--radio-bg-color-checked);
+      animation-name: bounceIn;
+      &:after {
+        background-color: var(--radio-icon-color);
+      }
+    }
+    .radio-label {
+      color: var(--radio-font-color);
+    }
+  }
+
+  &.is-focus {
+    z-index: 1;
+    @if map.get($conf_form, 'shadow-size') != false {
+      .radio-inner {
+        box-shadow: var(--form-shadow-size) rgba(var(--form-shadow-color), var(--form-shadow-opcity));
+      }
+    }
+  }
+
+  &.is-disabled {
+    cursor: not-allowed;
+
+    .radio-inner {
+      border-color: var(--form-disabled-border-color) !important;
+      background-color: var(--form-disabled-bg-color) !important;
+    }
+
+    .radio-label {
+      color: var(--form-disabled-font-color) !important;
+    }
+
+    &.is-checked {
+      .radio-inner {
+        &:after {
+          background-color: var(--form-disabled-font-color);
+        }
+      }
+    }
+  }
+
+  &.fill {
+    .radio-inner {
+      border-color: var(--radio-bg-color-fill, var(--radio-border-color));
+      background-color: var(--radio-bg-color-fill, var(--radio-border-color));
+      @include transition(all var(--duration) var(--timing));
+    }
+    &:hover {
+      .radio-inner {
+        border-color: var(--radio-border-color-hover);
+        background-color: var(--radio-border-color-hover);
+      }
+    }
+    &.is-checked {
+      .radio-inner {
+        border-color: var(--radio-border-color-checked);
+        background-color: var(--radio-bg-color-checked);
+      }
+    }
+  }
+}

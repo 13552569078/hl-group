@@ -1,0 +1,323 @@
+.#{$menu} {
+  --menu-height: #{size(map.get($conf_menu, 'height'))};
+  --menu-width-collapse: #{size(map.get($conf_menu, 'width-collapse'))};
+  --menu-font-size: #{size(map.get($conf_menu, 'font-size'))};
+  --menu-icon-size: #{size(map.get($conf_menu, 'icon-size'))};
+  --menu-icon-color: #{map.get($conf_menu, 'icon-color')};
+  --menu-icon-color-hover: #{map.get($conf_menu, 'icon-color-hover')};
+  --menu-icon-color-active: #{map.get($conf_menu, 'icon-color-active')};
+  --menu-bg-color: #{map.get($conf_menu, 'bg-color')};
+  --menu-bg-color-hover: #{map.get($conf_menu, 'bg-hover')};
+  --menu-bg-color-active: #{map.get($conf_menu, 'bg-active')};
+  --menu-font-color: #{map.get($conf_menu, 'font-color')};
+  --menu-font-color-hover: #{map.get($conf_menu, 'font-color-hover')};
+  --menu-font-color-active: #{map.get($conf_menu, 'font-color-active')};
+  --menu-group-title-color: #{map.get($conf_menu, 'group-title-color')};
+  --menu-child-bg-color: #{map.get($conf_menu, 'child-bg-color')};
+  --menu-child-font-size: #{size(map.get($conf_menu, 'child-font-size'))};
+  --menu-item-height: #{size(map.get($conf_menu, 'item-height'))};
+  --menu-item-padding-y: #{size(map.get($conf_menu, 'item-padding-y'))};
+  --menu-item-padding-x: #{size(map.get($conf_menu, 'item-padding-x'))};
+  --menu-subitem-indent: #{size(map.get($conf_menu, 'subitem-indent'))};
+  --menu-dropdown-shadow: #{map.get($conf_menu, 'dropdown-shadow')};
+  list-style: none;
+  position: relative;
+  margin: 0;
+  padding-left: 0;
+  font-size: var(--menu-font-size);
+  background-color: var(--menu-bg-color);
+  .#{$menu_item} {
+    position: relative;
+    list-style: none;
+    margin: 0;
+    cursor: pointer;
+    color: var(--menu-font-color);
+    @include transition(all var(--duration) var(--timing));
+
+    .#{$menu} {
+      font-size: var(--menu-child-font-size);
+    }
+    // 手动支持5级菜单，方便用样式精确控制
+    .#{$menu_item} {
+      .item-content {
+        @if map.get($conf_menu, 'show-icon') == true {
+          padding-left: calc(var(--menu-item-padding-x) + var(--menu-subitem-indent) + 1em + (var(--menu-icon-size) - var(--menu-font-size)));
+        } @else {
+          padding-left: calc(var(--menu-item-padding-x) + var(--menu-subitem-indent) + 1em - var(--menu-font-size));
+        }
+      }
+
+      .#{$menu_item} {
+        .item-content {
+          @if map.get($conf_menu, 'show-icon') == true {
+            padding-left: calc(var(--menu-item-padding-x) + var(--menu-subitem-indent) + 2em + (var(--menu-icon-size) - var(--menu-font-size)));
+          } @else {
+            padding-left: calc(var(--menu-item-padding-x) + var(--menu-subitem-indent) + 2em - var(--menu-font-size));
+          }
+        }
+
+        .#{$menu_item} {
+          .item-content {
+            @if map.get($conf_menu, 'show-icon') == true {
+              padding-left: calc(var(--menu-item-padding-x) + var(--menu-subitem-indent) + 3em + (var(--menu-icon-size) - var(--menu-font-size)));
+            } @else {
+              padding-left: calc(var(--menu-item-padding-x) + var(--menu-subitem-indent) + 3em - var(--menu-font-size));
+            }
+          }
+
+          .#{$menu_item} {
+            .item-content {
+              @if map.get($conf_menu, 'show-icon') == true {
+                padding-left: calc(var(--menu-item-padding-x) + var(--menu-subitem-indent) + 4em + (var(--menu-icon-size) - var(--menu-font-size)));
+              } @else {
+                padding-left: calc(var(--menu-item-padding-x) + var(--menu-subitem-indent) + 4em - var(--menu-font-size));
+              }
+            }
+          }
+        }
+      }
+    }
+    &.#{$submenu} {
+      &.is-opened {
+        background-color: var(--menu-child-bg-color);
+        .menu-inline {
+          background-color: transparent;
+        }
+      }
+    }
+
+    .item-content {
+      display: flex;
+      align-items: center;
+      padding: var(--menu-item-padding-y) var(--menu-item-padding-x);
+      height: var(--menu-item-height);
+      white-space: nowrap;
+      @include transition(all var(--duration) var(--timing));
+
+      &:hover {
+        color: var(--menu-font-color-hover);
+        background-color: var(--menu-bg-color-hover);
+        .item-icon {
+          color: var(--menu-icon-color-hover);
+        }
+      }
+
+      .menu-arrow {
+        position: absolute;
+        right: var(--menu-item-padding-x);
+        width: var(--font-sm);
+        height: var(--font-sm);
+        font-size: var(--font-sm);
+        line-height: 1;
+        flex-shrink: 0;
+        flex-grow: unset;
+        margin-left: size(8px);
+        @include transition(transform var(--duration) var(--timing));
+        color: currentColor;
+      }
+    }
+
+    a {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+    }
+
+    .item-icon {
+      @if map.get($conf_menu, 'show-icon') == true {
+        display: block;
+      }@else {
+        display: none;
+      }
+      width: var(--menu-icon-size);
+      height: var(--menu-icon-size);
+      color: var(--menu-icon-color);
+      flex-shrink: 0;
+      flex-grow: unset;
+      margin-right: 1em;
+      @include transition(all var(--duration) var(--timing));
+    }
+
+    &.is-active:not(.is-opened) {
+      .item-content {
+        color: var(--menu-font-color-active);
+        background-color: var(--menu-bg-color-active);
+        .item-icon {
+          color: var(--menu-icon-color-active);
+        }
+      }
+    }
+
+    &.is-opened {
+      > .item-content {
+        .menu-arrow {
+          transform: rotate(90deg);
+        }
+      }
+    }
+
+    &.is-disabled {
+      cursor: not-allowed;
+      color: rgba(map.get($conf_menu, 'font-color'), 0.5);
+      > .item-content {
+        &:hover {
+          color: inherit;
+          background-color: inherit;
+        }
+      }
+    }
+
+    &.hide-menu-arrow {
+      .menu-arrow {
+        display: none;
+      }
+    }
+  }
+
+  .#{$menu_item_group} {
+    // margin-bottom: size(12px);
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 0;
+    }
+
+    .group-title {
+      color: var(--menu-group-title-color);
+      font-size: var(--font-sm);
+      padding: 0 var(--menu-item-padding-x);
+      text-indent: size(4px);
+      height: size(40px);
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &.horizontal {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    .#{$menu_item} {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      height: var(--menu-height);
+      margin: 0;
+      color: var(--menu-font-color);
+      white-space: nowrap;
+      .item-content {
+        height: inherit;
+        &:hover {
+          background-color: transparent;
+        }
+
+        .menu-arrow {
+          position: unset;
+          right: unset;
+          transform: rotate(90deg);
+        }
+      }
+
+      &.is-disabled {
+        color: var(--text-light);
+      }
+
+      &.is-active:not(.is-opened) {
+        .item-content {
+          background-color: transparent;
+        }
+      }
+    }
+  }
+
+  &.collapse {
+    width: var(--menu-width-collapse);
+    .#{$menu_item} {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .item-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: var(--menu-item-height);
+        padding: 0;
+        span {
+          display: none;
+        }
+      }
+      .item-icon {
+        margin: 0;
+        display: block;
+      }
+
+      .menu-arrow {
+        display: none;
+      }
+    }
+    .#{$menu_item_group} {
+      .group-title {
+        position: relative;
+        font-size: 0;
+        display: flex;
+        justify-content: center;
+        text-indent: 0;
+        &::after {
+          content: "‧‧‧";
+          position: relative;
+          font-size: var(--font-h4);
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  &.menu-dropdown {
+    min-width: size(200px);
+    padding: size(12px) 0;
+    background-color: var(--menu-bg-color);
+    box-shadow: var(--menu-dropdown-shadow);
+    .#{$menu_item} {
+      &:hover {
+        background-color: var(--menu-bg-color-hover);
+      }
+
+      .item-content {
+        padding: size(6px 2em);
+        height: var(--menu-item-height);
+      }
+
+      &.is-opened {
+        > .item-content {
+          .menu-arrow {
+            transform: rotate(90deg);
+          }
+        }
+      }
+
+      &.is-active:not(.is-opened) {
+        .item-content {
+          color: var(--menu-font-color-active);
+        }
+      }
+    }
+  }
+}
+.#{$menu}-popper {
+  --popper-radius: 0;
+  --popper-padding-y: 0;
+  --popper-padding-x: 0;
+  --popper-bg-color: transparent;
+  --popper-border-color: transparent;
+  border: 0;
+}
+.#{$menu}-popover {
+  padding: size(16px);
+  background-color: map.get($conf_menu, 'bg-color');
+  color: map.get($conf_menu, 'font-color');
+  border: none;
+  border-radius: 0;
+}

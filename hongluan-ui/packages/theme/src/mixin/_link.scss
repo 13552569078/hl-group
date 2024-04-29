@@ -1,0 +1,11 @@
+//link样式生成器
+.#{$link} {
+  // 生成类型
+  @each $key, $value in $conf_link_type {
+    &.#{$key} {
+      --link-text-color: #{map.get($value, 'font-color')};
+      --link-text-color-hover: #{map.get($value, 'font-color-hover')};
+      --link-text-color-active: #{map.get($value, 'font-color-active')};
+    }
+  }
+}

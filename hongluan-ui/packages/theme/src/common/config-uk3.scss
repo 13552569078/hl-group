@@ -1,0 +1,1597 @@
+//+----------------------------------------------------------------------
+// 主题样式配置文件
+// Version: 2.1.6
+// Update: 2023.01.04
+//+----------------------------------------------------------------------
+@use "sass:math";
+@use "sass:map";
+
+//+----------------------------------------------------------------------
+//  颜色变量库
+//+----------------------------------------------------------------------
+@import './colors';
+
+
+//+----------------------------------------------------------------------
+//  特征配置
+//+----------------------------------------------------------------------
+$features_select: false !default; // 开启内容保护
+$features_transition: true !default; // 开启动画过渡效果
+$features_respond: true !default; // 开启响应式特性
+$features_rem: true !default; // 开启rem作为尺寸单位
+
+
+//+----------------------------------------------------------------------
+// 全局样式设置
+//+----------------------------------------------------------------------
+//--公共属性
+$conf_public: (
+  "rem-radix": 16px, // 尺寸基数 (用于输出rem单位)
+  "font-family" : (-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'),
+  "font-size": 100%, // 文本尺寸（使用vw或者vh来控制全局比例缩放）
+  "font-weight": 400, // 文本字重 (默认)
+  "font-weight-bold": 600, // 文本字重 (粗体)
+  "border-style": solid, // 边框样式
+  "border-width": 1px, // 边框尺寸
+  "duration": 0.3s, // 公共动画持续时间
+  "timing": ease, // 公共动画曲线
+  "grid-model": 24, // 栅格模型（24栅格）
+) !default;
+
+
+//+----------------------------------------------------------------------
+//  下面为规范的尺寸样式，通常情况不需要对其进行修改
+//+----------------------------------------------------------------------
+//--文本尺寸
+$conf_font_size: (
+  "sm": ("size":12px, "lineHeight": 20px),
+  "md": ("size":14px, "lineHeight": 22px),
+  "lg": ("size":16px, "lineHeight": 24px),
+  "xl": ("size":18px, "lineHeight": 26px),
+  "xxl": ("size":20px, "lineHeight": 28px),
+  "xxxl": ("size":24px, "lineHeight": 32px),
+  "xxxxl": ("size":30px, "lineHeight": 38px),
+  "h1": ("size":30px, "lineHeight": 38px),
+  "h2": ("size":24px, "lineHeight": 32px),
+  "h3": ("size":20px, "lineHeight": 28px),
+  "h4": ("size":18px, "lineHeight": 26px),
+  "h5": ("size":16px, "lineHeight": 24px),
+  "h6": ("size":14px, "lineHeight": 22px),
+) !default;
+
+//--圆角尺寸
+$conf_radius: (
+  "xxs": 1px,
+  "xs": 1px,
+  "sm": 1px,
+  "md": 2px,
+  "lg": 3px,
+  "xl": 6px,
+  "xxl": 8px,
+  "round": 100px,
+) !default;
+
+//--响应尺寸
+$conf_respond: (
+  "sm": 640px,
+  "md": 768px,
+  "lg": 1024px,
+  "xl": 1280px,
+  "xxl": 1536px,
+) !default;
+
+//--规范化尺寸 (本系统使用4的倍数)
+$conf_size: (
+  "xxs": 4px,
+  "xs": 8px,
+  "sm": 12px,
+  "md": 16px,
+  "lg": 20px,
+  "xl": 24px,
+  "xxl": 28px,
+) !default;
+
+//--规范化透明度 (用于输出颜色的Alpha值)
+$conf_opacity: (
+  "opacity-1": 0.08,
+  "opacity-2": 0.16,
+  "opacity-3": 0.24,
+  "opacity-4": 0.32,
+  "opacity-5": 0.40,
+  "opacity-6": 0.48,
+  "opacity-7": 0.56,
+  "opacity-8": 0.64,
+  "opacity-9": 0.72,
+) !default;
+
+//--层级分配
+$conf_z_index: (
+  "level-1": 10000, // 可以遮挡页面所有内容, 如loading状态
+  "level-2": 4000, // 模态框, 对话框
+  "level-3": 3000, // 遮罩,
+  "level-4": 2000, // 下拉菜单, 导航
+  "level-5": 1000, // 其他
+) !default;
+
+
+//+----------------------------------------------------------------------
+//  以下为组件样式基础配置，它们用来定义组件的基本样式和生成状态样式的数组
+//  为了方便快速定义，我们已经为各个组件引入了公共变量，如果你需要对某个组
+//  件进行个性化设置的时候再去单独修改这些配置。
+//+----------------------------------------------------------------------
+
+//+----------------------------------------------------------------------
+// Icon 属性设置
+//+----------------------------------------------------------------------
+$conf_icon: (
+  "size": 16px, // 默认尺寸
+  "stroke-width": 2, // 描边尺寸
+  "opacity": 0, // 填充透明度
+) !default;
+// Icon 类型
+$conf_icon_type: (
+  "primary": (
+    "bg-color": var(--primary-bg),
+    "icon-color": var(--text-inverse),
+    "bg-color-light": var(--primary-light),
+  ),
+  "info": (
+    "bg-color": var(--info-bg),
+    "icon-color": var(--text-inverse),
+    "bg-color-light": var(--info-light),
+  ),
+  "success": (
+    "bg-color": var(--success-bg),
+    "icon-color": var(--text-inverse),
+    "bg-color-light": var(--success-light),
+  ),
+  "warning": (
+    "bg-color": var(--warning-bg),
+    "icon-color": var(--text-inverse),
+    "bg-color-light": var(--warning-light),
+  ),
+  "danger": (
+    "bg-color": var(--danger-bg),
+    "icon-color": var(--text-inverse),
+    "bg-color-light": var(--danger-light),
+  ),
+) !default;
+// Icon 尺寸
+$conf_icon_size: (
+  "xxxs": (
+    "size": 12px,
+    "radius": var(--radius-sm),
+  ),
+  "xxs": (
+    "size": 14px,
+    "radius": var(--radius-sm),
+  ),
+  "xs": (
+    "size": 16px,
+    "radius": var(--radius-sm),
+  ),
+  "sm": (
+    "size": 18px,
+    "radius": var(--radius-md),
+  ),
+  "md": (
+    "size": 20px,
+    "radius": var(--radius-md),
+  ),
+  "lg": (
+    "size": 24px,
+    "radius": var(--radius-lg),
+  ),
+  "xl": (
+    "size": 28px,
+    "radius": var(--radius-lg),
+  ),
+  "xxl": (
+    "size": 32px,
+    "radius": var(--radius-xl),
+  ),
+  "xxxl": (
+    "size": 36px,
+    "radius": var(--radius-xl),
+  ),
+) !default;
+
+
+//+----------------------------------------------------------------------
+// Layout 属性设置
+//+----------------------------------------------------------------------
+$conf_layout: (
+  "main-width": 1440px, // 页面主体宽度 *需开启boxed属性
+  "main-max-width": 100%, // 主体最大宽度
+  "main-bg-color": var(--bg-body), // 主体背景
+  "border-color": false, // 边框颜色 (false将不创建样式)
+  "out-padding": 0, // 外部填充
+  "header-height": 64px, // 头部高度 (如果移除头部，请设置为0px)
+  "header-bg-color": var(--bg-header), // 头部背景
+  "header-shadow": false, // 头部阴影样式 (false将不渲染)
+  "sub-header-height": 54px, // 子头部高度 (如果移除子头部，请设置为0px)
+  "sub-header-bg-color": var(--bg-content), // 子头部背景
+  "sub-header-shadow": var(--box-shadow-md), // 子头部阴影样式
+  "aside-width": 300px, // 侧栏宽度
+  "aside-width-mini": 80px, // 折叠侧栏宽度
+  "aside-bg-color": #fff, // 侧栏背景
+  "aside-respond-width-collapse": false, // 响应式侧栏折叠尺寸 (false将不渲染)
+  "aside-respond-width-hidden": map.get($conf_respond, 'md'), // 响应式侧栏隐藏尺寸 (false将不渲染)
+  "footer-height": 50px, // 脚注高度 (如果移除脚注，请设置为0px)
+  "footer-bg-color": var(--bg-content), // 脚注背景
+) !default;
+
+
+//+----------------------------------------------------------------------
+// NavMenu 属性设置
+//+----------------------------------------------------------------------
+$conf_menu: (
+  "height": 80px, // 元素高度
+  "width-collapse": 74px, // 折叠导航宽度
+  "font-size": var(--font-md), // 文本尺寸
+  "show-icon": true, // 是否有图标（true 为显示图标，同时计算缩进尺寸）
+  "icon-size": 18px, // 图标尺寸（false将不渲染图标）
+  "icon-color": #4B5575, // 图标颜色 (默认)
+  "icon-color-hover": currentColor, // 图标颜色 (悬停)
+  "icon-color-active": currentColor, // 图标颜色 (激活)
+  "font-color": #989eb3, // 文本颜色 (默认)
+  "font-color-hover": #FFFFFF, // 文本颜色 (悬停)
+  "font-color-active": #FFFFFF, // 文本颜色 (激活)
+  "bg-color": #242939, // 背景颜色 (默认)
+  "bg-hover": #1f2433, // 背景颜色 (悬停)
+  "bg-active": #1f2433, // 背景颜色 (激活)
+  "group-title-color": rgba(#fff, 0.2), // 组标题颜色
+  "child-bg-color": #1e2230, // 子菜单背景颜色
+  "child-font-size": var(--font-md), // 子菜单文本尺寸
+  "item-height": 46px, // 高度
+  "item-padding-y": var(--sm), // 填充
+  "item-padding-x": 2em, // 填充
+  "subitem-indent": 1em, // 子菜单缩进尺寸
+  "dropdown-shadow": var(--box-shadow-md), // 下拉菜单阴影样式
+) !default;
+
+
+//+----------------------------------------------------------------------
+// Panel 属性设置
+//+----------------------------------------------------------------------
+$conf_panel: (
+  "radius": var(--radius-lg), // 圆角尺寸
+  "padding": var(--lg), // 填充尺寸
+  "header-height": 64px, // 标题栏高度
+  "bg-color": var(--bg-content), // 背景颜色
+  "header-bg-color": transparent, // 标题栏背景颜色
+  "footer-bg-color": transparent, // 脚注背景颜色
+  "border-width": false, // 边框尺寸 (false将不渲染)
+  "border-color": var(--border-regular), // 边框颜色
+  "title-font-size": var(--font-h5), // 文本尺寸
+  "title-font-color": var(--text-regular), // 文本颜色 (默认)
+  "shadow": var(--box-shadow-md), // 阴影样式 (false将不渲染)
+) !default;
+
+//+----------------------------------------------------------------------
+// Form 表单元素通用属性设置
+//+----------------------------------------------------------------------
+$conf_form: (
+  "radius": var(--radius-md), // 圆角尺寸
+  "padding-y": 6px, // 标签填充 (上下)
+  "padding-x": 12px, // 标签填充 (左右)
+  "sm": 28px, // 高度 (sm)
+  "md": 36px, // 高度 (md)
+  "lg": 44px, // 高度 (lg)
+  "bg-color": var(--form-bg-color), // 通用表单元素背景
+  "bg-color-fill": var(--form-bg-color-fill), // 通用表单元素背景
+  "border-width": 1px, // 默认边框尺寸
+  "border-color": var(--form-border-color), // 默认边框颜色
+  "disabled-border-color": var(--form-disabled-border-color), // 禁用状态边框色
+  "disabled-bg-color": var(--form-disabled-bg-color), // 禁用状态背景色
+  "disabled-font-color": var(--form-disabled-font-color), // 禁用状态文本色
+  "disabled-opacity": 0.8, // 禁用状态透明度
+  "icon-size": 16px, // 内嵌icon尺寸
+  "icon-color": var(--form-icon-color), // 内嵌icon颜色
+  "shadow-size": 0 0 0 var(--xxs), // 焦点光晕 (尺寸) (false将不渲染box-shadow)
+  "shadow-opcity": 0.1, // 焦点光晕 (透明度)
+  "shadow-color": var(--form-shadow-color), // 焦点光晕颜色 (仅支持rgb值)
+) !default;
+
+// Form 表单元素状态样式
+$conf_form_state_type: (
+  "is-success": var(--border-dark),
+  "is-warning": var(--warning),
+  "is-error": var(--danger),
+) !default;
+// Form 表单元素 尺寸
+$conf_form_size: (
+  "sm": (
+    "height": var(--form-sm),
+    "padding-x": 8px,
+    "padding-y": 3px,
+    "font-size": 12px,
+    "radius": var(--radius-sm),
+    "icon-size": var(--font-md),
+  ),
+  "md": (
+    "height": var(--form-md),
+    "padding-x": 12px,
+    "padding-y": 6px,
+    "font-size": 14px,
+    "radius": var(--radius-md),
+    "icon-size": var(--font-lg),
+  ),
+  "lg": (
+    "height": var(--form-lg),
+    "padding-x": 16px,
+    "padding-y": 9px,
+    "font-size": 16px,
+    "radius": var(--radius-lg),
+    "icon-size": var(--font-xl),
+  ),
+) !default;
+
+
+//+----------------------------------------------------------------------
+// Button 属性设置
+//+----------------------------------------------------------------------
+$conf_button: (
+  "radius": var(--form-radius), // 圆角尺寸
+  "padding-y": var(--form-padding-y), // 填充尺寸 (上下)
+  "padding-x": var(--form-padding-x), // 填充尺寸 (左右)
+  "min-width": false, // 最小宽度 (false将不渲染)
+  "height": var(--form-md), // 元素高度
+  "font-weight": 400, // 文本重量
+  "font-size": var(--font-md), // 文本尺寸
+  "border-width": var(--form-border-width), // 边框尺寸
+  "font-color": var(--text-regular), // 文本颜色 (默认)
+  "font-color-hover": var(--text-inverse), // 文本颜色 (悬停)
+  "font-color-active": var(--text-inverse), // 文本颜色 (激活)
+  "border-color": var(--form-bg-color-fill), // 边框颜色 (默认)
+  "border-color-hover": var(--primary-hover), // 边框颜色 (悬停)
+  "border-color-active": var(--primary-active), // 边框颜色 (激活)
+  "bg-color": var(--form-bg-color-fill), // 背景颜色 (默认)
+  "bg-color-hover": var(--primary-hover), // 背景颜色 (悬停)
+  "bg-color-active": var(--primary-active), // 背景颜色 (激活)
+) !default;
+// Button 类型
+$conf_button_type: (
+  "primary": (
+    "font-color": var(--text-inverse),
+    "font-color-hover": var(--text-inverse),
+    "font-color-active": var(--text-inverse),
+    "border-color": var(--primary),
+    "border-color-hover": var(--primary-hover),
+    "border-color-active": var(--primary-active),
+    "bg-color": var(--primary-bg),
+    "bg-color-hover": var(--primary-hover),
+    "bg-color-active": var(--primary-active),
+    "bg-color-light": var(--primary-light),
+    "shadow-color": var(--rgb-primary),
+  ),
+  "info": (
+    "font-color": var(--text-inverse),
+    "font-color-hover": var(--text-inverse),
+    "font-color-active": var(--text-inverse),
+    "border-color": var(--info),
+    "border-color-hover": var(--info-hover),
+    "border-color-active": var(--info-active),
+    "bg-color": var(--info-bg),
+    "bg-color-hover": var(--info-hover),
+    "bg-color-active": var(--info-active),
+    "bg-color-light": var(--info-light),
+    "shadow-color": var(--rgb-info),
+  ),
+  "success": (
+    "font-color": var(--text-inverse),
+    "font-color-hover": var(--text-inverse),
+    "font-color-active": var(--text-inverse),
+    "border-color": var(--success),
+    "border-color-hover": var(--success-hover),
+    "border-color-active": var(--success-active),
+    "bg-color": var(--success-bg),
+    "bg-color-hover": var(--success-hover),
+    "bg-color-active": var(--success-active),
+    "bg-color-light": var(--success-light),
+    "shadow-color": var(--rgb-success),
+  ),
+  "warning": (
+    "font-color": var(--text-inverse),
+    "font-color-hover": var(--text-inverse),
+    "font-color-active": var(--text-inverse),
+    "border-color": var(--warning),
+    "border-color-hover": var(--warning-hover),
+    "border-color-active": var(--warning-active),
+    "bg-color": var(--warning-bg),
+    "bg-color-hover": var(--warning-hover),
+    "bg-color-active": var(--warning-active),
+    "bg-color-light": var(--warning-light),
+    "shadow-color": var(--rgb-warning),
+  ),
+  "danger": (
+    "font-color": var(--text-inverse),
+    "font-color-hover": var(--text-inverse),
+    "font-color-active": var(--text-inverse),
+    "border-color": var(--danger),
+    "border-color-hover": var(--danger-hover),
+    "border-color-active": var(--danger-active),
+    "bg-color": var(--danger-bg),
+    "bg-color-hover": var(--danger-hover),
+    "bg-color-active": var(--danger-active),
+    "bg-color-light": var(--danger-light),
+    "shadow-color": var(--rgb-danger),
+  ),
+) !default;
+
+
+//+----------------------------------------------------------------------
+// Link 属性设置
+//+----------------------------------------------------------------------
+$conf_link: (
+  "font-color": var(--text-regular), // 文本颜色 (默认)
+  "font-color-hover": var(--primary), // 文本颜色 (悬停)
+  "font-color-active": var(--primary), // 文本颜色 (激活)
+) !default;
+// Link 类型
+$conf_link_type: (
+  "primary": (
+    "font-color": var(--primary),
+    "font-color-hover": var(--primary-hover),
+    "font-color-active": var(--primary-active),
+  ),
+  "info": (
+    "font-color": var(--info),
+    "font-color-hover": var(--info-hover),
+    "font-color-active": var(--info-active),
+  ),
+  "success": (
+    "font-color": var(--success),
+    "font-color-hover": var(--success-hover),
+    "font-color-active": var(--success-active),
+  ),
+  "warning": (
+    "font-color": var(--warning),
+    "font-color-hover": var(--warning-hover),
+    "font-color-active": var(--warning-active),
+  ),
+  "danger": (
+    "font-color": var(--danger),
+    "font-color-hover": var(--danger-hover),
+    "font-color-active": var(--danger-active),
+  ),
+) !default;
+
+
+//+----------------------------------------------------------------------
+// Input 属性设置
+//+----------------------------------------------------------------------
+$conf_input: (
+  "radius": var(--form-radius), // 圆角尺寸
+  "padding-y": var(--form-padding-y), // 填充尺寸 (上下)
+  "padding-x": var(--form-padding-x), // 填充尺寸 (左右)
+  "height":var(--form-md), // 高度
+  "font-size": map.get($conf_font_size, 'md', 'size'), // 文本尺寸 (不支持var值)
+  "font-color": var(--text-regular), // 文本颜色 (默认)
+  "font-color-hover": var(--text-regular), // 文本颜色 (悬停)
+  "font-color-focus": var(--text-regular), // 文本颜色 (焦点)
+  "border-color": var(--form-border-color), // 边框颜色 (默认)
+  "border-color-hover": var(--form-border-color), // 边框颜色 (悬停)
+  "border-color-focus": var(--primary), // 边框颜色 (焦点)
+  "bg-color": var(--form-bg-color), // 背景颜色 (默认)
+  "bg-color-hover": var(--form-bg-color), // 背景颜色 (悬停)
+  "bg-color-focus": var(--form-bg-color), // 背景颜色 (焦点)
+  "bg-color-fill": var(--form-bg-color-fill), // 背景颜色 (淡色)
+) !default;
+// Input 类型
+$conf_input_type: (
+  "primary": (
+    "font-color": var(--text-regular),
+    "font-color-hover": var(--text-regular),
+    "font-color-focus": var(--primary),
+    "border-color": map.get($conf_input, 'border-color'),
+    "border-color-hover": map.get($conf_input, 'border-color'),
+    "border-color-focus": var(--primary),
+    "bg-color": map.get($conf_input, 'bg-color'),
+    "bg-color-hover": map.get($conf_input, 'bg-color'),
+    "bg-color-focus": map.get($conf_input, 'bg-color'),
+    "shadow-color": var(--rgb-primary),
+  ),
+  "info": (
+    "font-color": var(--text-regular),
+    "font-color-hover": var(--text-regular),
+    "font-color-focus": var(--info),
+    "border-color": map.get($conf_input, 'border-color'),
+    "border-color-hover": map.get($conf_input, 'border-color'),
+    "border-color-focus": var(--info),
+    "bg-color": map.get($conf_input, 'bg-color'),
+    "bg-color-hover": map.get($conf_input, 'bg-color'),
+    "bg-color-focus": map.get($conf_input, 'bg-color'),
+    "shadow-color": var(--rgb-info),
+  ),
+  "success": (
+    "font-color": var(--text-regular),
+    "font-color-hover": var(--text-regular),
+    "font-color-focus": var(--success),
+    "border-color": map.get($conf_input, 'border-color'),
+    "border-color-hover": map.get($conf_input, 'border-color'),
+    "border-color-focus": var(--success),
+    "bg-color": map.get($conf_input, 'bg-color'),
+    "bg-color-hover": map.get($conf_input, 'bg-color'),
+    "bg-color-focus": map.get($conf_input, 'bg-color'),
+    "shadow-color": var(--rgb-success),
+  ),
+  "warning": (
+    "font-color": var(--text-regular),
+    "font-color-hover": var(--text-regular),
+    "font-color-focus": var(--warning),
+    "border-color": map.get($conf_input, 'border-color'),
+    "border-color-hover": map.get($conf_input, 'border-color'),
+    "border-color-focus": var(--warning),
+    "bg-color": map.get($conf_input, 'bg-color'),
+    "bg-color-hover": map.get($conf_input, 'bg-color'),
+    "bg-color-focus": map.get($conf_input, 'bg-color'),
+    "shadow-color": var(--rgb-warning),
+  ),
+  "danger": (
+    "font-color": var(--text-regular),
+    "font-color-hover": var(--text-regular),
+    "font-color-focus": var(--danger),
+    "border-color": map.get($conf_input, 'border-color'),
+    "border-color-hover": map.get($conf_input, 'border-color'),
+    "border-color-focus": var(--danger),
+    "bg-color": map.get($conf_input, 'bg-color'),
+    "bg-color-hover": map.get($conf_input, 'bg-color'),
+    "bg-color-focus": map.get($conf_input, 'bg-color'),
+    "shadow-color": var(--rgb-danger),
+  ),
+) !default;
+
+
+//+----------------------------------------------------------------------
+// InputNumber 属性设置
+//+----------------------------------------------------------------------
+$conf_input_number: (
+  "font-color": var(--text-regular), // 文本颜色 (默认)
+  "font-color-hover": var(--text-regular), // 文本颜色 (悬停)
+  "font-color-focus": var(--text-regular), // 文本颜色 (焦点)
+  "border-color": var(--form-border-color), // 边框颜色 (默认)
+  "border-color-hover": var(--form-border-color), // 边框颜色 (悬停)
+  "border-color-focus": var(--primary), // 边框颜色 (焦点)
+  "input-bg-color": var(--form-bg-color), // 背景颜色 (默认)
+  "input-bg-color-hover": var(--form-bg-color), // 背景颜色 (悬停)
+  "input-bg-color-focus": var(--form-bg-color), // 背景颜色 (焦点)
+  "button-bg-color": var(--bg-hover), // 背景颜色 (默认)
+  "button-bg-color-hover": var(--bg-hover), // 背景颜色 (悬停)
+  "button-bg-color-active": var(--form-bg-color), // 背景颜色 (焦点)
+) !default;
+
+
+//+----------------------------------------------------------------------
+// Checkbox & Radio 属性设置
+//+----------------------------------------------------------------------
+$conf_checkbox: (
+  "radius": var(--radius-md), // 圆角尺寸
+  "size": calc(var(--form-md) / 2), // 尺寸
+  "icon-color": var(--text-inverse), // 图标颜色
+  "font-color": var(--text-regular), // 文本颜色
+  "font-size": var(--font-md), // 文本尺寸
+  "border-color": var(--form-border-color), // 边框颜色 (默认)
+  "border-color-hover": var(--primary), // 边框颜色 (悬停)
+  "border-color-checked": var(--primary), // 边框颜色 (选中)
+  "bg-color": var(--form-bg-color), // 背景颜色 (默认)
+  "bg-color-hover": var(--form-bg-color), // 背景颜色 (悬停)
+  "bg-color-checked": var(--primary), // 背景颜色 (选中)
+) !default;
+// Checkbox 类型
+$conf_checkbox_type: (
+  "primary": (
+    "icon-color": map.get($conf_checkbox, 'icon-color'),
+    "font-color": var(--primary),
+    "border-color": map.get($conf_checkbox, 'border-color'),
+    "border-color-hover": var(--primary),
+    "border-color-checked": var(--primary),
+    "bg-color": map.get($conf_checkbox, 'bg-color'),
+    "bg-color-hover": map.get($conf_checkbox, 'bg-color-hover'),
+    "bg-color-checked": var(--primary-bg),
+    "bg-color-fill": var(--primary-light),
+    "shadow-color": var(--rgb-primary),
+  ),
+  "info": (
+    "icon-color": map.get($conf_checkbox, 'icon-color'),
+    "font-color": var(--info),
+    "border-color": map.get($conf_checkbox, 'border-color'),
+    "border-color-hover": var(--info),
+    "border-color-checked": var(--info),
+    "bg-color": map.get($conf_checkbox, 'bg-color'),
+    "bg-color-hover": map.get($conf_checkbox, 'bg-color-hover'),
+    "bg-color-checked": var(--info-bg),
+    "bg-color-fill": var(--info-light),
+    "shadow-color": var(--rgb-info),
+  ),
+  "success": (
+    "icon-color": map.get($conf_checkbox, 'icon-color'),
+    "font-color": var(--success),
+    "border-color": map.get($conf_checkbox, 'border-color'),
+    "border-color-hover": var(--success),
+    "border-color-checked": var(--success),
+    "bg-color": map.get($conf_checkbox, 'bg-color'),
+    "bg-color-hover": map.get($conf_checkbox, 'bg-color-hover'),
+    "bg-color-checked": var(--success-bg),
+    "bg-color-fill": var(--success-light),
+    "shadow-color": var(--rgb-success),
+  ),
+  "warning": (
+    "icon-color": map.get($conf_checkbox, 'icon-color'),
+    "font-color": var(--warning),
+    "border-color": map.get($conf_checkbox, 'border-color'),
+    "border-color-hover": var(--warning),
+    "border-color-checked": var(--warning),
+    "bg-color": map.get($conf_checkbox, 'bg-color'),
+    "bg-color-hover":map.get($conf_checkbox, 'bg-color-hover'),
+    "bg-color-checked": var(--warning-bg),
+    "bg-color-fill": var(--warning-light),
+    "shadow-color": var(--rgb-warning),
+  ),
+  "danger": (
+    "icon-color": map.get($conf_checkbox, 'icon-color'),
+    "font-color": var(--danger),
+    "border-color": map.get($conf_checkbox, 'border-color'),
+    "border-color-hover": var(--danger),
+    "border-color-checked": var(--danger),
+    "bg-color": map.get($conf_checkbox, 'bg-color'),
+    "bg-color-hover": map.get($conf_checkbox, 'bg-color-hover'),
+    "bg-color-checked": var(--danger-bg),
+    "bg-color-fill": var(--danger-light),
+    "shadow-color": var(--rgb-danger),
+  ),
+) !default;
+// Checkbox 尺寸
+$conf_checkbox_size: (
+  "sm": (
+    "radius": var(--radius-sm),
+    "size": calc(var(--form-sm) / 2),
+    "font-size": var(--font-sm),
+  ),
+  "md": (
+    "radius": var(--radius-md),
+    "size": calc(var(--form-md) / 2),
+    "font-size": var(--font-md),
+  ),
+  "lg": (
+    "radius": var(--radius-lg),
+    "size": calc(var(--form-lg) / 2),
+    "font-size": var(--font-lg),
+  ),
+) !default;
+
+//+----------------------------------------------------------------------
+// Switch 属性设置
+//+----------------------------------------------------------------------
+$conf_switch: (
+  "height": calc(var(--form-md) / 2 + var(--xxs)), // 高度
+  'border-width': 2px, // 边框尺寸
+  "border-color": var(--form-border-color), // 边框颜色 (默认)
+  "border-color-checked": var(--primary), // 边框颜色 (选中)
+  "bg-color": var(--form-border-color), // 背景颜色 (默认)
+  "bg-color-checked": var(--primary), // 背景颜色 (选中)
+) !default;
+// Switch 类型
+$conf_switch_type: (
+  "primary": (
+    "border-color": var(--form-border-color),
+    "border-color-checked": var(--primary),
+    "bg-color": var(--form-border-color),
+    "bg-color-checked": var(--primary),
+  ),
+  "info": (
+    "border-color": var(--form-border-color),
+    "border-color-checked": var(--info),
+    "bg-color": var(--form-border-color),
+    "bg-color-checked": var(--info),
+  ),
+  "success": (
+    "border-color": var(--form-border-color),
+    "border-color-checked": var(--success),
+    "bg-color": var(--form-border-color),
+    "bg-color-checked": var(--success),
+  ),
+  "warning": (
+    "border-color": var(--form-border-color),
+    "border-color-checked": var(--warning),
+    "bg-color": var(--form-border-color),
+    "bg-color-checked": var(--warning),
+  ),
+  "danger": (
+    "border-color": var(--form-border-color),
+    "border-color-checked": var(--danger),
+    "bg-color": var(--form-border-color),
+    "bg-color-checked": var(--danger),
+  ),
+) !default;
+// Checkbox 尺寸
+$conf_switch_size: (
+  "sm": (
+    "size": calc(var(--form-sm) / 2 + var(--xxs)),
+  ),
+  "md": (
+    "size": calc(var(--form-md) / 2 + var(--xxs)),
+  ),
+  "lg": (
+    "size": calc(var(--form-lg) / 2 + var(--xxs)),
+  ),
+) !default;
+
+
+//+----------------------------------------------------------------------
+// Date-Picker 属性设置
+//+----------------------------------------------------------------------
+$conf_date_picker: (
+  "radius": var(--form-radius), // 圆角尺寸
+  "font-size": 13px, // 文本尺寸
+  "font-color": var(--text-regular), // 文本颜色 (默认)
+  "font-color-hover": var(--main-color), // 文本颜色 (悬停)
+  "font-color-active": var(--text-inverse), // 文本颜色 (激活)
+  "font-color-current": var(--main-color), // 文本颜色 (当前日期)
+  "font-color-disabled": var(--text-light), // 文本颜色 (禁用)
+  "bg-color-hover": var(--bg-hover), // 背景颜色 (悬停)
+  "bg-color-active": var(--main-color), // 背景颜色 (激活)
+  "bg-color-current": var(--primary-light), // 背景颜色 (当前日期)
+) !default;
+
+
+//+----------------------------------------------------------------------
+// Calendar 属性设置
+//+----------------------------------------------------------------------
+$conf_calendar: (
+  "padding-y": var(--sm), // 填充尺寸 (上下)
+  "padding-x": var(--md), // 填充尺寸 (左右)
+  "title-font-color": var(--text-title), // 标题颜色
+  "title-font-weight": var(--font-weight), // 文本重量
+  "font-size": var(--font-md), // 文本尺寸
+  "font-color": var(--text-regular), // 文本颜色
+  "font-color-hover": var(--main-color), // 文本颜色 (悬停)
+  "font-color-disabled": var(--text-light), // 文本颜色 (禁用)
+  "border-color": var(--border-regular), // 边框颜色
+  "bg-color": var(--bg-content), // 背景颜色
+  "bg-color-hover": var(--bg-hover), // 背景颜色 (悬停)
+  "bg-color-active": var(--bg-hover), // 背景颜色 (激活)
+) !default;
+
+
+//+----------------------------------------------------------------------
+// Badge 属性设置
+//+----------------------------------------------------------------------
+$conf_badge: (
+  "radius": var(--radius-md), // 圆角尺寸
+  "height": 18px, // 元素高度
+  "padding": var(--xxs), // 填充尺寸
+  "font-size": var(--font-sm), // 文本尺寸
+  "font-color": var(--text-regular), // 文本颜色
+  "border-color": var(--border-regular), // 边框颜色
+  "bg-color": var(--bg-element), // 背景颜色
+) !default;
+// Thumb 类型
+$conf_badge_type: (
+  "primary": (
+    "font-color": var(--text-inverse),
+    "border-color": var(--primary),
+    "bg-color": var(--primary-bg),
+    "bg-color-light": var(--primary-light),
+  ),
+  "info": (
+    "font-color": var(--text-inverse),
+    "border-color": var(--info),
+    "bg-color": var(--info-bg),
+    "bg-color-light": var(--info-light),
+  ),
+  "success": (
+    "font-color": var(--text-inverse),
+    "border-color": var(--success),
+    "bg-color": var(--success-bg),
+    "bg-color-light": var(--success-light),
+  ),
+  "warning": (
+    "font-color": var(--text-inverse),
+    "border-color": var(--warning),
+    "bg-color": var(--warning-bg),
+    "bg-color-light": var(--warning-light),
+  ),
+  "danger": (
+    "font-color": var(--text-inverse),
+    "border-color": var(--danger),
+    "bg-color": var(--danger-bg),
+    "bg-color-light": var(--danger-light),
+  ),
+) !default;
+
+
+//+----------------------------------------------------------------------
+// Thumb 属性设置
+//+----------------------------------------------------------------------
+$conf_thumb: (
+  "radius": var(--radius-md), // 圆角尺寸
+  "size": var(--xxl), // 元素尺寸
+  "font-size": var(--font-lg), // 文本尺寸
+  "color": var(--text-inverse), // 文本颜色
+  "border-color": var(--bg-content), // 边框颜色
+) !default;
+// Thumb 类型
+$conf_thumb_type: (
+  "primary": (
+    "font-color": var(--text-inverse),
+    "bg-color": var(--primary-bg),
+    "bg-color-light": var(--primary-light),
+  ),
+  "info": (
+    "font-color": var(--text-inverse),
+    "bg-color": var(--info-bg),
+    "bg-color-light": var(--info-light),
+  ),
+  "success": (
+    "font-color": var(--text-inverse),
+    "bg-color": var(--success-bg),
+    "bg-color-light": var(--success-light),
+  ),
+  "warning": (
+    "font-color": var(--text-inverse),
+    "bg-color": var(--warning-bg),
+    "bg-color-light": var(--warning-light),
+  ),
+  "danger": (
+    "font-color": var(--text-inverse),
+    "bg-color": var(--danger-bg),
+    "bg-color-light": var(--danger-light),
+  ),
+) !default;
+// Thumb 尺寸
+$conf_thumb_size: (
+  "xxxs": (
+    "size": map.get($conf_icon_size, 'xxxs', 'size') * 2,
+    "font-size": 10px,
+    "radius": var(--radius-sm),
+  ),
+  "xxs": (
+    "size": map.get($conf_icon_size, 'xxs', 'size') * 2,
+    "font-size": 12px,
+    "radius": var(--radius-sm),
+  ),
+  "xs": (
+    "size": map.get($conf_icon_size, 'xs', 'size') * 2,
+    "font-size": 13px,
+    "radius": var(--radius-sm),
+  ),
+  "sm": (
+    "size": map.get($conf_icon_size, 'sm', 'size') * 2,
+    "font-size": 14px,
+    "radius": var(--radius-md),
+  ),
+  "md": (
+    "size": map.get($conf_icon_size, 'md', 'size') * 2,
+    "font-size": 16px,
+    "radius": var(--radius-md),
+  ),
+  "lg": (
+    "size": map.get($conf_icon_size, 'lg', 'size') * 2,
+    "font-size": 18px,
+    "radius": var(--radius-lg),
+  ),
+  "xl": (
+    "size": map.get($conf_icon_size, 'xl', 'size') * 2,
+    "font-size": 20px,
+    "radius": var(--radius-lg),
+  ),
+  "xxl": (
+    "size": map.get($conf_icon_size, 'xxl', 'size') * 2,
+    "font-size": 24px,
+    "radius": var(--radius-xl),
+  ),
+  "xxxl": (
+    "size": map.get($conf_icon_size, 'xxxl', 'size') * 2,
+    "font-size": 26px,
+    "radius": var(--radius-xl),
+  ),
+) !default;
+
+
+//+----------------------------------------------------------------------
+// Tag 属性设置
+//+----------------------------------------------------------------------
+$conf_tag: (
+  "radius": var(--radius-md), // 圆角尺寸
+  "padding-y": 2px, // 填充尺寸 (上下)
+  "padding-x": var(--sm), // 填充尺寸 (左右)
+  "height": var(--form-sm), // 元素高度
+  "font-size": var(--font-md), // 文本尺寸
+  "font-color": var(--text-regular), // 文本颜色
+  "border-color": var(--bg-light), // 边框颜色
+  "bg-color": var(--bg-light), // 背景颜色
+) !default;
+// Tag 类型
+$conf_tag_type: (
+  "primary": (
+    "font-color": var(--text-inverse),
+    "border-color": var(--primary),
+    "bg-color": var(--primary-bg),
+    "bg-color-light": var(--primary-light),
+  ),
+  "info": (
+    "font-color": var(--text-inverse),
+    "border-color": var(--info),
+    "bg-color": var(--info-bg),
+    "bg-color-light": var(--info-light),
+  ),
+  "success": (
+    "font-color": var(--text-inverse),
+    "border-color": var(--success),
+    "bg-color": var(--success-bg),
+    "bg-color-light": var(--success-light),
+  ),
+  "warning": (
+    "font-color": var(--text-inverse),
+    "border-color": var(--warning),
+    "bg-color": var(--warning-bg),
+    "bg-color-light": var(--warning-light),
+  ),
+  "danger": (
+    "font-color": var(--text-inverse),
+    "border-color": var(--danger),
+    "bg-color": var(--danger-bg),
+    "bg-color-light": var(--danger-light),
+  ),
+) !default;
+// Tag 尺寸
+$conf_tag_size: (
+  "sm": (
+    "radius": var(--radius-sm),
+    "padding-y": 0,
+    "padding-x": var(--xs),
+    "height": 22px,
+    "font-size": var(--font-sm),
+    "line-height": map.get($conf_font_size, 'sm', 'lineHeight'),
+  ),
+  "md": (
+    "radius": var(--radius-md),
+    "padding-y": 2px,
+    "padding-x": var(--sm),
+    "height": 28px,
+    "font-size": var(--font-md),
+    "line-height": map.get($conf_font_size, 'md', 'lineHeight'),
+  ),
+  "lg": (
+    "radius": var(--radius-lg),
+    "padding-y": 5px,
+    "padding-x": var(--md),
+    "height": 32px,
+    "font-size": var(--font-md),
+    "line-height": map.get($conf_font_size, 'md', 'lineHeight'),
+  ),
+) !default;
+
+
+//+----------------------------------------------------------------------
+// Tabs 属性设置
+//+----------------------------------------------------------------------
+$conf_tabs: (
+  "radius": var(--form-radius), // 圆角尺寸
+  "height": var(--form-md), // 标签高度
+  "padding": var(--md), // 填充尺寸
+  "gap": var(--xs), // 间隙 (false 为不渲染, 同时移除 first-child 和 last-child 以外的圆角样式)
+  "font-size": var(--font-md), // 文本尺寸
+  "font-weight": var(--font-weight), // 文本重量
+  "font-color": var(--text-regular), // 文本颜色 (默认)
+  "font-color-hover": var(--text-hover), // 文本颜色 (悬停)
+  "font-color-active": var(--text-hover), // 文本颜色 (激活)
+  "border-color": var(--border-regular), // 边框颜色
+  "bg-color": var(--bg-element), // 背景颜色
+  "bar-color": var(--main-color), // 指示条颜色
+  "bar-size": 2px, // 指示条尺寸
+  "button-font-color": var(--text-regular), // 按钮形态文本颜色 (默认)
+  "button-font-color-hover": var(--text-hover), // 按钮形态文本颜色 (悬停)
+  "button-font-color-active": var(--text-inverse), // 按钮形态 文本颜色 (激活)
+  "button-border-color": var(--bg-element), // 按钮形态边框颜色 (默认)
+  "button-border-color-hover": var(--bg-element), // 按钮形态边框颜色 (悬停)
+  "button-border-color-active": var(--main-color), // 按钮形态边框颜色 (激活)
+  "button-bg-color": var(--bg-element), // 按钮形态背景颜色 (默认)
+  "button-bg-color-hover": var(--bg-element), // 按钮形态背景颜色 (悬停)
+  "button-bg-color-active": var(--main-color), // 按钮形态背景颜色 (激活)
+) !default;
+
+
+//+----------------------------------------------------------------------
+// Tables 属性设置
+//+----------------------------------------------------------------------
+$conf_table: (
+  "radius": var(--radius-lg), // 圆角尺寸
+  "padding": var(--sm), // 外侧填充尺寸
+  "cell-padding": var(--sm), // 单元格填充尺寸
+  "font-color": var(--text-regular), // 文本颜色
+  "font-size": var(--font-md), // 文本尺寸
+  "tree-indent": 1em, // 树形结构缩进尺寸
+  "border-color": var(--border-regular), // 边框颜色
+  "striped-color": var(--bg-light), // 条纹背景颜色
+  "highlight-color": var(--bg-active), // 高亮行背景颜色
+  "list-td-bg-color": var(--bg-element), // 列表样式背景颜色
+  "th-height": 48px, // 表头高度
+  "th-bg-color": var(--bg-element), // 表头背景
+  "th-font-weight": var(--font-weight-bold), // 表头文本重量
+  "th-font-color": var(--text-title), // 表头文本颜色
+  "td-height": 48px, // 单元格高度
+  "td-bg-color": transparent, // 单元格背景颜色
+  "td-bg-color-hover": var(--bg-hover), // 单元格背景颜色 (悬停)
+) !default;
+// Tables 尺寸
+$conf_table_size: (
+  "sm":(
+    "td-height": 40px,
+    "font-size": var(--font-sm),
+    "cell-padding": var(--xs),
+    "radius": var(--radius-sm),
+  ),
+  "md":(
+    "td-height": 48px,
+    "font-size": var(--font-md),
+    "cell-padding": var(--sm),
+    "radius": var(--radius-md),
+  ),
+  "lg":(
+    "td-height": 56px,
+    "font-size": var(--font-lg),
+    "cell-padding": var(--md),
+    "radius": var(--radius-lg),
+  ),
+) !default;
+
+//+----------------------------------------------------------------------
+// Pagination 属性设置
+//+----------------------------------------------------------------------
+$conf_pagination: (
+  "radius": var(--form-radius), // 圆角尺寸
+  "gap": var(--md), // 间隙
+  "pager-gap": var(--xxs), // 翻页指示器间隙
+  "height":var(--form-md), // 元素高度
+  "font-size": var(--font-md), // 文本尺寸
+  "border-width": var(--form-border-width), // 边框尺寸
+  "font-color": var(--text-regular), // 文本颜色 (默认)
+  "font-color-hover": var(--primary), // 文本颜色 (悬停)
+  "font-color-active": var(--text-inverse), // 文本颜色 (激活)
+  "border-color": transparent, // 边框颜色 (默认)
+  "border-color-hover": var(--primary-light), // 边框颜色 (悬停)
+  "border-color-active": var(--main-color), // 边框颜色 (激活)
+  "bg-color": var(--bg-element), // 背景颜色 (默认)
+  "bg-color-hover": var(--primary-light), // 背景颜色 (悬停)
+  "bg-color-active": var(--main-color), // 背景颜色 (激活)
+  "line-font-color-active": var(--main-color), // 线条形态文本颜色 (激活)
+  "line-border-color-active": var(--main-color), // 线条形态边框颜色 (激活)
+) !default;
+
+
+//+----------------------------------------------------------------------
+// Progress 属性设置
+//+----------------------------------------------------------------------
+$conf_progress: (
+  "radius": var(--radius-md), // 圆角尺寸
+  "height": var(--md), // 元素高度
+  "font-size": var(--font-sm), // 文本尺寸
+  "bar-font-color": var(--text-inverse), // 指示条文本颜色
+  "bar-bg-color": var(--main-color), // 指示条背景颜色
+  "track-bg-color": var(--border-regular), // 轨道背景颜色
+) !default;
+// Progress 类型
+$conf_progress_type: (
+  "warning": (
+    "bar-font-color": var(--text-inverse),
+    "bar-bg-color": var(--warning),
+    "track-bg-color": map.get($conf_progress, 'track-bg-color'),
+  ),
+  "success": (
+    "bar-font-color": var(--text-inverse),
+    "bar-bg-color": var(--success),
+    "track-bg-color": map.get($conf_progress, 'track-bg-color'),
+  ),
+  "error": (
+    "bar-font-color": var(--text-inverse),
+    "bar-bg-color": var(--danger),
+    "track-bg-color": map.get($conf_progress, 'track-bg-color'),
+  ),
+) !default;
+
+
+//+----------------------------------------------------------------------
+// Alert 属性设置
+//+----------------------------------------------------------------------
+$conf_alert: (
+  "radius": var(--radius-lg), // 圆角尺寸
+  "padding-y": var(--sm), // 填充尺寸 (上下)
+  "padding-x":var(--md), // 填充尺寸 (左右)
+  "font-size": var(--font-md), // 文本尺寸
+  "font-color": var(--text-regular), // 文本颜色
+  "border-color": var(--border-regular), // 边框颜色
+  "bg-color":var(--bg-element), // 背景颜色
+) !default;
+// Alert 类型
+$conf_alert_type: (
+  "primary": (
+    "icon-color": var(--primary),
+    "font-color": var(--text-inverse),
+    "font-color-light": var(--text-regular),
+    "border-color": var(--primary),
+    "border-color-light": var(--primary),
+    "bg-color": var(--primary-bg),
+    "bg-color-light": var(--primary-light),
+  ),
+  "info": (
+    "icon-color": var(--info),
+    "font-color": var(--text-inverse),
+    "font-color-light": var(--text-regular),
+    "border-color": var(--info),
+    "border-color-light": var(--info),
+    "bg-color": var(--info-bg),
+    "bg-color-light": var(--info-light),
+  ),
+  "success": (
+    "icon-color": var(--success),
+    "font-color": var(--text-inverse),
+    "font-color-light": var(--text-regular),
+    "border-color": var(--success),
+    "border-color-light": var(--success),
+    "bg-color": var(--success-bg),
+    "bg-color-light": var(--success-light),
+  ),
+  "warning": (
+    "icon-color": var(--warning),
+    "font-color": var(--text-inverse),
+    "font-color-light": var(--text-regular),
+    "border-color": var(--warning),
+    "border-color-light": var(--warning),
+    "bg-color": var(--warning-bg),
+    "bg-color-light": var(--warning-light),
+  ),
+  "danger": (
+    "icon-color": var(--danger),
+    "font-color": var(--text-inverse),
+    "font-color-light": var(--text-regular),
+    "border-color": var(--danger),
+    "border-color-light": var(--danger),
+    "bg-color": var(--danger-bg),
+    "bg-color-light": var(--danger-light),
+  ),
+) !default;
+
+
+//+----------------------------------------------------------------------
+// Notification 属性设置
+//+----------------------------------------------------------------------
+$conf_notification: (
+  "radius": var(--radius-lg), // 圆角尺寸
+  "padding": var(--lg), // 填充尺寸
+  "width": 330px, // 元素宽度
+  "icon-size": map.get($conf_icon_size, 'md', 'size'), // 图标尺寸
+  "font-color": var(--text-regular), // 文本颜色
+  "border-width": false, // 边框尺寸 (false将不渲染)
+  "border-color": var(--border-regular), // 边框颜色
+  "bg-color": var(--bg-element), // 背景颜色
+  "header-height": 48px, // 头部高度
+  "header-font-size": var(--font-h5), // 头部文本尺寸
+  "header-bg-color": var(--bg-light), // 头部背景颜色
+  "shadow": var(--box-shadow-lg), // 阴影样式 (false将不渲染)
+) !default;
+// Notification 类型
+$conf_notification_type: (
+  "primary": (
+    "icon-color": var(--primary),
+    "font-color": map.get($conf_notification, 'font-color'),
+  ),
+  "info": (
+    "icon-color": var(--info),
+    "font-color": map.get($conf_notification, 'font-color'),
+  ),
+  "success": (
+    "icon-color": var(--success),
+    "font-color": map.get($conf_notification, 'font-color'),
+  ),
+  "warning": (
+    "icon-color": var(--warning),
+    "font-color": map.get($conf_notification, 'font-color'),
+  ),
+  "danger": (
+    "icon-color": var(--danger),
+    "font-color": map.get($conf_notification, 'font-color'),
+  ),
+) !default;
+
+
+//+----------------------------------------------------------------------
+// Message 属性设置
+//+----------------------------------------------------------------------
+$conf_message: (
+  "radius": var(--radius-lg), // 圆角尺寸
+  "padding-y": var(--sm), // 填充尺寸 (上下)
+  "padding-x": var(--md), // 填充尺寸 (左右)
+  "min-width": 400px, // 最小宽度
+  "icon-size": 20px, // 图标尺寸
+  "font-size": var(--font-md), // 文本尺寸
+  "font-color": var(--text-regular), // 文本颜色
+  "border-color": false, // 边框颜色 (false将不渲染)
+  "bg-color": var(--bg-element), // 背景颜色
+  "shadow": var(--box-shadow-lg), // 阴影样式 (false将不渲染)
+) !default;
+// Message 类型
+$conf_message_type: (
+  "primary": (
+    "icon-color": var(--primary),
+    "font-color": map.get($conf_message, 'font-color'),
+    "border-color": map.get($conf_message, 'border-color'),
+    "bg-color": map.get($conf_message, 'bg-color'),
+  ),
+  "info": (
+    "icon-color": var(--info),
+    "font-color": map.get($conf_message, 'font-color'),
+    "border-color": map.get($conf_message, 'border-color'),
+    "bg-color": map.get($conf_message, 'bg-color'),
+  ),
+  "success": (
+    "icon-color": var(--success),
+    "font-color": map.get($conf_message, 'font-color'),
+    "border-color": map.get($conf_message, 'border-color'),
+    "bg-color": map.get($conf_message, 'bg-color'),
+  ),
+  "warning": (
+    "icon-color": var(--warning),
+    "font-color": map.get($conf_message, 'font-color'),
+    "border-color": map.get($conf_message, 'border-color'),
+    "bg-color": map.get($conf_message, 'bg-color'),
+  ),
+  "danger": (
+    "icon-color": var(--danger),
+    "font-color": map.get($conf_message, 'font-color'),
+    "border-color": map.get($conf_message, 'border-color'),
+    "bg-color": map.get($conf_message, 'bg-color'),
+  ),
+) !default;
+
+
+//+----------------------------------------------------------------------
+// Tree 属性设置
+//+----------------------------------------------------------------------
+$conf_tree: (
+  "radius": var(--form-radius), // 圆角尺寸
+  "gap": 0, // 元素间隙
+  "height": 40px, // 元素高度
+  "font-color": var(--text-regular), // 文本颜色
+  "font-color-hover": var(--text-regular), // 文本颜色 (悬停)
+  "font-color-active": var(--text-regular), // 文本颜色 (激活)
+  "bg-color": var(--bg-header), // 背景颜色
+  "bg-color-hover": var(--bg-hover), // 背景颜色 (悬停)
+  "bg-color-active": var(--bg-hover), // 背景颜色 (激活)
+  "child-font-color": var(--text-regular), // 子节点文本颜色
+  "child-font-color-hover": var(--text-regular), // 子节点文本颜色 (悬停)
+  "child-bg-color": var(--bg-element), // 子节点背景颜色
+  "child-bg-color-hover": var(--bg-hover), // 子节点背景颜色 (悬停)
+) !default;
+
+
+//+----------------------------------------------------------------------
+// Upload 属性设置
+//+----------------------------------------------------------------------
+$conf_upload: (
+  "radius": var(--form-radius), // 圆角尺寸
+  "icon-size": 24px, // 图标尺寸
+  "thumb-size": 128px, // 缩略图尺寸
+  "font-size": var(--font-md), // 文本尺寸
+  "font-color": var(--text-regular), // 文本颜色
+  "font-color-hover": var(--text-hover), // 文本颜色 (悬停)
+  "handle-border-color": var(--border-regular), // 触发器边框颜色
+  "handle-border-color-hover": var(--main-color), // 触发器边框颜色 (悬停)
+  "handle-bg-color": var(--bg-content), // 触发器背景颜色
+  "handle-bg-color-hover": var(--bg-hover), // 触发器背景颜色 (悬停)
+  "item-padding-y": var(--sm), // Item填充尺寸 (上下)
+  "item-padding-x": var(--md), // Item填充尺寸 (左右)
+  "item-border-color": var(--border-regular), // Item边框颜色
+  "item-border-color-hover": var(--border-regular), // Item边框颜色 (悬停)
+  "item-bg-color": var(--bg-element), // Item背景颜色
+  "item-bg-color-hover": var(--bg-hover), // Item背景颜色 (悬停)
+  "item-bg-color-mask": var(--bg-backdrop), // Item遮罩样式
+) !default;
+
+
+//+----------------------------------------------------------------------
+// Breadcrumb 属性设置
+//+----------------------------------------------------------------------
+$conf_breadcrumb: (
+  "font-size": var(--font-md), // 文本尺寸
+  "font-color": var(--text-secondary), // 文本颜色
+  "font-color-hover": var(--text-hover), // 文本颜色 (悬停)
+  "font-color-active": var(--text-regular), // 文本颜色 (激活)
+  "separator-font-color": var(--text-light), // 分隔符颜色
+  "separator-margin": var(--xs), // 分隔符图标边距
+) !default;
+
+
+//+----------------------------------------------------------------------
+// Transfer 属性设置
+//+----------------------------------------------------------------------
+$conf_transfer: (
+  "radius": var(--form-radius), // 圆角尺寸
+  "width": 260px, // 宽度
+  "min-width": 260px, // 最小宽度
+  "height": 400px, // 高度
+  "border-color": var(--border-regular), // 边框颜色
+  "bg-color": var(--bg-content), // 背景颜色
+  "header-height": 48px, // Header高度
+  "header-bg-color": var(--bg-light), // Header背景颜色
+  "footer-height": 48px, // Footer高度
+  "footer-bg-color": var(--bg-light), // Footer背景颜色
+  "list-gap": var(--xxs), // list的间隙尺寸
+  "item-gap": var(--xs), // Item元素的间隙尺寸
+  "item-padding-y": var(--xs), // Item填充尺寸 (上下)
+  "item-padding-x": var(--md), // Item填充尺寸 (左右)
+  "item-bg-color-hover": var(--bg-hover), // 背景颜色 (悬停)
+  "item-bg-color-checked": var(--bg-hover), // 背景颜色 (选中)
+) !default;
+
+
+//+----------------------------------------------------------------------
+// Popper 属性设置，作用于select、cascader、dropdown等下拉面板的样式
+//+----------------------------------------------------------------------
+$conf_popper: (
+  "radius": var(--form-radius), // 圆角尺寸
+  "padding-y": 0, // 填充尺寸 (上下)
+  "padding-x": 0, // 填充尺寸 (左右)
+  "arrow-size": 8px, // 箭头尺寸
+  "border-color": false, // 边框颜色 (false将不渲染)
+  "bg-color": var(--bg-popup), // 背景颜色
+  "shadow": var(--box-shadow-lg), // 阴影样式
+) !default;
+
+
+//+----------------------------------------------------------------------
+// Popover 属性设置
+//+----------------------------------------------------------------------
+$conf_popover: (
+  "radius": var(--form-radius), // 圆角尺寸
+  "padding-y": var(--md), // 填充尺寸 (上下)
+  "padding-x": var(--md), // 填充尺寸 (左右)
+  "font-color": var(--text-regular), // 文本颜色
+  "border-color": false, // 边框颜色 (false将不渲染)
+  "bg-color": var(--bg-popup), // 背景颜色
+  "bg-color-dark": #212435, // 背景颜色 (暗色)
+  "tooltip-padding-y": var(--xxs), // Tooltip填充尺寸 (上下)
+  "tooltip-padding-x": var(--sm), // Tooltip填充尺寸 (左右)
+  "tooltip-font-size": var(--font-sm), // Tooltip文本尺寸
+  "shadow": var(--box-shadow-lg), // 阴影样式
+) !default;
+
+
+//+----------------------------------------------------------------------
+// Dropdown 属性设置
+//+----------------------------------------------------------------------
+$conf_dropdown: (
+  "padding-y": var(--sm), // 填充尺寸 (上下)
+  "padding-x": 0, // 填充尺寸 (左右)
+  "min-height": 100px, // 最小高度
+  "min-width": 100px, // 最小宽度
+  "max-height": 320px, // 最大高度
+  "max-width": 100px, // 最大宽度
+  "item-padding-y": var(--xxs), // Item填充尺寸 (上下)
+  "item-padding-x": var(--lg), // Item填充尺寸 (左右)
+  "item-height":var(--form-md), // Item高度
+  "item-bg-color-hover": var(--bg-hover), // Item背景色 (悬停)
+  "item-font-size": var(--font-md), // Item文本尺寸
+  "item-font-color": var(--text-regular), // Item文本颜色 (默认)
+  "item-font-color-hover": var(--text-hover), // Item文本颜色 (悬停)
+  "item-icon-size": var(--form-icon-size), // Item图标尺寸
+  "item-icon-color": var(--form-icon-color), // Item图标颜色
+) !default;
+
+
+//+----------------------------------------------------------------------
+// Timeline 属性设置
+//+----------------------------------------------------------------------
+$conf_timeline: (
+  "gap": var(--md), // 间隙
+  "line-width": 2px, // 连接线尺寸
+  "line-style": solid, // 连接线样式
+  "line-color": var(--text-lightest), // 连接线颜色
+  "dot-color": var(--text-lightest), // 圆点颜色
+  "dot-color-hover": var(--main-color), // 圆点颜色 (悬停)
+  "dot-width": 12px, // 圆点尺寸
+  "title-font-size": var(--font-md), // 标题文本尺寸
+  "title-line-height": 24px, // 标题文本行高
+  "title-font-color": var(--text-regular), // 标题文本颜色
+  "time-font-size": var(--font-sm), // 时间文本尺寸
+  "time-font-color": var(--text-secondary), // 时间文本颜色
+) !default;
+// Timeline 类型
+$conf_timeline_type: (
+  "primary": var(--primary-bg),
+  "info": var(--info-bg),
+  "success": var(--success-bg),
+  "warning": var(--warning-bg),
+  "danger": var(--danger-bg),
+) !default;
+
+
+//+----------------------------------------------------------------------
+// Slider 属性设置
+//+----------------------------------------------------------------------
+$conf_slider: (
+  "radius": var(--radius-round), // 圆角尺寸
+  "height": var(--xxs), // 滑块高度
+  "bar-color": var(--main-color), // 滑块条颜色
+  "bar-color-disabled": var(--form-disabled-bg-color), // 滑块条颜色 (禁用)
+  "bg-color": var(--border-regular), // 滑块背景色
+  "handle-size": 10px, // 手柄尺寸
+  "handle-color": var(--main-color), // 手柄颜色
+  "handle-border-color": var(--main-color), // 手柄边框色
+  "handle-shadow-color": var(--rgb-main-color), // 手柄阴影颜色 (仅支持rgb值)
+) !default;
+// Slider 类型
+$conf_slider_type: (
+  "primary": (
+    "bg-color": var(--primary-bg),
+    "shadow-color": var(--rgb-primary),
+  ),
+  "info": (
+    "bg-color": var(--info-bg),
+    "shadow-color": var(--rgb-info),
+  ),
+  "success": (
+    "bg-color": var(--success-bg),
+    "shadow-color": var(--rgb-success),
+  ),
+  "warning": (
+    "bg-color": var(--warning-bg),
+    "shadow-color": var(--rgb-warning),
+  ),
+  "danger": (
+    "bg-color": var(--danger-bg),
+    "shadow-color": var(--rgb-danger),
+  ),
+) !default;
+
+
+//+----------------------------------------------------------------------
+// Collapse 属性设置
+//+----------------------------------------------------------------------
+$conf_collapse: (
+  "radius": var(--form-radius), // 圆角尺寸
+  "gap": var(--xs), // 间隙
+  "padding-x": var(--md), // 填充尺寸 (左右)
+  "content-padding": var(--md), // 内容区填充尺寸 (可使用数组)
+  "content-bg-color": var(--bg-content), // 内容区背景颜色
+  "content-bg-color-active": var(--bg-content), // 内容区背景颜色 (激活)
+  "content-bg-color-disabled": var(--bg-content), // 内容区背景颜色 (禁用)
+  "header-gap": var(--sm), // 标题间隙
+  "header-height": 44px, // 标题高度
+  "header-font-size": var(--font-lg), // 标题文本尺寸
+  "header-bg-color": var(--bg-light), // 标题背景
+  "header-bg-color-hover": var(--bg-light), // 标题背景 (悬停)
+  "header-bg-color-active": var(--bg-light), // 标题背景 (激活)
+  "header-bg-color-disabled": var(--bg-light), // 标题背景 (禁用)
+  "header-font-color": var(--text-regular), // 标题颜色
+  "header-font-color-hover": var(--text-title), // 标题颜色 (悬停)
+  "header-font-color-active": var(--text-title), // 标题颜色 (激活)
+  "header-font-color-disabled": var(--text-light), // 标题颜色 (禁用)
+  "border-color": var(--border-regular), // 边框颜色
+  "border-color-hover": var(--border-regular), // 边框颜色 (悬停)
+  "border-color-active": var(--border-regular), // 边框颜色 (激活)
+  "border-color-disabled": var(--border-regular), // 边框颜色 (禁用)
+) !default;
+
+
+//+----------------------------------------------------------------------
+// Steps 属性设置
+//+----------------------------------------------------------------------
+$conf_steps: (
+  "graphic-radius": var(--radius-round), // 图示区-圆角尺寸
+  "graphic-size": 44px, // 图示区-尺寸
+  "graphic-icon-size": 20px, // 图示区-图标尺寸
+  "graphic-font-size": var(--font-lg), // 图示区-文本尺寸
+  "graphic-font-color": var(--bg-light), // 图示区-背景颜色
+  "graphic-border-color": var(--bg-element), // 图示区-边框颜色
+  "graphic-border-width": false, // 图示区-边框尺寸 (false将不渲染)
+  "graphic-bg-color": var(--bg-light), // 图示区-背景颜色
+  "line-border-color": var(--border-dark), // 连接线-线条颜色
+  "line-border-width": 1px, // 连接线-线条尺寸
+  "line-border-style": dashed, // 连接线-线条样式
+  "line-border-style-finish": dashed, // 连接线-线条样式 (完成)
+  "title-font-color": var(--text-regular), // 标题-文本颜色
+  "title-font-size": var(--font-md), // 标题-文本尺寸
+  "title-font-weight": 600, // 标题-文本重量
+  "content-font-size": var(--font-md), // 描述-文本尺寸
+  "content-font-color": var(--text-secondary), // 描述-文本颜色
+) !default;
+// Steps 类型
+$conf_steps_type: (
+  "is-process": (
+    "graphic-font-color": var(--text-inverse),
+    "graphic-border-color": var(--text-lightest),
+    "graphic-bg-color": var(--primary),
+    "line-border-color": var(--border-dark),
+    "title-font-color": var(--text-regular),
+  ),
+  "is-wait": (
+    "graphic-font-color": var(--primary),
+    "graphic-border-color": var(--text-lightest),
+    "graphic-bg-color": var(--primary-light),
+    "line-border-color": var(--border-dark),
+    "title-font-color": var(--text-regular),
+  ),
+  "is-finish": (
+    "graphic-font-color": var(--primary),
+    "graphic-border-color": var(--text-lightest),
+    "graphic-bg-color": var(--primary-light),
+    "line-border-color": var(--border-dark),
+    "title-font-color": var(--text-regular),
+  ),
+  "is-success": (
+    "graphic-font-color": var(--primary),
+    "graphic-border-color": var(--text-lightest),
+    "graphic-bg-color": var(--primary-light),
+    "line-border-color": var(--primary),
+    "title-font-color": var(--primary),
+  ),
+  "is-error": (
+    "graphic-font-color": var(--text-inverse),
+    "graphic-border-color": var(--text-lightest),
+    "graphic-bg-color": var(--danger),
+    "line-border-color": var(--border-dark),
+    "title-font-color": var(--text-regular),
+  ),
+) !default;
+
+
+//+----------------------------------------------------------------------
+// List 属性设置
+//+----------------------------------------------------------------------
+$conf_list: (
+  "radius": var(--form-radius), // 圆角尺寸
+  "gap": var(--xxs), // 间隙尺寸
+  "item-gap": var(--sm), // Item间隙尺寸
+  "item-height": 44px, // Item元素高度
+  "font-size": var(--font-md), // 文本尺寸
+  "padding-y": var(--xxs), // 填充尺寸 (上下)
+  "padding-x": var(--md), // 填充尺寸 (左右)
+  "font-color": var(--text-regular), // 文本颜色
+  "font-color-hover": var(--text-hover), // 文本颜色 (悬停)
+  "bg-color": var(--bg-element), // 背景颜色
+  "bg-color-hover": var(--bg-hover), // 背景颜色 (悬停)
+  "border-color": var(--border-regular), // 边框颜色
+) !default;
+
+
+//+----------------------------------------------------------------------
+// Scrollbar 属性设置
+//+----------------------------------------------------------------------
+$conf_scrollbar: (
+  "radius": var(--radius-round), // 圆角尺寸
+  "width": var(--xxs), // 滚动条尺寸
+  "track-color": false, // 滚动条背景颜色 (false将不渲染)
+  "bar-color": rgba(0, 0, 0, 0.2), // 手柄背景颜色
+  "bar-color-hover": rgba(0, 0, 0, 0.4), // 手柄背景颜色 (悬停)
+  "bar-color-active": rgba(0, 0, 0, 0.6), // 手柄背景颜色 (激活)
+) !default;
+
+
+//+----------------------------------------------------------------------
+// Anchor 属性设置
+//+----------------------------------------------------------------------
+$conf_anchor: (
+  "gap": var(--xxs), // 间隙尺寸
+  "bar-width": 2px, // 指示条-宽度
+  "bar-height": var(--lg), // 指示条-高度
+  "bar-color": var(--main-color), // 指示条-颜色
+  "track-color": var(--border-regular), // 指示条轨道-颜色
+  "track-width": 2px, // 指示条轨道-宽度
+  "font-color": var(--text-regular), // 文本颜色
+  "font-color-hover": var(--text-regular), // 文本颜色 (悬停)
+  "font-color-active": var(--text-link), // 文本颜色 (激活)
+  "font-size": var(--font-md), // 文本尺寸
+  "font-weight": var(--font-weight), // 文本重量
+  "font-weight-hover": var(--font-weight), // 文本重量 (悬停)
+  "font-weight-active": var(--font-weight-bold), // 文本重量 (激活)
+  "item-radius": var(--radius-md), // Item圆角
+  "item-height": var(--form-sm), // Item高度
+  "item-padding-y": var(--xs), // Item填充 (上下)
+  "item-padding-x": var(--md), // Item填充 (左右)
+  "item-bg-color": transparent, // Item背景色
+  "item-bg-color-hover": transparent, // Item背景色 (悬停)
+  "item-bg-color-active": transparent, // Item背景色 (激活)
+  "item-indent": 1em, // Item缩进尺寸
+) !default;

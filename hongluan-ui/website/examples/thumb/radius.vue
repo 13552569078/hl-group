@@ -1,0 +1,14 @@
+<template>
+  <hl-thumb
+    radius
+    fit="cover"
+    class="m-r-md"
+    src="https://pimg.39.net/yaopin/zycimg/11hxcu4pth3wu2019.jpg"
+  />
+  <hl-thumb
+    round
+    fit="cover"
+    class="m-r-md"
+    src="https://pimg.39.net/yaopin/zycimg/11hxcu4pth3wu2019.jpg"
+  />
+</template>

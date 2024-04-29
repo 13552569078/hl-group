@@ -1,0 +1,518 @@
+.#{$date_input} {
+  .range-input {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: var(--input-padding-y) var(--input-padding-x);
+
+    input {
+      width: 100%;
+      border: none;
+      text-align: center;
+      flex-grow: 1;
+      background-color: transparent;
+      color: currentColor;
+      font-size: inherit;
+      padding: 0;
+    }
+
+    .range-separator {
+      font-family: sans-serif;
+      display: block;
+      padding: 0 size(8px);
+      flex-grow: 1;
+    }
+
+    .#{$icon} {
+      &.close {
+        cursor: pointer;
+
+        &:hover {
+          color: var(--text-hover);
+        }
+      }
+    }
+  }
+  &.date.thin,
+  &.time.thin {
+    input {
+      padding: size(map.get($conf_input, 'padding-y') map.get($conf_input, 'padding-x')) !important;
+    }
+  }
+}
+
+.#{$date_picker} {
+  --date-picker-radius: #{size(map.get($conf_date_picker, 'radius'))};
+  --date-picker-td-width: #{size(32px)};
+  --date-picker-td-height: #{size(32px)};
+  --date-picker-font-size: #{size(map.get($conf_date_picker, 'font-size'))};
+  --date-picker-font-color: #{map.get($conf_date_picker, 'font-color')};
+  --date-picker-font-color-hover: #{map.get($conf_date_picker, 'font-color-hover')};
+  --date-picker-font-color-active: #{map.get($conf_date_picker, 'font-color-active')};
+  --date-picker-font-color-current: #{map.get($conf_date_picker, 'font-color-current')};
+  --date-picker-font-color-disabled: #{map.get($conf_date_picker, 'font-color-disabled')};
+  --date-picker-bg-color-hover: #{map.get($conf_date_picker, 'bg-color-hover')};
+  --date-picker-bg-color-active: #{map.get($conf_date_picker, 'bg-color-active')};
+  --date-picker-bg-color-current: #{map.get($conf_date_picker, 'bg-color-current')};
+
+  .picker-wrapper {
+    position: relative;
+    display: flex;
+  }
+
+  .picker-sidebar {
+    border-right: var(--border-width) solid var(--border-regular);
+    padding: size(24px);
+
+    .#{$button} {
+      width: 100%;
+      display: flex;
+    }
+  }
+
+  .picker-body {
+    padding: size(24px);
+
+    .picker-time-header {
+      margin-bottom: size(16px);
+
+      .group-item {
+        width: 0;
+      }
+
+      .#{$input} {
+        display: flex;
+      }
+
+      .#{$input} {
+        text-align: center;
+      }
+
+      .#{$time_picker} {
+        position: absolute;
+        z-index: 10;
+        border-radius: #{size(map.get($conf_popper, 'radius'))};
+        @if map.get($conf_popper, 'border-color') != false {
+          border: var(--border-width) solid map.get($conf_popper, 'border-color');
+        }
+        background-color: map.get($conf_popper, 'bg-color');
+        box-shadow: map.get($conf_popper, 'shadow');
+      }
+    }
+
+    .picker-body-header-wrapper {
+      display: flex;
+
+      .range-separator {
+        padding: 0 size(8px);
+        border: none;
+        background-color: transparent;
+
+        &::before {
+          font-family: sans-serif;
+          content: '-';
+          color: currentColor;
+        }
+      }
+    }
+
+    .picker-body-header {
+      margin-bottom: size(16px);
+
+      .group-item {
+        &.static {
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          width: size(56px);
+
+          &:last-child {
+            justify-content: flex-end;
+          }
+        }
+      }
+
+      .#{$button} {
+        padding: 0 size(4px);
+        height: size(28px);
+        border: none;
+        background: none;
+        color: var(--date-picker-font-color);
+        font-size: var(--font-md);
+        &:hover {
+          color: var(--date-picker-font-color-hover);
+        }
+
+        &:disabled,
+        &.is-disabled {
+          cursor: not-allowed;
+          background-color: transparent;
+          color: var(--date-picker-font-color-disabled);
+        }
+      }
+
+      .header-label {
+        padding: 0;
+        display: flex;
+        justify-content: center;
+
+        .#{$button} {
+          background-color: transparent;
+
+          &:focus,
+          &:hover {
+            color: var(--date-picker-font-color-hover);
+          }
+        }
+      }
+    }
+
+    .picker-body-content {
+      &.is-left {
+        float: left;
+        margin-right: size(24px);
+      }
+
+      &.is-right {
+        float: right;
+      }
+
+      .picker-table {
+        table-layout: fixed;
+        font-size: var(--date-picker-font-size);
+        user-select: none;
+        border-spacing: 0;
+        border-collapse: collapse;
+        margin: 0 auto;
+        // 选择周样式
+        &.is-week-mode {
+          .table-row {
+            &.current,
+            &:hover {
+              td {
+                color: var(--date-picker-font-color);
+                border-radius: 0;
+                background-color: var(--date-picker-bg-color-hover);
+
+                &.today {
+                  color: var(--date-picker-font-color);
+                }
+
+                &:first-child {
+                  border-top-left-radius: var(--date-picker-radius);
+                  border-bottom-left-radius: var(--date-picker-radius);
+                }
+
+                &:last-child {
+                  border-top-right-radius: var(--date-picker-radius);
+                  border-bottom-right-radius: var(--date-picker-radius);
+                }
+              }
+            }
+
+            &.current {
+              td {
+                &.start-date {
+                  color: var(--text-inverse);
+                  background-color: var(--date-picker-bg-color-active);
+                  border-top-left-radius: var(--date-picker-radius);
+                  border-bottom-left-radius: var(--date-picker-radius);
+                }
+
+                &.end-date {
+                  color: var(--text-inverse);
+                  background-color: var(--date-picker-bg-color-active);
+                  border-top-right-radius: var(--date-picker-radius);
+                  border-bottom-right-radius: var(--date-picker-radius);
+                }
+              }
+            }
+          }
+        }
+
+        &.month-table,
+        &.year-table {
+          tbody {
+            td {
+              width: calc(var(--date-picker-td-width) + #{size(24px)});
+              height: calc(var(--date-picker-td-width) + #{size(24px)});
+            }
+          }
+        }
+
+        tbody {
+          th,
+          td {
+            position: relative;
+            width: var(--date-picker-td-width);
+            height: var(--date-picker-td-height);
+            padding: 0;
+            text-align: center;
+            color: var(--date-picker-font-color);
+          }
+
+          td {
+            cursor: pointer;
+            border-radius: var(--date-picker-radius);
+            @include transition(all var(--duration) var(--timing));
+
+            &:hover {
+              color: var(--date-picker-font-color-hover);
+              background-color: var(--date-picker-bg-color-hover);
+            }
+
+            a {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              color: currentColor;
+              height: 100%;
+            }
+
+            div {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              height: 100%;
+            }
+
+            //当前日期样式
+            &.today {
+              background-color: var(--date-picker-bg-color-current);
+              color: var(--date-picker-font-color-current);
+
+              &::before {
+                content: '';
+                position: absolute;
+                bottom: size(4px);
+                right: size(4px);
+                display: block;
+                border-style: solid;
+                border-width: size(4px);
+                border-color: var(--date-picker-bg-color-active);
+                border-left-color: transparent;
+                border-top-color: transparent;
+              }
+            }
+
+            //上下月日期样式
+            &.prev-month,
+            &.next-month {
+              color: var(--date-picker-font-color-disabled);
+
+              &:hover {
+                color: var(--date-picker-font-color-disabled);
+              }
+            }
+
+            //范围日期样式
+            &.in-range {
+              border-radius: 0;
+              background-color: var(--date-picker-bg-color-hover);
+
+              &.today {
+                background-color: var(--date-picker-bg-color-hover);
+              }
+
+              &.start-date {
+                color: var(--date-picker-font-color-active);
+                background-color: var(--date-picker-bg-color-active);
+                border-top-left-radius: var(--date-picker-radius);
+                border-bottom-left-radius: var(--date-picker-radius);
+              }
+
+              &.end-date {
+                color: var(--date-picker-font-color-active);
+                background-color: var(--date-picker-bg-color-active);
+                border-top-right-radius: var(--date-picker-radius);
+                border-bottom-right-radius: var(--date-picker-radius);
+              }
+            }
+
+            // 已选中样式
+            &.selected,
+            &.current {
+              background-color: var(--date-picker-bg-color-active);
+              color: var(--date-picker-font-color-active) !important;
+
+              &:hover {
+                opacity: 0.8;
+              }
+            }
+
+            //禁用样式
+            &:disabled,
+            &.disabled {
+              cursor: not-allowed;
+              background-color: transparent;
+              color: var(--date-picker-font-color-disabled);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .picker-footer {
+    padding: size(16px) size(24px);
+    display: flex;
+    justify-content: flex-end;
+    border-top: var(--border-width) solid var(--border-regular);
+
+    .#{$button} {
+      &:last-child {
+        margin-left: size(12px);
+      }
+    }
+  }
+}
+
+.#{$time_picker} {
+  .picker-header {
+    height: size(24px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: size(12px);
+  }
+
+  .picker-body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    padding: size(24px) size(12px);
+  }
+
+  .picker-cell {
+    &.is-left {
+      float: left;
+      margin-right: size(24px);
+    }
+
+    &.is-right {
+      float: right;
+    }
+  }
+
+  .picker-content {
+    position: relative;
+    width: size(200px);
+
+    &::before {
+      content: '';
+      top: 50%;
+      position: absolute;
+      transform: translate(0, -50%);
+      height: size(32px);
+      z-index: 0;
+      left: 0;
+      right: 0;
+      border-radius: size(map.get($conf_popper, 'radius'));
+      background-color: map.get($conf_dropdown, 'item-bg-color-hover');
+    }
+
+    .time-spinner {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+    }
+
+    .spinner-wrapper {
+      max-height: size(160px);
+      overflow: hidden;
+      display: inline-block;
+      vertical-align: top;
+      position: relative;
+      flex-grow: 1;
+      border-right: var(--border-width) solid var(--border-regular);
+
+      &:last-child {
+        border: none;
+      }
+
+      &.is-arrow {
+        .spinner-list {
+          transform: translateY(size(-32px));
+        }
+      }
+    }
+
+    .spinner-list {
+      padding: 0;
+      margin: 0;
+      list-style-type: none;
+
+      &::before {
+        content: '';
+        display: block;
+        width: 100%;
+        height: size(64px);
+      }
+
+      &::after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: size(64px);
+      }
+
+      .spinner-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: size(32px);
+        min-width: size(32px);
+        font-size: var(--font-md);
+        color: var(--text-regular);
+        &.active {
+          font-weight: var(--font-weight-bold);
+        }
+      }
+
+      .disabled {
+        color: var(--date-picker-font-color-disabled);
+      }
+    }
+
+    .spinner-arrow {
+      position: absolute;
+      width: 100%;
+      height: size(32px);
+      border: none;
+      box-shadow: none;
+      z-index: 1;
+
+      &:active,
+      &:focus {
+        background-color: transparent;
+      }
+
+      &.up {
+        top: 0;
+        bottom: auto;
+      }
+
+      &.down {
+        bottom: 0;
+        top: auto;
+      }
+    }
+  }
+
+  .picker-footer {
+    padding: size(16px) size(24px);
+    display: flex;
+    justify-content: flex-end;
+    border-top: var(--border-width) solid var(--border-regular);
+
+    .#{$button} {
+      &:last-child {
+        margin-left: size(12px);
+      }
+    }
+  }
+}
+
+.#{$datepicker_popper} {
+}

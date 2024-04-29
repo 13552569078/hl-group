@@ -1,0 +1,10 @@
+node_modules
+__tests__
+dist
+packages/*/es
+packages/*/lib
+pnpm-lock.yaml
+CHANGELOG*.md
+website/examples
+tsconfig.json
+

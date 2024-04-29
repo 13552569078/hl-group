@@ -1,0 +1,13 @@
+@use "sass:math";
+@use "sass:map";
+
+//公共库
+@import "./common/config";                  //配置文件（本地）
+@import "./common/variable";                //变量集
+@import "./common/function";                //公共函数
+
+//组件样式
+@import "./components/layout";              //基础样式
+@import "./mixin/layout";                   //样式生成函数
+
+//关联组件

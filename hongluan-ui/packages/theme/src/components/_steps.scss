@@ -1,0 +1,204 @@
+.#{$steps} {
+  --steps-gap: #{size(0px)};
+  --steps-item-padding: #{size(40px)};
+  display: flex;
+  gap: var(--steps-gap);
+  &.vertical {
+    flex-flow: column;
+  }
+}
+
+.#{$steps_item} {
+  --steps-graphic-radius: #{size(map.get($conf_steps, 'graphic-radius'))};
+  --steps-graphic-size: #{size(map.get($conf_steps, 'graphic-size'))};
+  --steps-graphic-icon-size: #{size(map.get($conf_steps, 'graphic-icon-size'))};
+  --steps-graphic-font-size: #{size(map.get($conf_steps, 'graphic-font-size'))};
+  --steps-graphic-font-color: #{map.get($conf_steps, 'graphic-font-color')};
+  --steps-graphic-border-color: #{map.get($conf_steps, 'graphic-border-color')};
+  @if map.get($conf_steps, 'graphic-border-width') != false {
+    --steps-graphic-border-width: #{size(map.get($conf_steps, 'graphic-border-width'))};
+  }
+  --steps-graphic-bg-color: #{map.get($conf_steps, 'graphic-bg-color')};
+  --steps-title-font-size: #{size(map.get($conf_steps, 'title-font-size'))};
+  --steps-title-font-weight: #{size(map.get($conf_steps, 'title-font-weight'))};
+  --steps-content-font-size: #{size(map.get($conf_steps, 'content-font-size'))};
+  --steps-content-font-color: #{map.get($conf_steps, 'content-font-color')};
+  position: relative;
+  flex-shrink: 1;
+  flex-grow: 1;
+  flex-basis: 0;
+  &:last-of-type {
+    flex-basis: auto;
+    flex-shrink: 0;
+    flex-grow: 0;
+    .step-line {
+      display: none;
+    }
+    .step-main {
+      padding-right: 0;
+    }
+  }
+
+  &.is-wait {
+    .step-head {
+      .step-icon {
+        &.is-icon {
+          background-color: var(--bg-hover);
+        }
+      }
+    }
+  }
+
+  &.is-error {
+    .step-head {
+      .step-line {
+        &::before {
+          border-top-style: var(--steps-line-border-style);
+        }
+      }
+    }
+  }
+
+  &.is-success,
+  &.is-finish {
+    .step-head {
+      .step-line {
+        &::before {
+          border-top-style: var(--steps-line-border-style-finish);
+        }
+      }
+    }
+  }
+
+  &.is-horizontal {
+    .step-line {
+      left: calc(var(--steps-graphic-size) + var(--steps-gap));
+      &::before {
+        top: 50%;
+        width: 100%;
+        transform: translateY(-50%);
+        border-top: var(--steps-line-border-width) var(--steps-line-border-style) var(--steps-line-border-color);
+      }
+    }
+  }
+
+  &.is-vertical {
+    display: flex;
+
+    .step-head {
+      flex-grow: 0;
+    }
+
+    .step-main {
+      padding-left: size(16px);
+      flex-grow: 1;
+    }
+
+    .step-title {
+      padding-bottom: size(4px);
+    }
+
+    .step-line {
+      top: calc(var(--steps-graphic-size) + var(--steps-gap));
+      &::before {
+        top: 0;
+        left: 50%;
+        height: 100%;
+        transform: translateX(-50%);
+        border-right: var(--steps-line-border-width) var(--steps-line-border-style) var(--steps-line-border-color);
+      }
+    }
+  }
+
+  &.is-center {
+    &:last-of-type {
+      flex-shrink: 1;
+      flex-grow: 1;
+      flex-basis: 0;
+    }
+    .step-head,
+    .step-main {
+      padding: 0 size(16px);
+      text-align: center;
+      justify-content: center;
+    }
+  }
+
+  .step-head {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+  }
+  .step-icon {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--steps-graphic-size);
+    height: var(--steps-graphic-size);
+    font-size: var(--steps-graphic-font-size);
+    background-color: var(--steps-graphic-bg-color);
+    border-radius: var(--steps-graphic-radius);
+    line-height: 1;
+    flex-grow: 0;
+    flex-shrink: 0;
+    color: var(--steps-graphic-font-color);
+    @include transition(all var(--duration) var(--timing));
+    &.round {
+      border-radius: var(--radius-round);
+    }
+    &.is-text {
+      @if map.get($conf_steps, 'graphic-border-width') != false {
+        border: var(--steps-graphic-border-width) solid var(--steps-graphic-border-color);
+      }
+    }
+
+    .#{$icon} {
+      width: var(--steps-graphic-icon-size);
+      height: var(--steps-graphic-icon-size);
+      color: currentColor;
+    }
+
+    .icon-inner {
+      display: flex;
+      user-select: none;
+      font-weight: var(--font-weight-bold);
+      color: inherit;
+    }
+  }
+
+  .step-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    &::before {
+      --steps-line-border-color: #{map.get($conf_steps, 'line-border-color')};
+      --steps-line-border-width: #{size(map.get($conf_steps, 'line-border-width'))};
+      --steps-line-border-style: #{map.get($conf_steps, 'line-border-style')};
+      --steps-line-border-style-finish: #{map.get($conf_steps, 'line-border-style-finish')};
+      content: '';
+      position: absolute;
+    }
+  }
+
+  .step-main {
+    text-align: left;
+    margin-top: size(12px);
+    padding-right: size(24px);
+    padding-bottom: var(--steps-item-padding);
+  }
+
+  .step-title {
+    color: var(--steps-title-font-color);
+    font-size: var(--steps-title-font-size);
+    font-weight: var(--steps-title-font-weight);
+  }
+
+  .step-description {
+    font-size: var(--steps-content-font-size);
+    color: var(--steps-content-font-color);
+  }
+}

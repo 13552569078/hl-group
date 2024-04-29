@@ -1,0 +1,12 @@
+//message样式生成器
+.#{$message} {
+  //生成类型
+  @each $key, $value in $conf_message_type {
+    &.#{$key} {
+      --message-bg-color: #{map.get($value, 'bg-color')};
+      --message-border-color: #{map.get($value, 'border-color')};
+      --message-icon-color: #{map.get($value, 'icon-color')};
+      --message-font-color: #{map.get($value, 'font-color')};
+    }
+  }
+}

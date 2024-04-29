@@ -1,0 +1,40 @@
+//input样式生成器
+.#{$input} {
+  // 生成类型
+  @each $key, $value in $conf_input_type {
+    &.#{$key} {
+      --input-font-color: #{map.get($value, 'font-color')};
+      --input-font-color-hover: #{map.get($value, 'font-color-hover')};
+      --input-font-color-focus: #{map.get($value, 'font-color-focus')};
+      --input-border-color: #{map.get($value, 'border-color')};
+      --input-border-color-hover: #{map.get($value, 'border-color-hover')};
+      --input-border-color-focus: #{map.get($value, 'border-color-focus')};
+      --input-bg-color: #{map.get($value, 'bg-color')};
+      --input-bg-color-hover: #{map.get($value, 'bg-color-hover')};
+      --input-bg-color-focus: #{map.get($value, 'bg-color-focus')};
+      &.is-focus {
+        @if map.get($conf_form, 'shadow-size') != false {
+          box-shadow: var(--form-shadow-size) rgba(map.get($value, 'shadow-color'),var(--form-shadow-opcity));
+        }
+      }
+    }
+  }
+
+  // 生成尺寸
+  @each $key, $value in $conf_form_size {
+    &.#{$key} {
+      --input-radius: #{size(map.get($value, 'radius'))};
+      --input-height: #{map.get($value, 'height')};
+      --input-font-size: #{map.get($value, 'font-size')};
+      --input-padding-x: #{size(map.get($value, 'padding-x'))};
+      --input-padding-y: #{size(map.get($value, 'padding-y'))};
+      --input-icon-size: #{map.get($value, 'icon-size')};
+      line-height: get_line_height(map.get($value, 'font-size'));
+      .input-tags {
+      .#{$tag} {
+          --tag-height: calc(var(--input-height) - var(--form-border-width) * 2 - var(--input-padding-y) * 2);
+        }
+      }
+    }
+  }
+}

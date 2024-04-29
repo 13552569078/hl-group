@@ -1,0 +1,110 @@
+//button样式生成器
+.#{$button} {
+  //生成类型
+  @each $key, $value in $conf_button_type {
+    &.#{$key} {
+      --button-font-color: #{map.get($value, 'font-color')};
+      --button-bg-color: #{map.get($value, 'bg-color')};
+      --button-border-color: #{map.get($value, 'border-color')};
+      --button-font-color-hover: #{map.get($value, 'font-color-hover')};
+      --button-bg-color-hover: #{map.get($value, 'bg-color-hover')};
+      --button-border-color-hover: #{map.get($value, 'border-color-hover')};
+      --button-font-color-active: #{map.get($value, 'font-color-active')};
+      --button-bg-color-active: #{map.get($value, 'bg-color-active')};
+      --button-bg-color-light: #{map.get($value, 'bg-color-light')};
+      --button-border-color-active: #{map.get($value, 'border-color-active')};
+
+      &:focus,
+      &.is-focus {
+        @if map.get($conf_form, 'shadow-size') {
+          box-shadow: var(--form-shadow-size) rgba(map.get($value, 'shadow-color'), var(--form-shadow-opcity));
+        }
+      }
+
+      &.light {
+        color: var(--button-border-color);
+        border-color: var(--button-bg-color-light);
+        background-color: var(--button-bg-color-light);
+        &.is-hover,
+        &.is-focus,
+        &:focus,
+        &:hover {
+          color: var(--button-font-color-hover);
+          border-color: var(--button-border-color-hover);
+          background-color: var(--button-bg-color-hover);
+        }
+        &.is-active,
+        &:active {
+          color: var(--button-font-color-active);
+          border-color: var(--button-border-color-active);
+          background-color: var(--button-bg-color-active);
+        }
+      }
+
+      &.no-fill {
+        color: var(--button-border-color);
+        &.is-hover,
+        &.is-focus,
+        &:focus,
+        &:hover {
+          color: var(--button-font-color-hover);
+          background-color: var(--button-bg-color-hover);
+        }
+
+        &.is-active,
+        &:active {
+          color: var(--button-font-color-active);
+          border-color: var(--button-border-color-active);
+          background-color: var(--button-bg-color-active);
+        }
+
+        &.light {
+          border-color: transparent;
+          background-color: transparent;
+          &.is-hover,
+          &.is-focus,
+          &:focus,
+          &:hover {
+            color: var(--button-border-color);
+            border-color: var(--button-bg-color-light);
+            background-color: var(--button-bg-color-light);
+          }
+          &.is-active,
+          &:active {
+            color: var(--button-font-color-hover);
+            border-color: var(--button-border-color-hover);
+            background-color: var(--button-bg-color-hover);
+          }
+        }
+      }
+
+      @at-root {
+        .#{$radio}.is-checked &,
+        .#{$checkbox}.is-checked & {
+          --button-font-color-hover: #{map.get($value, 'font-color-hover')};
+          --button-bg-color-hover: #{map.get($value, 'bg-color-hover')};
+          --button-border-color-hover: #{map.get($value, 'border-color-hover')};
+        }
+      }
+    }
+  }
+
+  //生成尺寸
+  @each $key, $value in $conf_form_size {
+    &.#{$key} {
+      --button-radius: #{size(map.get($value, 'radius'))};
+      --button-padding-x: #{size(map.get($value, 'padding-x'))};
+      --button-padding-y: #{size(map.get($value, 'padding-y'))};
+      --button-min-width: #{size(map.get($value, 'min-width'))};
+      --button-height: #{size(map.get($value, 'height'))};
+      --button-font-size: #{size(map.get($value, 'font-size'))};
+      line-height: line_height(map.get($value, 'font-size'));
+      .#{$spinner},
+      .#{$icon} {
+        font-size: size(map.get($value, 'icon-size'));
+        width: size(map.get($value, 'icon-size'));
+        height: size(map.get($value, 'icon-size'));
+      }
+    }
+  }
+}

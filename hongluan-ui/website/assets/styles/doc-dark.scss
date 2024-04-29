@@ -1,0 +1,13 @@
+@use 'sass:math';
+@use 'sass:map';
+
+// 引入Config配置文件
+@import '../../../packages/theme/src/dark/colors';
+
+.dark-mode {
+  --docDemoBlockBgColor: var(--bg-content);
+  --docDemoBlockBgColor-Gary: var(--bg-content);
+  --docDemoBlockBgColor-Dark: var(--bg-content);
+  --docSourceCodeFontColor: #abb2bf;
+  --docSourceCodeBgColor: var(--bg-content);
+}

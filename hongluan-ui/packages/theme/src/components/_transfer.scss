@@ -1,0 +1,152 @@
+.#{$transfer} {
+  --transfer-radius: #{size(map.get($conf_transfer, 'radius'))};
+  --transfer-gap: #{size(16px)};
+  --transfer-height: #{size(map.get($conf_transfer, 'height'))};
+  --transfer-width: #{size(map.get($conf_transfer, 'width'))};
+  --transfer-min-width: #{size(map.get($conf_transfer, 'min-width'))};
+  --transfer-bg-color: #{map.get($conf_transfer, 'bg-color')};
+  --transfer-border-width: var(--form-border-width);
+  --transfer-border-color: #{map.get($conf_transfer, 'border-color')};
+  --transfer-header-height: #{size(map.get($conf_transfer, 'header-height'))};
+  --transfer-header-bg-color: #{map.get($conf_transfer, 'header-bg-color')};
+  --transfer-footer-height: #{size(map.get($conf_transfer, 'footer-height'))};
+  --transfer-footer-bg-color: #{map.get($conf_transfer, 'footer-bg-color')};
+  --transfer-list-gap: #{size(map.get($conf_transfer, 'list-gap'))};
+  --transfer-item-gap: #{size(map.get($conf_transfer, 'item-gap'))};
+  --transfer-item-padding-y: #{size(map.get($conf_transfer, 'item-padding-y'))};
+  --transfer-item-padding-x: #{size(map.get($conf_transfer, 'item-padding-x'))};
+  --transfer-item-bg-color-hover: #{map.get($conf_transfer, 'item-bg-color-hover')};
+  --transfer-item-bg-color-checked: #{map.get($conf_transfer, 'item-bg-color-checked')};
+  position: relative;
+  display: inline-flex;
+  justify-content: space-between;
+  gap: var(--transfer-gap);
+
+  &.block {
+    display: flex;
+  }
+
+  .transfer-panel {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    position: relative;
+    border-radius: var(--transfer-radius);
+    border: var(--transfer-border-width) solid var(--transfer-border-color);
+    background-color: var(--transfer-bg-color);
+    min-width: var(--transfer-min-width);
+    width: var(--transfer-width);
+    height: var(--transfer-height);
+
+    .panel-header {
+      display: flex;
+      flex-grow: 0;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: space-between;
+      height: var(--transfer-header-height);
+      padding: 0 size(16px);
+      border-radius: var(--transfer-radius) var(--transfer-radius) 0 0;
+      border-bottom: var(--transfer-border-width) solid var(--transfer-border-color);
+      background-color: var(--transfer-header-bg-color);
+
+      .count {
+        color: var(--text-secondary);
+      }
+    }
+
+    .panel-body {
+      display: flex;
+      flex-grow: 1;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .panel-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-grow: 0;
+      flex-shrink: 0;
+      height: var(--transfer-footer-height);
+      padding: 0 size(16px);
+      border-radius: 0 0 var(--transfer-radius) var(--transfer-radius);
+      border-top: var(--transfer-border-width) solid var(--transfer-border-color);
+      background-color: var(--transfer-footer-bg-color);
+    }
+
+    .panel-filter {
+      padding: var(--md);
+    }
+
+    .panel-list {
+      display: flex;
+      flex-direction: column;
+      padding: size(16px);
+      flex: 1;
+      flex-basis: auto;
+      overflow: auto;
+      flex-wrap: nowrap;
+      gap: var(--transfer-list-gap);
+      &.has-filterable {
+        padding-top: 0;
+      }
+
+      .item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: var(--transfer-item-padding-y) var(--transfer-item-padding-x);
+        border-radius: var(--transfer-radius);
+        gap: var(--transfer-item-gap);
+        @include transition(all var(--duration) var(--timing));
+        &:hover {
+          background-color: var(--transfer-item-bg-color-hover);
+        }
+
+        &.is-checked {
+          background-color: var(--transfer-item-bg-color-checked);
+        }
+
+        &.is-disabled {
+          color: var(--text-light);
+          background-color: unset;
+          &:hover {
+            background-color: unset;
+          }
+        }
+
+        .checkbox-label {
+          padding: 0;
+          flex-grow: 1;
+
+          .close {
+            display: none;
+          }
+        }
+
+        .checkbox-inner {
+          flex-grow: 0;
+        }
+
+        .#{$icon},
+        .#{$thumb} {
+          margin-right: size(8px);
+        }
+      }
+    }
+
+    .panel-empty {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: size(40px) size(16px) 0;
+      color: var(--text-secondary);
+    }
+  }
+
+  .transfer-buttons {
+    display: flex;
+    align-items: center;
+  }
+}

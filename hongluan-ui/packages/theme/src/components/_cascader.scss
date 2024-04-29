@@ -1,0 +1,89 @@
+.#{$cascader} {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+
+  &.block {
+    display: block;
+    width: 100%;
+  }
+
+  .#{$input} {
+    width: 100%;
+    height: auto;
+  }
+
+  .cascader-tags {
+    position: absolute;
+    z-index: 3;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: size(0 40px 0 map.get($conf_input, 'padding-y'));
+    text-align: left;
+
+    .#{$tag} {
+      max-width: 100%;
+      padding: size(0 6px);
+      height: auto;
+      margin: size(2px 4px 2px 0);
+
+      > span {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        hyphens: auto;
+      }
+    }
+  }
+}
+
+.#{$cascader_popper} {
+  .selector-dropdown {
+    padding: 0;
+  }
+}
+
+.#{$cascader_suggestion_panel} {
+  .cascader-suggestion-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    padding: size(map.get($conf_dropdown, 'padding-y')) size(map.get($conf_dropdown, 'padding-x'));
+    max-height: calc(#{size(map.get($conf_dropdown, 'padding-y'))} * 2 + #{size(map.get($conf_dropdown, 'item-height'))} * 5);
+
+    .cascader-suggestion-item,
+    li {
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      padding: size(map.get($conf_dropdown, 'item-padding-y')) size(map.get($conf_dropdown, 'item-padding-x'));
+      padding-right: calc(#{map.get($conf_dropdown, 'item-padding-x')} + #{map.get($conf_input, 'font-size')});
+      height: size(map.get($conf_dropdown, 'item-height'));
+      font-size: size(map.get($conf_dropdown, 'item-font-size'));
+      color: map.get($conf_dropdown, 'item-font-color');
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      hyphens: auto;
+      @include transition(color var(--duration) var(--timing), background-color var(--duration) var(--timing));
+
+      &:focus,
+      &.hover,
+      &:hover {
+        color: map.get($conf_dropdown, 'item-font-color-hover');
+        background-color: map.get($conf_dropdown, 'item-bg-color-hover');
+      }
+
+      &.is-active {
+        color: map.get($conf_dropdown, 'item-font-color-hover');
+      }
+
+      span {
+        padding-right: size(16px);
+      }
+    }
+  }
+}

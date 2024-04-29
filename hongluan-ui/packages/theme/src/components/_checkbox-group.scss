@@ -1,0 +1,6 @@
+.#{$checkbox_group} {
+  position: relative;
+  .#{$checkbox} {
+    display: flex;
+  }
+}
